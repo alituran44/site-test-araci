@@ -7,7 +7,14 @@ const path = require('path');
 const dns = require('dns').promises;
 const { URL } = require('url');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const puppeteer = require('puppeteer');
+let puppeteer;
+if (!process.env.VERCEL) {
+  try {
+    puppeteer = require('puppeteer');
+  } catch (err) {
+    console.warn("Puppeteer local yükleme hatası:", err.message);
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -1061,6 +1068,10 @@ app.get('/api/proxy', async (req, res) => {
 });
 
 // Sunucuyu Başlat
-app.listen(PORT, () => {
-  console.log(`WebAudit Pro Sunucusu http://localhost:${PORT} üzerinde çalışıyor.`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`WebAudit Pro Sunucusu http://localhost:${PORT} üzerinde çalışıyor.`);
+  });
+}
+
+module.exports = app;
