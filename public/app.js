@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSaveSettings = document.getElementById('save-settings');
     const userGeminiKeyInput = document.getElementById('user-gemini-key');
     const userPageSpeedKeyInput = document.getElementById('user-pagespeed-key');
+    const userLocalApiUrlInput = document.getElementById('user-local-api-url');
 
     // Load saved API Keys from localStorage
     if (userGeminiKeyInput) userGeminiKeyInput.value = localStorage.getItem('user_gemini_key') || '';
     if (userPageSpeedKeyInput) userPageSpeedKeyInput.value = localStorage.getItem('user_pagespeed_key') || '';
+    if (userLocalApiUrlInput) userLocalApiUrlInput.value = localStorage.getItem('user_local_api_url') || 'http://localhost:11434/v1';
 
     // Settings Modal Event Listeners
     if (btnSettingsTrigger && settingsModal) {
@@ -34,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSaveSettings.addEventListener('click', () => {
             localStorage.setItem('user_gemini_key', userGeminiKeyInput.value.trim());
             localStorage.setItem('user_pagespeed_key', userPageSpeedKeyInput.value.trim());
+            if (userLocalApiUrlInput) {
+                localStorage.setItem('user_local_api_url', userLocalApiUrlInput.value.trim());
+            }
             settingsModal.classList.remove('open');
             alert('Ayarlar başarıyla kaydedildi!');
         });
@@ -81,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(apiPath, {
                 headers: {
                     'X-Gemini-Key': localStorage.getItem('user_gemini_key') || '',
-                    'X-PageSpeed-Key': localStorage.getItem('user_pagespeed_key') || ''
+                    'X-PageSpeed-Key': localStorage.getItem('user_pagespeed_key') || '',
+                    'X-Local-Api-Url': localStorage.getItem('user_local_api_url') || ''
                 }
             });
             const data = await response.json();
@@ -163,6 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!data.success) {
             alert(`Sitenin ana sayfası yüklenemedi: ${data.error}`);
             return;
+        }
+
+        // Show/hide fallback banner
+        const fallbackBanner = document.getElementById('fallback-warning-banner');
+        if (fallbackBanner) {
+            if (data.aiAnalysis && data.aiAnalysis.isMock) {
+                fallbackBanner.classList.remove('hidden');
+            } else {
+                fallbackBanner.classList.add('hidden');
+            }
         }
 
         const metrics = data.metrics;
@@ -327,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else lcpEl.style.color = 'var(--color-rose)';
             }
         } else {
-            const reason = (ps && ps.error) ? 'Hata Oluştu' : 'Seçilmedi';
+            const reason = (ps && ps.error) ? 'Ölçülemedi (CrUX verisi mevcut değil / düşük trafik)' : 'Seçilmedi';
             document.getElementById('vitals-lcp').textContent = reason;
             document.getElementById('vitals-cls').textContent = reason;
             document.getElementById('vitals-tbt').textContent = reason;
@@ -339,10 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const sslBox = document.getElementById('sec-ssl-status');
         if (secDet.https) {
             sslBox.className = 'alert-box success';
-            sslBox.innerHTML = `<strong>Güvenli Bağlantı (HTTPS):</strong> Siteniz SSL sertifikasına sahip ve bağlantı şifreli.`;
+            sslBox.innerHTML = `<strong>Güvenli Bağlantı (HTTPS):</strong> Bağlantınız şifrelidir (HTTPS aktif).`;
         } else {
             sslBox.className = 'alert-box danger';
-            sslBox.innerHTML = `<strong>Güvenlik Riski (HTTP):</strong> SSL sertifikası bulunamadı. Kullanıcı verileri tehlikede!`;
+            sslBox.innerHTML = `<strong>Güvenlik Riski (HTTP):</strong> SSL sertifikası bulunamadı. Güvenlik için acilen SSL kurulumu gereklidir.`;
         }
         document.getElementById('sec-cors').textContent = secDet.cors;
         document.getElementById('sec-cookies').textContent = secDet.cookiesCount;

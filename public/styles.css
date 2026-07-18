@@ -1,16 +1,16 @@
 /* Base & Variables */
 :root {
-    --bg-primary: #090d16;
-    --bg-secondary: #0f172a;
-    --bg-tertiary: #1e293b;
-    --border-color: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --bg-primary: #f8fafc; /* Slate 50 */
+    --bg-secondary: #ffffff; /* Saf Beyaz */
+    --bg-tertiary: #f1f5f9; /* Slate 100 */
+    --border-color: #e2e8f0; /* Slate 200 */
+    --text-primary: #0f172a; /* Slate 900 */
+    --text-secondary: #475569; /* Slate 600 */
+    --text-muted: #94a3b8; /* Slate 400 */
     
-    --color-emerald: #10b981;
-    --color-amber: #f59e0b;
-    --color-rose: #f43f5e;
+    --color-emerald: #059669; /* Okunabilir Zümrüt Yeşili */
+    --color-amber: #d97706; /* Okunabilir Amber */
+    --color-rose: #e11d48; /* Okunabilir Gül Kırmızısı */
     --color-blue: #0284c7;
 
     --font-heading: 'Outfit', sans-serif;
@@ -1058,7 +1058,7 @@ body.funnel-mode .top-header {
     box-shadow: none;
     position: relative;
     top: 0;
-    margin-bottom: var(--sp-8);
+    margin-bottom: var(--sp-4);
     padding: var(--sp-2) 0;
     gap: 16px;
 }
@@ -1100,7 +1100,7 @@ body.dashboard-mode .funnel-sections {
     grid-template-columns: 1.2fr 0.8fr;
     gap: var(--sp-6);
     align-items: center;
-    padding: var(--sp-8) 0;
+    padding: var(--sp-4) 0;
 }
 
 .hero-left-col {
@@ -1160,12 +1160,12 @@ body.dashboard-mode .funnel-sections {
 }
 
 .ui-mockup-card {
-    background-color: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     width: 100%;
     max-width: 420px;
-    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.12);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
     overflow: hidden;
     transition: transform 0.3s;
 }
@@ -1175,7 +1175,7 @@ body.dashboard-mode .funnel-sections {
 }
 
 .mockup-header {
-    background-color: rgba(9, 13, 22, 0.5);
+    background-color: var(--bg-tertiary);
     padding: 12px var(--sp-2);
     display: flex;
     align-items: center;
@@ -1215,7 +1215,7 @@ body.dashboard-mode .funnel-sections {
 
 .mockup-metric-card {
     flex: 1;
-    background-color: rgba(9, 13, 22, 0.6);
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
     padding: 12px;
     border-radius: 8px;
@@ -1239,19 +1239,20 @@ body.dashboard-mode .funnel-sections {
 .mockup-metric-card .val.cyan { color: var(--color-blue); }
 
 .mockup-code-block {
-    background-color: #05070c;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 14px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
     line-height: 1.5;
-    color: #a9b1d6;
+    color: var(--text-secondary);
 }
 
-.mockup-code-block .keyword { color: #f7768e; }
-.mockup-code-block .function { color: #7aa2f7; }
-.mockup-code-block .string { color: #9ece6a; }
-.mockup-code-block .line-num { color: #444b6a; margin-right: 8px; }
+.mockup-code-block .keyword { color: var(--color-blue); }
+.mockup-code-block .function { color: var(--color-amber); }
+.mockup-code-block .string { color: var(--color-emerald); }
+.mockup-code-block .line-num { color: var(--text-muted); margin-right: 8px; }
 
 /* Integrations Banner */
 .integrations-banner {
