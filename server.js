@@ -329,28 +329,46 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest') {
     // PageSpeed API isteğini asenkron olarak başlat
     const pageSpeedPromise = getPageSpeedMetrics(targetUrl);
 
-    // Puppeteer ile sayfayı gerçek tarayıcı gibi yükle (SPA desteği için)
-    browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-    });
-    
-    const page = await browser.newPage();
-    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 WebAuditBot/1.0');
-    
-    const pageResponse = await page.goto(targetUrl, {
-      waitUntil: 'networkidle2',
-      timeout: 18000
-    });
+    let html;
+    let status = 200;
+    let headers = {};
+
+    if (process.env.VERCEL) {
+      // Vercel Serverless ortamında Puppeteer yerine Axios fallback çalıştır
+      const pageRes = await axios.get(targetUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 WebAuditBot/1.0'
+        },
+        timeout: 12000,
+        validateStatus: () => true
+      });
+      html = pageRes.data;
+      status = pageRes.status;
+      headers = pageRes.headers;
+    } else {
+      // Yerel geliştirme ortamında Puppeteer ile tam sayfa simülasyonu yap
+      browser = await puppeteer.launch({
+        headless: 'new',
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      });
+      
+      const page = await browser.newPage();
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 WebAuditBot/1.0');
+      
+      const pageResponse = await page.goto(targetUrl, {
+        waitUntil: 'networkidle2',
+        timeout: 18000
+      });
+
+      status = pageResponse.status();
+      headers = pageResponse.headers();
+      html = await page.content();
+      
+      await browser.close();
+      browser = null; // garbage collect
+    }
 
     const loadTime = Date.now() - startTime;
-    const status = pageResponse.status();
-    const headers = pageResponse.headers();
-    const html = await page.content();
-    
-    await browser.close();
-    browser = null; // garbage collect
-
     result.success = true;
     result.statusCode = status;
     result.headers = headers;
