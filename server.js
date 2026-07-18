@@ -201,7 +201,115 @@ function getFallbackAiAnalysis(metrics, url) {
 }
 
 // Gemini API AI Analiz motoru
-async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userLocalApiUrl = null) {
+async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userLocalApiUrl = null, userOpenRouterKey = null, userOpenRouterModel = null) {
+  // Eğer OpenRouter seçildiyse OpenRouter API üzerinden analiz gerçekleştir
+  if (requestedModel === 'openrouter-custom') {
+    try {
+      const $ = cheerio.load(htmlBody);
+      $('script, style, noscript, iframe, svg, path, img').remove();
+      
+      const cleanHtmlSkeleton = $('body').html() 
+        ? $('body').html().replace(/\s+/g, ' ').substring(0, 4500) 
+        : 'Gövde içeriği okunamadı.';
+
+      const prompt = `
+        Sen kıdemli bir UI/UX Tasarımcısı ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
+        Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
+
+        URL: ${url}
+        
+        Teknik Metrikler:
+        - Yükleme Süresi: ${metrics.performance.details.loadTimeMs} ms
+        - Dahili/Harici Linkler: ${metrics.seo.details.internalLinks}/${metrics.seo.details.externalLinks}
+        - Kelime Sayısı: ${metrics.seo.details.wordCount}
+        - Görseller / Eksik Alt etiketli: ${metrics.seo.details.totalImages} / ${metrics.seo.details.missingAltImages}
+        - Başlıklar (H1-H6): ${JSON.stringify(metrics.seo.details.headings)}
+        - Semantik HTML Etiketleri: ${JSON.stringify(metrics.geo.details.usedSemantics)}
+        - Schema.org JSON-LD Tipleri: ${JSON.stringify(metrics.geo.details.schemasTypes)}
+        - Aktif Güvenlik Başlıkları: ${JSON.stringify(metrics.security.details.activeHeaders)}
+        - HTTPS SSL: ${metrics.security.details.https ? 'Evet' : 'Hayır'}
+        - Form Sayısı: ${metrics.uiux.details.formsCount}
+        
+        Temizlenmiş HTML İskeleti (İlk 4500 karakter):
+        """
+        ${cleanHtmlSkeleton}
+        """
+
+        Görevlerin:
+        1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
+        2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
+        3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
+
+        Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+        {
+          "codeAnalysis": {
+            "score": [sayı],
+            "review": "[Kod yapısı ve kalitesi hakkında profesyonel eleştiri yazısı]",
+            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+          },
+          "uxAnalysis": {
+            "score": [sayı],
+            "review": "[UI/UX ve kullanıcı deneyimi hakkında profesyonel eleştiri yazısı]",
+            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+          },
+          "missingItems": {
+            "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
+            "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
+          }
+        }
+      `;
+
+      const apiKey = (userOpenRouterKey && userOpenRouterKey.trim() !== '') ? userOpenRouterKey.trim() : process.env.OPENROUTER_API_KEY;
+      const modelName = (userOpenRouterModel && userOpenRouterModel.trim() !== '') ? userOpenRouterModel.trim() : 'deepseek/deepseek-chat';
+      
+      if (!apiKey || apiKey.trim() === '') {
+        throw new Error("OpenRouter API anahtarı tanımlanmamış. Sağ üstten Ayarlar kısmına ekleyin.");
+      }
+
+      const openRouterResponse = await axios.post(
+        'https://openrouter.ai/api/v1/chat/completions',
+        {
+          model: modelName,
+          messages: [
+            { role: 'user', content: prompt }
+          ],
+          response_format: { type: 'json_object' }
+        },
+        {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+            'HTTP-Referer': 'https://site-test-araci.vercel.app',
+            'X-Title': 'WebPulse Audit Tool'
+          },
+          timeout: 25000
+        }
+      );
+
+      let text = '';
+      if (openRouterResponse.data && openRouterResponse.data.choices && openRouterResponse.data.choices[0]) {
+        text = openRouterResponse.data.choices[0].message.content.trim();
+      } else {
+        throw new Error("OpenRouter'dan boş veya geçersiz yanıt döndü.");
+      }
+
+      if (text.startsWith('```json')) text = text.substring(7);
+      if (text.endsWith('```')) text = text.substring(0, text.length - 3);
+      text = text.trim();
+
+      const parsedResponse = JSON.parse(text);
+      parsedResponse.isMock = false;
+      parsedResponse.isLocalModel = false;
+      return parsedResponse;
+
+    } catch (orError) {
+      console.error('OpenRouter API Hatası:', orError.message);
+      const fallback = getFallbackAiAnalysis(metrics, url);
+      fallback.error = `OpenRouter Hatası (${orError.message}). Yerel simülasyon çalıştırıldı.`;
+      return fallback;
+    }
+  }
+
   // Eğer lokal model seçildiyse yerel API üzerinden analiz gerçekleştir
   if (requestedModel === 'odysseus-local') {
     try {
@@ -416,7 +524,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
 }
 
 // Detaylı analiz fonksiyonu
-async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userLocalApiUrl = null) {
+async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userLocalApiUrl = null, userOpenRouterKey = null, userOpenRouterModel = null) {
   const result = {
     url: targetUrl,
     success: false,
@@ -1140,7 +1248,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
     if (selectedTools === 'both' || selectedTools === 'gemini') {
-      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userLocalApiUrl);
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
     } else {
       result.aiAnalysis = null;
     }
@@ -1162,6 +1270,8 @@ app.get('/api/analyze', async (req, res) => {
   const userGeminiKey = req.headers['x-gemini-key'];
   const userPageSpeedKey = req.headers['x-pagespeed-key'];
   const userLocalApiUrl = req.headers['x-local-api-url'];
+  const userOpenRouterKey = req.headers['x-openrouter-key'];
+  const userOpenRouterModel = req.headers['x-openrouter-model'];
 
   if (!url) {
     return res.status(400).json({ success: false, error: 'Lütfen analiz edilecek URL adresini belirtin.' });
@@ -1181,11 +1291,11 @@ app.get('/api/analyze', async (req, res) => {
   }
 
   try {
-    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl);
+    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
     
     let competitorAnalysis = null;
     if (competitorUrl && competitorSafe) {
-      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl);
+      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
     }
 
     res.json({

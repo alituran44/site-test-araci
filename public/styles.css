@@ -1097,7 +1097,7 @@ body.dashboard-mode .funnel-sections {
 /* Hero Section: Asimetrik iki sütunlu premium düzen */
 .funnel-hero-container {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.05fr 0.95fr;
     gap: var(--sp-6);
     align-items: center;
     padding: var(--sp-4) 0;
@@ -1156,7 +1156,10 @@ body.dashboard-mode .funnel-sections {
 /* UI Mockup */
 .hero-right-col {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 16px;
 }
 
 .ui-mockup-card {
@@ -1164,7 +1167,7 @@ body.dashboard-mode .funnel-sections {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     width: 100%;
-    max-width: 420px;
+    max-width: 480px;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
     overflow: hidden;
     transition: transform 0.3s;

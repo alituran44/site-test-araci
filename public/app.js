@@ -15,11 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const userGeminiKeyInput = document.getElementById('user-gemini-key');
     const userPageSpeedKeyInput = document.getElementById('user-pagespeed-key');
     const userLocalApiUrlInput = document.getElementById('user-local-api-url');
+    const userOpenRouterKeyInput = document.getElementById('user-openrouter-key');
+    const userOpenRouterModelInput = document.getElementById('user-openrouter-model');
 
     // Load saved API Keys from localStorage
     if (userGeminiKeyInput) userGeminiKeyInput.value = localStorage.getItem('user_gemini_key') || '';
     if (userPageSpeedKeyInput) userPageSpeedKeyInput.value = localStorage.getItem('user_pagespeed_key') || '';
     if (userLocalApiUrlInput) userLocalApiUrlInput.value = localStorage.getItem('user_local_api_url') || 'http://localhost:11434/v1';
+    if (userOpenRouterKeyInput) userOpenRouterKeyInput.value = localStorage.getItem('user_openrouter_key') || '';
+    if (userOpenRouterModelInput) userOpenRouterModelInput.value = localStorage.getItem('user_openrouter_model') || 'deepseek/deepseek-chat';
 
     // Settings Modal Event Listeners
     if (btnSettingsTrigger && settingsModal) {
@@ -38,6 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('user_pagespeed_key', userPageSpeedKeyInput.value.trim());
             if (userLocalApiUrlInput) {
                 localStorage.setItem('user_local_api_url', userLocalApiUrlInput.value.trim());
+            }
+            if (userOpenRouterKeyInput) {
+                localStorage.setItem('user_openrouter_key', userOpenRouterKeyInput.value.trim());
+            }
+            if (userOpenRouterModelInput) {
+                localStorage.setItem('user_openrouter_model', userOpenRouterModelInput.value.trim());
             }
             settingsModal.classList.remove('open');
             alert('Ayarlar başarıyla kaydedildi!');
@@ -87,7 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'X-Gemini-Key': localStorage.getItem('user_gemini_key') || '',
                     'X-PageSpeed-Key': localStorage.getItem('user_pagespeed_key') || '',
-                    'X-Local-Api-Url': localStorage.getItem('user_local_api_url') || ''
+                    'X-Local-Api-Url': localStorage.getItem('user_local_api_url') || '',
+                    'X-OpenRouter-Key': localStorage.getItem('user_openrouter_key') || '',
+                    'X-OpenRouter-Model': localStorage.getItem('user_openrouter_model') || ''
                 }
             });
             const data = await response.json();
