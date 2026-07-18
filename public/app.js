@@ -59,23 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form Submit
-    analyzeForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const url = targetUrlInput.value.trim();
-        const competitorUrl = competitorUrlInput.value.trim();
-        const modelSelect = document.getElementById('model-select');
-        const selectedModel = modelSelect ? modelSelect.value : 'gemini-flash-latest';
-        const toolSelect = document.getElementById('tool-select');
-        const selectedTool = toolSelect ? toolSelect.value : 'both';
-        
+    // Helper function for triggers
+    async function startAnalysis(url, competitorUrl, selectedModel, selectedTool, formSubmitBtn) {
         if (!url) return;
 
         // Reset UI States
         loader.classList.remove('hidden');
-        submitBtn.disabled = true;
-        submitBtn.querySelector('span').textContent = 'Analiz Ediliyor...';
+        if (formSubmitBtn) {
+            formSubmitBtn.disabled = true;
+            const btnText = formSubmitBtn.querySelector('span');
+            if (btnText) btnText.textContent = 'Analiz Ediliyor...';
+        }
         document.getElementById('pdf-export-container').classList.add('hidden');
 
         try {
@@ -94,6 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!data.success) {
                 alert(`Hata: ${data.error || 'Analiz başarısız oldu.'}`);
+                // Re-enable trigger
+                if (formSubmitBtn) {
+                    formSubmitBtn.disabled = false;
+                    const btnText = formSubmitBtn.querySelector('span');
+                    if (btnText) btnText.textContent = 'Analiz Et';
+                }
+                loader.classList.add('hidden');
                 return;
             }
 
@@ -118,13 +119,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error(error);
-            alert('Sunucuyla iletişim kurulurken bir hata oluştu.');
+            alert(`Hata: ${error.message || 'Analiz sırasında beklenmeyen bir hata oluştu.'}`);
         } finally {
             loader.classList.add('hidden');
-            submitBtn.disabled = false;
-            submitBtn.querySelector('span').textContent = 'Analiz Et';
+            if (formSubmitBtn) {
+                formSubmitBtn.disabled = false;
+                const btnText = formSubmitBtn.querySelector('span');
+                if (btnText) btnText.textContent = 'Analiz Et';
+            }
         }
-    });
+    }
+
+    // Form Submit 1: Sticky Header Form
+    if (analyzeForm) {
+        analyzeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = targetUrlInput.value.trim();
+            const competitorUrl = competitorUrlInput.value.trim();
+            const modelSelect = document.getElementById('model-select');
+            const selectedModel = modelSelect ? modelSelect.value : 'gemini-flash-latest';
+            const toolSelect = document.getElementById('tool-select');
+            const selectedTool = toolSelect ? toolSelect.value : 'both';
+            await startAnalysis(url, competitorUrl, selectedModel, selectedTool, submitBtn);
+        });
+    }
+
+    // Form Submit 2: Hero Page Form
+    const analyzeFormHero = document.getElementById('analyze-form-hero');
+    if (analyzeFormHero) {
+        analyzeFormHero.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = document.getElementById('target-url-hero').value.trim();
+            const competitorUrl = document.getElementById('competitor-url-hero').value.trim();
+            const selectedModel = document.getElementById('model-select-hero').value;
+            const selectedTool = document.getElementById('tool-select-hero').value;
+            const submitBtnHero = document.getElementById('submit-btn-hero');
+            await startAnalysis(url, competitorUrl, selectedModel, selectedTool, submitBtnHero);
+        });
+    }
 
     // Populate Dashboard Data
     function populateDashboard(data) {

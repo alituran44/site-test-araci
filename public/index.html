@@ -122,15 +122,43 @@
                         <div class="hero-badge">WebPulse 2.0 Lansmanı</div>
                         <h1>Yapay Zeka Destekli Performans & Nabız Analizi</h1>
                         <p>Google PageSpeed verilerini Gemini 2.0 yapay zekasıyla birleştirerek sitenizin hızını, SEO'sunu ve kod kalitesini asimetrik bir derinlikle test edin.</p>
-                        <div class="hero-cta-buttons">
-                            <button class="btn btn-primary hero-cta-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url').focus();">
-                                <span>Hemen Test Et</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </button>
+                        <div class="hero-cta-buttons" style="margin-bottom: 16px;">
                             <button class="btn btn-secondary hero-cta-btn" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'});">
                                 <span>Nasıl Çalışır?</span>
                             </button>
                         </div>
+
+                        <!-- Hero form -->
+                        <form id="analyze-form-hero" class="hero-analyze-form" style="width: 100%; max-width: 580px; display: flex; flex-direction: column; gap: 16px; margin-top: var(--sp-2); padding: var(--sp-4); border-radius: var(--border-radius); background: rgba(15,23,42,0.6); border: 1px solid rgba(16,185,129,0.2); backdrop-filter: blur(8px); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="input-group" style="grid-column: span 2; position: relative;">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                                    <input type="url" id="target-url-hero" placeholder="Analiz edilecek web sitesi (örn: https://example.com)" required style="width: 100%; padding: 12px 12px 12px 36px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                </div>
+                                <div class="input-group" style="grid-column: span 2; position: relative;">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                    <input type="url" id="competitor-url-hero" placeholder="Rakip site URL'si (Opsiyonel)" style="width: 100%; padding: 12px 12px 12px 36px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                </div>
+                                <div class="input-group" style="position: relative;">
+                                    <select id="model-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
+                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Hızlı)</option>
+                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detaylı)</option>
+                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Yeni)</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="position: relative;">
+                                    <select id="tool-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
+                                        <option value="both" selected>Tüm Analizler</option>
+                                        <option value="pagespeed">Sadece PageSpeed</option>
+                                        <option value="gemini">Sadece Gemini AI</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submit-btn-hero" style="width: 100%; padding: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer;">
+                                <span>Taramayı Başlat</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            </button>
+                        </form>
                     </div>
                     <div class="hero-right-col">
                         <!-- Premium Interactive UI Mockup -->

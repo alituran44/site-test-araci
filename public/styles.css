@@ -1068,15 +1068,11 @@ body.funnel-mode .funnel-brand {
 }
 
 body.funnel-mode .analyze-form {
-    flex-grow: 1;
-    max-width: 650px;
-    background-color: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 10px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    margin-left: var(--sp-4);
+    display: none !important;
+}
+
+body.dashboard-mode .funnel-hero-container {
+    display: none !important;
 }
 
 body.funnel-mode .funnel-sections {
