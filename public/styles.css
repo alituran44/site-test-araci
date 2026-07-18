@@ -1554,3 +1554,12 @@ body.dashboard-mode .funnel-sections {
         width: 100%;
     }
 }
+
+/* Dashboard modundayken üstteki eski Ayarlar butonunu gizle, sadece sidebar'dakini göster */
+body:not(.funnel-mode) #btn-settings-trigger {
+    display: none !important;
+}
+
+body.funnel-mode #btn-settings-trigger {
+    display: flex !important;
+}

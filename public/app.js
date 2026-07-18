@@ -28,12 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Settings Modal Event Listeners
     if (btnSettingsTrigger && settingsModal) {
         btnSettingsTrigger.addEventListener('click', () => {
-            settingsModal.classList.add('open');
+            settingsModal.classList.remove('hidden');
+            setTimeout(() => settingsModal.classList.add('open'), 10);
         });
     }
     if (btnCloseSettings && settingsModal) {
         btnCloseSettings.addEventListener('click', () => {
             settingsModal.classList.remove('open');
+            setTimeout(() => settingsModal.classList.add('hidden'), 300);
         });
     }
     if (btnSaveSettings && settingsModal) {
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('user_openrouter_model', userOpenRouterModelInput.value.trim());
             }
             settingsModal.classList.remove('open');
+            setTimeout(() => settingsModal.classList.add('hidden'), 300);
             alert('Ayarlar başarıyla kaydedildi!');
         });
     }
@@ -63,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnSidebarSettingsTrigger && settingsModal) {
         btnSidebarSettingsTrigger.addEventListener('click', (e) => {
             e.preventDefault();
-            settingsModal.classList.add('open');
+            settingsModal.classList.remove('hidden');
+            setTimeout(() => settingsModal.classList.add('open'), 10);
         });
     }
 
