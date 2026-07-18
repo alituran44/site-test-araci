@@ -115,54 +115,114 @@
 
             <!-- Funnel Landing Page Sections -->
             <div class="funnel-sections">
-                <!-- Hero Text -->
-                <div class="funnel-hero-text">
-                    <h1>Web Sitenizin Nabzını & Performansını AI İle Keşfedin</h1>
-                    <p>Google Gemini 2.0 AI ve PageSpeed Core Web Vitals metriklerini birleştiren en kapsamlı analiz aracı.</p>
+                
+                <!-- Hero Section: Asimetrik iki sütunlu premium düzen -->
+                <section class="funnel-hero-container">
+                    <div class="hero-left-col">
+                        <div class="hero-badge">WebPulse 2.0 Lansmanı</div>
+                        <h1>Yapay Zeka Destekli Performans & Nabız Analizi</h1>
+                        <p>Google PageSpeed verilerini Gemini 2.0 yapay zekasıyla birleştirerek sitenizin hızını, SEO'sunu ve kod kalitesini asimetrik bir derinlikle test edin.</p>
+                        <div class="hero-cta-buttons">
+                            <button class="btn btn-primary hero-cta-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url').focus();">
+                                <span>Hemen Test Et</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                            <button class="btn btn-secondary hero-cta-btn" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'});">
+                                <span>Nasıl Çalışır?</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-right-col">
+                        <!-- Premium Interactive UI Mockup -->
+                        <div class="ui-mockup-card">
+                            <div class="mockup-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="mockup-title">webpulse-dashboard.sh</span>
+                            </div>
+                            <div class="mockup-body">
+                                <div class="mockup-metric-row">
+                                    <div class="mockup-metric-card">
+                                        <span class="label">SEO</span>
+                                        <span class="val emerald">98%</span>
+                                    </div>
+                                    <div class="mockup-metric-card">
+                                        <span class="label">Performans</span>
+                                        <span class="val cyan">94%</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-code-block">
+                                    <span class="line-num">1</span> <span class="keyword">const</span> webPulse = <span class="function">require</span>(<span class="string">'@webpulse/sdk'</span>);<br>
+                                    <span class="line-num">2</span> <span class="keyword">await</span> webPulse.<span class="function">analyze</span>({<br>
+                                    <span class="line-num">3</span> &nbsp;&nbsp;url: <span class="string">'https://getdale.com'</span>,<br>
+                                    <span class="line-num">4</span> &nbsp;&nbsp;aiEngine: <span class="string">'gemini-2.0-flash'</span><br>
+                                    <span class="line-num">5</span> });
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Integration Logos Banner -->
+                <div class="integrations-banner">
+                    <div class="banner-title">Entegre Altyapı Ortaklarımız</div>
+                    <div class="logos-track">
+                        <div class="logo-item">Google Gemini</div>
+                        <div class="logo-item">•</div>
+                        <div class="logo-item">Google PageSpeed</div>
+                        <div class="logo-item">•</div>
+                        <div class="logo-item">Lighthouse</div>
+                        <div class="logo-item">•</div>
+                        <div class="logo-item">Core Web Vitals</div>
+                        <div class="logo-item">•</div>
+                        <div class="logo-item">Chrome UX Report</div>
+                    </div>
                 </div>
 
                 <!-- Nasıl Çalışır Bölümü -->
                 <section id="how-it-works" class="funnel-section">
-                    <h2 class="section-title">Nasıl Çalışır?</h2>
+                    <h2 class="section-title">Basit ve Etkili İş Akışı</h2>
+                    <p class="section-subtitle">Üç basit adımda sitenizin tüm röntgenini çekin.</p>
                     <div class="steps-grid">
                         <div class="step-card">
                             <div class="step-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                             </div>
-                            <h3>1. URL Adresini Girin</h3>
-                            <p>Test etmek istediğiniz web sitesinin URL adresini ve dilerseniz rakip siteyi forma yazın.</p>
+                            <h3>1. URL Tanımlama</h3>
+                            <p>Hedef web sitenizin URL adresini yazın. Rekabeti görmek için rakip URL de ekleyebilirsiniz.</p>
                         </div>
                         <div class="step-card">
                             <div class="step-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                             </div>
-                            <h3>2. Taramayı Başlatın</h3>
-                            <p>Google PageSpeed API ve Gemini 2.0 yapay zekası web sitenizi derinlemesine incelesin.</p>
+                            <h3>2. AI & PageSpeed Analizi</h3>
+                            <p>Gemini 2.0 ve Google PageSpeed API'leri üzerinden kod, hız ve semantik analizleri çalıştırın.</p>
                         </div>
                         <div class="step-card">
                             <div class="step-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             </div>
-                            <h3>3. Detaylı Rapor Alın</h3>
-                            <p>SEO, UX, hız ve kod kalitesi puanlarını inceleyin ve isterseniz PDF raporu indirin.</p>
+                            <h3>3. PDF & Dashboard Raporlama</h3>
+                            <p>Derlenen analiz sonuçlarını etkileşimli dashboard üzerinden inceleyin veya PDF olarak indirin.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Fiyatlandırma Bölümü (Dale Tarzı) -->
                 <section id="pricing" class="funnel-section">
-                    <h2 class="section-title">Her Ölçek İçin Esnek Planlar</h2>
-                    <p class="section-subtitle">WebPulse gücünü kendi kotalarınızla sınırsız kullanın veya hazır planları tercih edin.</p>
+                    <h2 class="section-title">Aylık Sınırsız Esnek Planlar</h2>
+                    <p class="section-subtitle">Kotalarınızı kendiniz yönetin veya hazır kurumsal limitleri tercih edin.</p>
                     
                     <div class="pricing-grid">
                         <div class="pricing-card">
                             <div class="plan-name">Basic</div>
                             <div class="plan-price">$29<span>/ay</span></div>
-                            <p class="plan-desc">Küçük işletmeler ve geliştiriciler için temel SEO ve hız metrikleri.</p>
+                            <p class="plan-desc">Geliştiriciler ve kişisel projeler için temel hız analiz metrikleri.</p>
                             <ul class="plan-features">
                                 <li>Günlük 10 Analiz</li>
                                 <li>Core Web Vitals Testi</li>
-                                <li>Standart SEO Kontrolü</li>
+                                <li>Temel SEO Kontrolü</li>
                                 <li>PDF Rapor Çıktısı</li>
                             </ul>
                             <button class="btn btn-secondary pricing-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url').focus();">Hemen Başla</button>
@@ -172,11 +232,11 @@
                             <div class="badge">En Popüler</div>
                             <div class="plan-name">Essential</div>
                             <div class="plan-price">$99<span>/ay</span></div>
-                            <p class="plan-desc">Büyüyen ekipler ve derin yapay zeka analiz raporları için.</p>
+                            <p class="plan-desc">Büyüyen SaaS startup'ları ve derin yapay zeka analiz raporları için.</p>
                             <ul class="plan-features">
                                 <li>Günlük 100 Analiz</li>
-                                <li><strong>Gemini 2.0 AI Kod Analizi</strong></li>
-                                <li><strong>Gemini 2.0 AI UX Analizi</strong></li>
+                                <li>Gemini 2.0 AI Kod Analizi</li>
+                                <li>Gemini 2.0 AI UX Analizi</li>
                                 <li>Rakip Karşılaştırma</li>
                                 <li>PDF Rapor İndirme</li>
                             </ul>
@@ -186,10 +246,10 @@
                         <div class="pricing-card">
                             <div class="plan-name">Professional</div>
                             <div class="plan-price">$299<span>/ay</span></div>
-                            <p class="plan-desc">Özel API kotaları ile sınırsız analiz gerçekleştirmek isteyenler.</p>
+                            <p class="plan-desc">Büyük ekipler ve kendi API limitleriyle sınırsız test yapmak isteyenler.</p>
                             <ul class="plan-features">
                                 <li>Limitsiz Analiz Hakkı</li>
-                                <li><strong>Kendi API Anahtarını Ekleme</strong></li>
+                                <li>Kendi API Anahtarını Ekleme</li>
                                 <li>Özel Gemini Modeli Seçimi</li>
                                 <li>Ekip & Rapor Paylaşımı</li>
                                 <li>7/24 Teknik Destek</li>
@@ -199,17 +259,36 @@
                     </div>
                 </section>
 
-                <!-- SSS Bölümü -->
+                <!-- SSS Bölümü (Akordeon Tarzı) -->
                 <section id="faq" class="funnel-section">
                     <h2 class="section-title">Sıkça Sorulan Sorular</h2>
-                    <div class="faq-grid">
-                        <div class="faq-item">
-                            <h3>Kendi API anahtarımı nasıl eklerim?</h3>
-                            <p>Sağ üstteki "Ayarlar" butonuna tıklayıp Google Gemini ve PageSpeed anahtarlarınızı girin. Anahtarlar tarayıcınızda (localStorage) saklanır ve doğrudan kullanılır.</p>
+                    <div class="faq-accordion-container">
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Kendi API anahtarımı eklemeli miyim?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Hayır, varsayılan olarak WebPulse kotaları üzerinden testler gerçekleşir. Ancak kendi Gemini ve PageSpeed anahtarlarınızı Ayarlar bölümünden ekleyerek tüm limitleri kaldırabilirsiniz.</p>
+                            </div>
                         </div>
-                        <div class="faq-item">
-                            <h3>Rakip site karşılaştırması nasıl yapılır?</h3>
-                            <p>Formdaki "Rakip site URL'si" alanını doldurduğunuzda iki site yan yana tüm metriklerle listelenir.</p>
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Rakip analizi ne kadar doğru sonuç verir?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>İki site de Google PageSpeed API sunucuları üzerinden aynı anda sorgulanır ve Gemini 2.0 modeli tarafından karşılaştırmalı olarak yorumlanır. Sonuçlar tamamen gerçektir.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>WebPulse verileri güvende mi?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Girdiğiniz API anahtarları asla bizim sunucularımıza kaydedilmez. Tamamen tarayıcınızın yerel depolama alanında (localStorage) tutulur ve doğrudan API endpoint'lerine istek başlığıyla şifreli olarak taşınır.</p>
+                            </div>
                         </div>
                     </div>
                 </section>

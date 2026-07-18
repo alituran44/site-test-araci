@@ -1013,7 +1013,7 @@ tr:hover td {
 }
 
 /* ==========================================================================
-   WebPulse SaaS Funnel & Modal Styles
+   WebPulse SaaS Funnel & Modal Styles (getdale.com Premium Design)
    ========================================================================== */
 
 /* Brand & Header */
@@ -1032,7 +1032,7 @@ tr:hover td {
 .funnel-brand .brand-name {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--text-primary);
     letter-spacing: -0.5px;
 }
@@ -1044,7 +1044,7 @@ body.funnel-mode .sidebar {
 
 body.funnel-mode .main-content {
     margin-left: 0 !important;
-    padding: var(--sp-6) var(--sp-8);
+    padding: var(--sp-4) var(--sp-6);
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -1069,11 +1069,12 @@ body.funnel-mode .funnel-brand {
 
 body.funnel-mode .analyze-form {
     flex-grow: 1;
-    max-width: 800px;
-    background-color: var(--bg-secondary);
+    max-width: 650px;
+    background-color: rgba(15, 23, 42, 0.6);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    padding: var(--sp-2);
+    padding: 10px;
+    backdrop-filter: blur(8px);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     margin-left: var(--sp-4);
 }
@@ -1097,48 +1098,216 @@ body.dashboard-mode .funnel-sections {
     display: none !important;
 }
 
-/* Funnel Sections & Content */
-.funnel-hero-text {
-    text-align: center;
-    max-width: 800px;
-    margin: var(--sp-4) auto var(--sp-10) auto;
+/* Hero Section: Asimetrik iki sütunlu premium düzen */
+.funnel-hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--sp-6);
+    align-items: center;
+    padding: var(--sp-8) 0;
 }
 
-.funnel-hero-text h1 {
+.hero-left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3);
+}
+
+.hero-badge {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--color-emerald);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.hero-left-col h1 {
     font-family: var(--font-heading);
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 800;
+    line-height: 1.1;
     color: var(--text-primary);
-    line-height: 1.15;
-    margin-bottom: var(--sp-3);
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
 }
 
-.funnel-hero-text p {
+.hero-left-col p {
     font-size: 18px;
-    color: var(--text-muted);
     line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 580px;
 }
 
+.hero-cta-buttons {
+    display: flex;
+    gap: var(--sp-2);
+    margin-top: var(--sp-2);
+}
+
+.hero-cta-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: var(--border-radius);
+}
+
+/* UI Mockup */
+.hero-right-col {
+    display: flex;
+    justify-content: center;
+}
+
+.ui-mockup-card {
+    background-color: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.12);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.ui-mockup-card:hover {
+    transform: translateY(-5px);
+}
+
+.mockup-header {
+    background-color: rgba(9, 13, 22, 0.5);
+    padding: 12px var(--sp-2);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mockup-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.mockup-header .dot.red { background-color: var(--color-rose); }
+.mockup-header .dot.yellow { background-color: var(--color-amber); }
+.mockup-header .dot.green { background-color: var(--color-emerald); }
+
+.mockup-title {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 12px;
+}
+
+.mockup-body {
+    padding: var(--sp-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+}
+
+.mockup-metric-row {
+    display: flex;
+    gap: var(--sp-2);
+}
+
+.mockup-metric-card {
+    flex: 1;
+    background-color: rgba(9, 13, 22, 0.6);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mockup-metric-card .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.mockup-metric-card .val {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.mockup-metric-card .val.emerald { color: var(--color-emerald); }
+.mockup-metric-card .val.cyan { color: var(--color-blue); }
+
+.mockup-code-block {
+    background-color: #05070c;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #a9b1d6;
+}
+
+.mockup-code-block .keyword { color: #f7768e; }
+.mockup-code-block .function { color: #7aa2f7; }
+.mockup-code-block .string { color: #9ece6a; }
+.mockup-code-block .line-num { color: #444b6a; margin-right: 8px; }
+
+/* Integrations Banner */
+.integrations-banner {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--sp-2) 0;
+    text-align: center;
+    background-color: rgba(15, 23, 42, 0.2);
+}
+
+.integrations-banner .banner-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.logos-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+}
+
+.logo-item {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Funnel Sections & Content */
 .funnel-section {
     padding: var(--sp-8) 0;
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 800;
     text-align: center;
     color: var(--text-primary);
-    margin-bottom: var(--sp-6);
+    margin-bottom: var(--sp-2);
+    letter-spacing: -0.5px;
 }
 
 .section-subtitle {
     text-align: center;
     color: var(--text-muted);
-    font-size: 16px;
-    margin-top: calc(-1 * var(--sp-4));
-    margin-bottom: var(--sp-8);
+    font-size: 15px;
+    margin-bottom: var(--sp-6);
 }
 
 /* Steps Grid */
@@ -1158,7 +1327,7 @@ body.dashboard-mode .funnel-sections {
 
 .step-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-emerald);
+    border-color: rgba(16, 185, 129, 0.4);
 }
 
 .step-icon {
@@ -1201,7 +1370,7 @@ body.dashboard-mode .funnel-sections {
 }
 
 .pricing-card {
-    background-color: var(--bg-secondary);
+    background-color: rgba(15, 23, 42, 0.5);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: var(--sp-6);
@@ -1209,15 +1378,17 @@ body.dashboard-mode .funnel-sections {
     flex-direction: column;
     position: relative;
     transition: transform 0.3s, border-color 0.3s;
+    backdrop-filter: blur(5px);
 }
 
 .pricing-card:hover {
     transform: translateY(-5px);
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 .pricing-card.popular {
     border-color: var(--color-emerald);
-    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.12);
 }
 
 .pricing-card .badge {
@@ -1235,7 +1406,7 @@ body.dashboard-mode .funnel-sections {
 
 .pricing-card .plan-name {
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--sp-2);
@@ -1243,7 +1414,7 @@ body.dashboard-mode .funnel-sections {
 
 .pricing-card .plan-price {
     font-family: var(--font-heading);
-    font-size: 40px;
+    font-size: 44px;
     font-weight: 800;
     color: var(--text-primary);
     margin-bottom: var(--sp-3);
@@ -1290,25 +1461,65 @@ body.dashboard-mode .funnel-sections {
     width: 100%;
 }
 
-/* FAQ Layout */
-.faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-6);
+/* FAQ Accordion */
+.faq-accordion-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.faq-item h3 {
-    font-family: var(--font-heading);
-    font-size: 18px;
-    font-weight: 600;
+.accordion-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.accordion-item:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: var(--sp-2) var(--sp-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.faq-item p {
+.accordion-trigger .chevron-icon {
     color: var(--text-muted);
+    transition: transform 0.3s;
+}
+
+.accordion-item.active .accordion-trigger .chevron-icon {
+    transform: rotate(180deg);
+    color: var(--color-emerald);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: rgba(9, 13, 22, 0.3);
+}
+
+.accordion-content p {
+    padding: 0 var(--sp-3) var(--sp-3) var(--sp-3);
+    color: var(--text-secondary);
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 /* Modal Open Helper */
@@ -1319,11 +1530,19 @@ body.dashboard-mode .funnel-sections {
 
 /* Responsive Adjustments for Funnel */
 @media (max-width: 992px) {
+    .funnel-hero-container {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+        text-align: center;
+    }
+    .hero-left-col {
+        align-items: center;
+    }
     .pricing-grid {
         grid-template-columns: 1fr;
         gap: var(--sp-4);
     }
-    .steps-grid, .faq-grid {
+    .steps-grid {
         grid-template-columns: 1fr;
     }
     body.funnel-mode .top-header {
