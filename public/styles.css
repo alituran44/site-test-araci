@@ -1563,3 +1563,179 @@ body:not(.funnel-mode) #btn-settings-trigger {
 body.funnel-mode #btn-settings-trigger {
     display: flex !important;
 }
+
+
+/* getdale.com Premium SaaS Funnel Stilleri */
+body.funnel-mode {
+    background-color: var(--bg-primary);
+}
+
+body.funnel-mode .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--sp-4);
+}
+
+body.funnel-mode .top-header {
+    margin-bottom: var(--sp-4);
+    border-radius: var(--border-radius);
+    padding: var(--sp-3) var(--sp-4) !important;
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.funnel-nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.funnel-nav-links a:hover {
+    color: var(--color-emerald) !important;
+}
+
+/* Centered Hero Container getdale.com Stili */
+.funnel-hero-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 80px 0 var(--sp-8) 0 !important;
+    gap: var(--sp-4) !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+.funnel-hero-container h1 {
+    font-family: var(--font-heading);
+    font-size: 52px !important;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    max-width: 760px;
+}
+
+.funnel-hero-container p {
+    font-size: 17px !important;
+    color: var(--text-secondary);
+    max-width: 640px;
+    line-height: 1.6;
+    margin: 0 0 var(--sp-2) 0;
+}
+
+.hero-analyze-form {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 20px 40px rgba(15,23,42,0.04) !important;
+    border-radius: 16px !important;
+    transition: var(--transition-smooth);
+}
+
+.hero-analyze-form:focus-within {
+    border-color: var(--color-emerald) !important;
+    box-shadow: 0 20px 40px rgba(5,150,105,0.06) !important;
+}
+
+/* Visual Mockups Grid */
+.hero-visual-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-4);
+    width: 100%;
+    margin-top: var(--sp-4);
+}
+
+.ui-mockup-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+/* Live Engine Widget */
+.live-status-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+/* Footer Tasarımı */
+.funnel-footer {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    padding: var(--sp-8) 0;
+    margin-top: var(--sp-12);
+    width: 100%;
+}
+
+.funnel-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--sp-4);
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-brand span {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+
+.footer-links {
+    display: flex;
+    gap: var(--sp-4);
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--color-emerald);
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .funnel-footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-links {
+        justify-content: center;
+    }
+    .funnel-hero-container h1 {
+        font-size: 36px !important;
+    }
+    .funnel-nav-links {
+        display: none !important;
+    }
+}
