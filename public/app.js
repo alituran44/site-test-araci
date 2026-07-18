@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const competitorUrl = competitorUrlInput.value.trim();
         const modelSelect = document.getElementById('model-select');
         const selectedModel = modelSelect ? modelSelect.value : 'gemini-flash-latest';
+        const toolSelect = document.getElementById('tool-select');
+        const selectedTool = toolSelect ? toolSelect.value : 'both';
         
         if (!url) return;
 
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pdf-export-container').classList.add('hidden');
 
         try {
-            let apiPath = `/api/analyze?url=${encodeURIComponent(url)}&model=${selectedModel}`;
+            let apiPath = `/api/analyze?url=${encodeURIComponent(url)}&model=${selectedModel}&tools=${selectedTool}`;
             if (competitorUrl) {
                 apiPath += `&competitorUrl=${encodeURIComponent(competitorUrl)}`;
             }
@@ -251,10 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 else lcpEl.style.color = 'var(--color-rose)';
             }
         } else {
-            document.getElementById('vitals-lcp').textContent = 'Ölçülemedi';
-            document.getElementById('vitals-cls').textContent = 'Ölçülemedi';
-            document.getElementById('vitals-tbt').textContent = 'Ölçülemedi';
-            document.getElementById('vitals-speedindex').textContent = 'Ölçülemedi';
+            const reason = (ps && ps.error) ? 'Hata Oluştu' : 'Seçilmedi';
+            document.getElementById('vitals-lcp').textContent = reason;
+            document.getElementById('vitals-cls').textContent = reason;
+            document.getElementById('vitals-tbt').textContent = reason;
+            document.getElementById('vitals-speedindex').textContent = reason;
         }
 
         // 5. Güvenlik Detayları
@@ -400,6 +403,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 geoList.appendChild(li);
             });
+        } else {
+            aiStatusBox.className = 'alert-box warning';
+            aiStatusBox.innerHTML = `<strong>AI Analizi Yapılmadı:</strong> Bu test çalıştırmasında sadece teknik metrikler seçildi. Yapay Zeka (AI) yorumlarını ve analizlerini görmek için üst formdan 'Tüm Analizler' veya 'Sadece Gemini AI Raporu' seçeneğini işaretleyip testi yeniden başlatın.`;
+
+            document.getElementById('ai-code-score').textContent = `-`;
+            document.getElementById('ai-code-review').textContent = 'Bu analiz yöntemi seçilmedi.';
+            
+            document.getElementById('ai-ux-score').textContent = `-`;
+            document.getElementById('ai-ux-review').textContent = 'Bu analiz yöntemi seçilmedi.';
+
+            document.getElementById('ai-code-suggestions').innerHTML = '<li class="warning-item"><span>Seçilmedi.</span></li>';
+            document.getElementById('ai-ux-suggestions').innerHTML = '<li class="warning-item"><span>Seçilmedi.</span></li>';
+            document.getElementById('ai-critical-missing').innerHTML = '<li class="error-item"><span>Seçilmedi.</span></li>';
+            document.getElementById('ai-geo-missing').innerHTML = '<li class="warning-item"><span>Seçilmedi.</span></li>';
         }
     }
 

@@ -209,6 +209,30 @@ body {
     box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
+.tool-select-group {
+    flex-grow: 1;
+    min-width: 220px;
+}
+
+.tool-select-group select {
+    width: 100%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--sp-2) var(--sp-3) var(--sp-2) 36px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tool-select-group select:focus {
+    border-color: var(--color-emerald);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
 .input-icon {
     position: absolute;
     left: var(--sp-2);
@@ -868,6 +892,10 @@ tr:hover td {
     }
 
     .model-select-group {
+        flex-grow: 1;
+    }
+
+    .tool-select-group {
         flex-grow: 1;
     }
 }

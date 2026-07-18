@@ -310,7 +310,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
 }
 
 // Detaylı analiz fonksiyonu
-async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest') {
+async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both') {
   const result = {
     url: targetUrl,
     success: false,
@@ -333,8 +333,11 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest') {
   try {
     const startTime = Date.now();
     
-    // PageSpeed API isteğini asenkron olarak başlat
-    const pageSpeedPromise = getPageSpeedMetrics(targetUrl);
+    // PageSpeed API isteğini koşullu asenkron olarak başlat
+    let pageSpeedPromise = Promise.resolve({ success: false, error: 'Analiz yöntemi seçilmedi.' });
+    if (selectedTools === 'both' || selectedTools === 'pagespeed') {
+      pageSpeedPromise = getPageSpeedMetrics(targetUrl);
+    }
 
     let html;
     let status = 200;
@@ -970,7 +973,11 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest') {
     }
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
-    result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel);
+    if (selectedTools === 'both' || selectedTools === 'gemini') {
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel);
+    } else {
+      result.aiAnalysis = null;
+    }
 
   } catch (error) {
     if (browser) {
@@ -985,7 +992,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest') {
 
 // REST API Endpoint: Analiz Başlat
 app.get('/api/analyze', async (req, res) => {
-  const { url, competitorUrl, model } = req.query;
+  const { url, competitorUrl, model, tools } = req.query;
 
   if (!url) {
     return res.status(400).json({ success: false, error: 'Lütfen analiz edilecek URL adresini belirtin.' });
@@ -1005,11 +1012,11 @@ app.get('/api/analyze', async (req, res) => {
   }
 
   try {
-    const mainAnalysis = await runAnalysis(url, model);
+    const mainAnalysis = await runAnalysis(url, model, tools);
     
     let competitorAnalysis = null;
     if (competitorUrl && competitorSafe) {
-      competitorAnalysis = await runAnalysis(competitorUrl, model);
+      competitorAnalysis = await runAnalysis(competitorUrl, model, tools);
     }
 
     res.json({
