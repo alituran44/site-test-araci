@@ -58,11 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
+    // Sidebar Settings Trigger
+    const btnSidebarSettingsTrigger = document.getElementById('sidebar-settings-trigger');
+    if (btnSidebarSettingsTrigger && settingsModal) {
+        btnSidebarSettingsTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            settingsModal.classList.add('open');
+        });
+    }
+
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault();
             const tabId = item.getAttribute('data-tab');
+            if (!tabId) return; // settings gibi tab olmayanlar için iptal et
             
+            e.preventDefault();
             navItems.forEach(nav => nav.classList.remove('active'));
             tabPanels.forEach(panel => panel.classList.remove('active'));
             
@@ -519,6 +529,67 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('ai-ux-suggestions').innerHTML = '<li class="warning-item"><span>Seçilmedi.</span></li>';
             document.getElementById('ai-critical-missing').innerHTML = '<li class="error-item"><span>Seçilmedi.</span></li>';
             document.getElementById('ai-geo-missing').innerHTML = '<li class="warning-item"><span>Seçilmedi.</span></li>';
+        }
+
+        // 9. popjam.io tarzı 10x AI Persona Kullanıcı Testi Sonuçları
+        const personaGrid = document.getElementById('persona-grid');
+        if (personaGrid) {
+            personaGrid.innerHTML = '';
+            if (ai && ai.personaAnalysis && ai.personaAnalysis.length > 0) {
+                ai.personaAnalysis.forEach((pers, idx) => {
+                    // Cihaza göre uygun simge
+                    const deviceIcon = pers.device.toLowerCase().includes('mobile') 
+                        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--text-muted);"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`
+                        : pers.device.toLowerCase().includes('tablet')
+                        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--text-muted);"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`
+                        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--text-muted);"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`;
+
+                    const card = document.createElement('div');
+                    card.className = 'report-card';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.gap = '12px';
+                    card.style.padding = '16px';
+                    card.style.boxShadow = '0 4px 15px rgba(15, 23, 42, 0.02)';
+
+                    card.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background-color: var(--bg-primary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--color-emerald); font-size: 13px;">
+                                    ${pers.name.split(' ').map(n => n[0]).join('')}
+                                </div>
+                                <div>
+                                    <div style="font-size: 13px; font-weight: 700; color: var(--text-primary);">${escapeHtml(pers.name)} (${pers.age})</div>
+                                    <div style="font-size: 11px; color: var(--text-muted); font-weight: 500;">${escapeHtml(pers.role)}</div>
+                                </div>
+                            </div>
+                            <div style="padding: 4px 8px; border-radius: 6px; font-size: 13px; font-weight: bold; border: 1px solid ${pers.score >= 8 ? 'var(--color-emerald)' : pers.score >= 5 ? 'var(--color-amber)' : 'var(--color-rose)'}; color: ${pers.score >= 8 ? 'var(--color-emerald)' : pers.score >= 5 ? 'var(--color-amber)' : 'var(--color-rose)'};">
+                                ${pers.score}/10
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 6px 0;">
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                ${deviceIcon}
+                                <span>${escapeHtml(pers.device)}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--text-muted);"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                <span>${escapeHtml(pers.speed)}</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.5; color: var(--text-secondary); background-color: var(--bg-primary); padding: 10px; border-radius: 8px; font-style: italic;">
+                            "${escapeHtml(pers.comment)}"
+                        </div>
+                    `;
+                    personaGrid.appendChild(card);
+                });
+            } else {
+                personaGrid.innerHTML = `
+                    <div class="welcome-card" style="grid-column: 1 / -1; width: 100%;">
+                        <p>Bu test metodunu incelemek için lütfen geçerli bir yapay zeka analizini tetikleyin.</p>
+                    </div>
+                `;
+            }
         }
     }
 

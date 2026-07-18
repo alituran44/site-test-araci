@@ -196,7 +196,19 @@ function getFallbackAiAnalysis(metrics, url) {
     missingItems: {
       critical: criticalMissing.length > 0 ? criticalMissing : ["Belirgin kritik eksiklik tespit edilmedi."],
       seo_geo: geoMissing.length > 0 ? geoMissing : ["Yapay zeka ve GEO uyumluluğu için temel semantik gereksinimler karşılanmış."]
-    }
+    },
+    personaAnalysis: [
+      { name: "Ahmet Yılmaz", age: 28, role: "Yazılım Geliştirici", device: "Desktop (MacBook Pro)", speed: "Fiber", score: 8, comment: "Sayfa hızlı yükleniyor ve tasarım sade. Ancak kod bloklarındaki yazı tipi boyutu mobil ekranda biraz küçük kalmış." },
+      { name: "Ayşe Kaya", age: 67, role: "Emekli Öğretmen", device: "Tablet (iPad)", speed: "4G", score: 6, comment: "Yazıların okunması kolay ama bazı yerlerdeki buton renklerinin kontrastı düşük olduğundan nereye tıklayacağımı seçmekte zorlandım." },
+      { name: "Can Demir", age: 21, role: "Üniversite Öğrencisi", device: "Mobile (iPhone 14)", speed: "3G (Kısıtlı)", score: 5, comment: "Sitenin mobil versiyonunda resimlerin yüklenmesi biraz uzun sürdü. Tasarım fena değil ama daha hızlı olabilirdi." },
+      { name: "Selin Şahin", age: 34, role: "Dijital Pazarlama Uzmanı", device: "Desktop (Windows)", speed: "Fiber", score: 7, comment: "SEO başlıkları ve meta yapılandırması genel olarak iyi fakat ana sayfada daha belirgin bir kayıt olma (CTA) alanı olmalıydı." },
+      { name: "Mehmet Öz", age: 45, role: "Mali Müşavir", device: "Desktop (iMac)", speed: "Fiber", score: 9, comment: "Güvenlik sertifikası (HTTPS) aktif olması güven verici. Sayfa düzeni karmaşık değil, aradığım bilgilere kolayca ulaştım." },
+      { name: "Elif Yıldız", age: 19, role: "Lise Öğrencisi", device: "Mobile (Xiaomi Redmi)", speed: "4G", score: 8, comment: "Genç ve dinamik bir tasarım var. Mobil menü geçişleri akıcı, sadece footer kısmındaki linkler birbirine çok yakın." },
+      { name: "Burak Çelik", age: 39, role: "Proje Yöneticisi", device: "Mobile (Samsung S23)", speed: "4G", score: 7, comment: "Sitenin genel yapısı profesyonel duruyor. Yükleme süresi tatmin edici ama form doldururken hata mesajları net gösterilmiyor." },
+      { name: "Zeynep Aslan", age: 52, role: "Ev Hanımı", device: "Mobile (Samsung A54)", speed: "3G", score: 6, comment: "Telefonumla girdiğimde sayfanın alt kısmındaki menüleri bulamadım. Tasarım aydınlık ve ferah ama menü daha belirgin olmalı." },
+      { name: "Onur Koç", age: 31, role: "E-Ticaret Danışmanı", device: "Desktop (Windows)", speed: "Fiber", score: 8, comment: "Site performansı iyi. GEO ve yapay zeka tarayıcıları için yapısal verilerin eklenmiş olması arama görünürlüğünü artıracaktır." },
+      { name: "Derya Bulut", age: 43, role: "Grafik Tasarımcı", device: "Tablet (Galaxy Tab)", speed: "4G", score: 7, comment: "Renk paleti ve tipografi uyumlu seçilmiş. Grid sisteminin yerleşimi düzgün, görsel hiyerarşi biraz daha güçlendirilebilir." }
+    ]
   };
 }
 
@@ -239,6 +251,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
         2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
         3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
+        4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
         Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
         {
@@ -255,7 +268,18 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
           "missingItems": {
             "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
             "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
-          }
+          },
+          "personaAnalysis": [
+            {
+              "name": "[Kullanıcı adı, örn: Ahmet Yılmaz]",
+              "age": [yaş],
+              "role": "[Meslek, örn: Yazılım Geliştirici veya Ev Hanımı]",
+              "device": "[Cihaz, örn: Mobile (iPhone 14) veya Desktop (Windows)]",
+              "speed": "[İnternet Hızı, örn: 3G, 4G, Fiber]",
+              "score": [1-10 arası memnuniyet skoru],
+              "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
+            }
+          ]
         }
       `;
 
@@ -456,6 +480,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
       1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
       2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
       3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization - LLM'lerin siteyi doğru anlaması) eksiklerini belirle.
+      4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
       Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
       {
@@ -472,7 +497,18 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         "missingItems": {
           "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
           "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
-        }
+        },
+        "personaAnalysis": [
+          {
+            "name": "[Kullanıcı adı, örn: Ahmet Yılmaz]",
+            "age": [yaş],
+            "role": "[Meslek, örn: Yazılım Geliştirici veya Ev Hanımı]",
+            "device": "[Cihaz, örn: Mobile (iPhone 14) veya Desktop (Windows)]",
+            "speed": "[İnternet Hızı, örn: 3G, 4G, Fiber]",
+            "score": [1-10 arası memnuniyet skoru],
+            "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
+          }
+        ]
       }
     `;
 

@@ -59,9 +59,17 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     Rakip Analizi
                 </a>
+                <a href="#persona" class="nav-item" data-tab="persona">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    10x AI Persona Testi
+                </a>
             </nav>
-            <div class="sidebar-footer">
-                <span>Versiyon 1.0.0</span>
+            <div class="sidebar-footer" style="padding: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
+                <a href="#settings" id="sidebar-settings-trigger" class="nav-item" style="margin: 0; width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon" style="width: 16px; height: 16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Ayarlar
+                </a>
+                <span style="font-size: 11px; color: var(--text-muted); text-align: center;">WebPulse v2.0.0</span>
             </div>
         </aside>
 
@@ -687,6 +695,24 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <!-- Tab: 10x AI Persona Testi -->
+                <section id="tab-persona" class="tab-panel">
+                    <div class="panel-header">
+                        <h2>10x AI Persona Kullanıcı Grubu Simülasyonu</h2>
+                        <span class="score-badge" style="border-color: var(--color-emerald); color: var(--color-emerald);">PopJam UX Modülü</span>
+                    </div>
+
+                    <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 16px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);">
+                        <p style="color: var(--text-primary); font-size: 14px; line-height: 1.6; margin: 0; font-weight: 500;">
+                            💡 <strong>Bu Modül Nasıl Çalışır?</strong> Sayfa kod iskeletiniz, hız metrikleriniz ve tasarım yapınız yapay zeka ile 10 farklı kullanıcı personasına (farklı yaş grupları, meslekler, cihaz türleri ve internet hızları) simüle ettirilir. AI ajanlarının gözünden sitenizin gerçek kullanıcı deneyimi memnuniyet skorlarını, eleştirilerini ve sesli/yazılı yorum simülasyonlarını aşağıdan inceleyebilirsiniz.
+                        </p>
+                    </div>
+
+                    <div id="persona-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+                        <!-- JS ile dinamik olarak 10 adet şık kullanıcı persona kartı basılacak -->
                     </div>
                 </section>
 
