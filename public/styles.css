@@ -1011,3 +1011,327 @@ tr:hover td {
         content: "" !important;
     }
 }
+
+/* ==========================================================================
+   WebPulse SaaS Funnel & Modal Styles
+   ========================================================================== */
+
+/* Brand & Header */
+.funnel-brand {
+    display: none;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.funnel-brand .brand-logo {
+    width: 24px;
+    height: 24px;
+    color: var(--color-emerald);
+}
+
+.funnel-brand .brand-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+/* Mod/Class Transitions */
+body.funnel-mode .sidebar {
+    display: none !important;
+}
+
+body.funnel-mode .main-content {
+    margin-left: 0 !important;
+    padding: var(--sp-6) var(--sp-8);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+body.funnel-mode .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 0;
+    margin-bottom: var(--sp-8);
+    padding: var(--sp-2) 0;
+    gap: 16px;
+}
+
+body.funnel-mode .funnel-brand {
+    display: flex;
+}
+
+body.funnel-mode .analyze-form {
+    flex-grow: 1;
+    max-width: 800px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--sp-2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    margin-left: var(--sp-4);
+}
+
+body.funnel-mode .funnel-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-12);
+}
+
+body.funnel-mode #dashboard {
+    display: none !important;
+}
+
+/* Dashboard Mode */
+body.dashboard-mode .funnel-brand {
+    display: none !important;
+}
+
+body.dashboard-mode .funnel-sections {
+    display: none !important;
+}
+
+/* Funnel Sections & Content */
+.funnel-hero-text {
+    text-align: center;
+    max-width: 800px;
+    margin: var(--sp-4) auto var(--sp-10) auto;
+}
+
+.funnel-hero-text h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.15;
+    margin-bottom: var(--sp-3);
+    letter-spacing: -1px;
+}
+
+.funnel-hero-text p {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.funnel-section {
+    padding: var(--sp-8) 0;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: var(--sp-6);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-top: calc(-1 * var(--sp-4));
+    margin-bottom: var(--sp-8);
+}
+
+/* Steps Grid */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+}
+
+.step-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--sp-4);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-emerald);
+}
+
+.step-icon {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-emerald);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--sp-3);
+}
+
+.step-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.step-card h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.step-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Pricing Grid (Dale-inspired) */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+    align-items: stretch;
+}
+
+.pricing-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+}
+
+.pricing-card.popular {
+    border-color: var(--color-emerald);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+}
+
+.pricing-card .badge {
+    position: absolute;
+    top: var(--sp-3);
+    right: var(--sp-4);
+    background-color: var(--color-emerald);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.pricing-card .plan-name {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--sp-2);
+}
+
+.pricing-card .plan-price {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: var(--sp-3);
+}
+
+.pricing-card .plan-price span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.pricing-card .plan-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: var(--sp-4);
+}
+
+.pricing-card .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--sp-6) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pricing-card .plan-features li {
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pricing-card .plan-features li::before {
+    content: "✓";
+    color: var(--color-emerald);
+    font-weight: bold;
+}
+
+.pricing-card .pricing-btn {
+    margin-top: auto;
+    width: 100%;
+}
+
+/* FAQ Layout */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+}
+
+.faq-item h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Modal Open Helper */
+.modal-backdrop.open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Responsive Adjustments for Funnel */
+@media (max-width: 992px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+    }
+    .steps-grid, .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    body.funnel-mode .top-header {
+        flex-direction: column;
+        gap: var(--sp-4);
+    }
+    body.funnel-mode .analyze-form {
+        margin-left: 0;
+        width: 100%;
+    }
+}

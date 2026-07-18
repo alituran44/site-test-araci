@@ -6,6 +6,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submit-btn');
     const loader = document.getElementById('loader');
     const dashboard = document.getElementById('dashboard');
+
+    // Settings Modal DOM Elements
+    const settingsModal = document.getElementById('settings-modal');
+    const btnSettingsTrigger = document.getElementById('btn-settings-trigger');
+    const btnCloseSettings = document.getElementById('close-settings');
+    const btnSaveSettings = document.getElementById('save-settings');
+    const userGeminiKeyInput = document.getElementById('user-gemini-key');
+    const userPageSpeedKeyInput = document.getElementById('user-pagespeed-key');
+
+    // Load saved API Keys from localStorage
+    if (userGeminiKeyInput) userGeminiKeyInput.value = localStorage.getItem('user_gemini_key') || '';
+    if (userPageSpeedKeyInput) userPageSpeedKeyInput.value = localStorage.getItem('user_pagespeed_key') || '';
+
+    // Settings Modal Event Listeners
+    if (btnSettingsTrigger && settingsModal) {
+        btnSettingsTrigger.addEventListener('click', () => {
+            settingsModal.classList.add('open');
+        });
+    }
+    if (btnCloseSettings && settingsModal) {
+        btnCloseSettings.addEventListener('click', () => {
+            settingsModal.classList.remove('open');
+        });
+    }
+    if (btnSaveSettings && settingsModal) {
+        btnSaveSettings.addEventListener('click', () => {
+            localStorage.setItem('user_gemini_key', userGeminiKeyInput.value.trim());
+            localStorage.setItem('user_pagespeed_key', userPageSpeedKeyInput.value.trim());
+            settingsModal.classList.remove('open');
+            alert('Ayarlar başarıyla kaydedildi!');
+        });
+    }
     
     // Tab Navigation
     const navItems = document.querySelectorAll('.nav-item');
@@ -52,13 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 apiPath += `&competitorUrl=${encodeURIComponent(competitorUrl)}`;
             }
 
-            const response = await fetch(apiPath);
+            const response = await fetch(apiPath, {
+                headers: {
+                    'X-Gemini-Key': localStorage.getItem('user_gemini_key') || '',
+                    'X-PageSpeed-Key': localStorage.getItem('user_pagespeed_key') || ''
+                }
+            });
             const data = await response.json();
 
             if (!data.success) {
                 alert(`Hata: ${data.error || 'Analiz başarısız oldu.'}`);
                 return;
             }
+
+            // Exit funnel mode, activate dashboard layout
+            document.body.className = 'dashboard-mode';
+            const overviewTab = document.querySelector('[data-tab="overview"]');
+            if (overviewTab) overviewTab.click();
 
             // Populate Report data
             populateDashboard(data.main);

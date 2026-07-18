@@ -64,9 +64,9 @@ async function isSafeUrl(targetUrl) {
 }
 
 // Google PageSpeed Insights API Çağrısı (Core Web Vitals ve Google Lighthouse Puanları için)
-async function getPageSpeedMetrics(targetUrl) {
+async function getPageSpeedMetrics(targetUrl, userKey = null) {
   try {
-    const apiKey = process.env.PAGESPEED_API_KEY || process.env.GEMINI_API_KEY || '';
+    const apiKey = (userKey && userKey.trim() !== '') ? userKey : (process.env.PAGESPEED_API_KEY || process.env.GEMINI_API_KEY || '');
     let apiUri = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&category=performance&category=accessibility&category=seo`;
     
     // Geçerli bir Google API anahtarı varsa ekle (Limitsiz / yüksek limitli istekler için)
@@ -201,8 +201,8 @@ function getFallbackAiAnalysis(metrics, url) {
 }
 
 // Gemini API AI Analiz motoru
-async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest') {
-  const apiKey = process.env.GEMINI_API_KEY;
+async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null) {
+  const apiKey = (userKey && userKey.trim() !== '') ? userKey : process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey.trim() === '') {
     return getFallbackAiAnalysis(metrics, url);
   }
@@ -310,7 +310,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
 }
 
 // Detaylı analiz fonksiyonu
-async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both') {
+async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null) {
   const result = {
     url: targetUrl,
     success: false,
@@ -336,7 +336,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
     // PageSpeed API isteğini koşullu asenkron olarak başlat
     let pageSpeedPromise = Promise.resolve({ success: false, error: 'Analiz yöntemi seçilmedi.' });
     if (selectedTools === 'both' || selectedTools === 'pagespeed') {
-      pageSpeedPromise = getPageSpeedMetrics(targetUrl);
+      pageSpeedPromise = getPageSpeedMetrics(targetUrl, userPageSpeedKey);
     }
 
     let html;
@@ -974,7 +974,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
     if (selectedTools === 'both' || selectedTools === 'gemini') {
-      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel);
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey);
     } else {
       result.aiAnalysis = null;
     }
@@ -993,6 +993,8 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 // REST API Endpoint: Analiz Başlat
 app.get('/api/analyze', async (req, res) => {
   const { url, competitorUrl, model, tools } = req.query;
+  const userGeminiKey = req.headers['x-gemini-key'];
+  const userPageSpeedKey = req.headers['x-pagespeed-key'];
 
   if (!url) {
     return res.status(400).json({ success: false, error: 'Lütfen analiz edilecek URL adresini belirtin.' });
@@ -1012,11 +1014,11 @@ app.get('/api/analyze', async (req, res) => {
   }
 
   try {
-    const mainAnalysis = await runAnalysis(url, model, tools);
+    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey);
     
     let competitorAnalysis = null;
     if (competitorUrl && competitorSafe) {
-      competitorAnalysis = await runAnalysis(competitorUrl, model, tools);
+      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey);
     }
 
     res.json({
