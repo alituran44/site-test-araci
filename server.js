@@ -213,7 +213,7 @@ function getFallbackAiAnalysis(metrics, url) {
 }
 
 // Gemini API AI Analiz motoru
-async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userLocalApiUrl = null, userOpenRouterKey = null, userOpenRouterModel = null) {
+async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userOpenRouterKey = null, userOpenRouterModel = null) {
   // Eğer OpenRouter seçildiyse OpenRouter API üzerinden analiz gerçekleştir
   if (requestedModel === 'openrouter-custom') {
     try {
@@ -253,17 +253,17 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
         4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
-        Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+        Lütfen yanıtı SADECE aşağıdaki JSON formatında Türkçe olarak ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
         {
           "codeAnalysis": {
             "score": [sayı],
-            "review": "[Professional critique on codebase quality and structural patterns]",
-            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
+            "review": "[Kod yapısı ve kalitesi hakkında Türkçe profesyonel eleştiri yazısı]",
+            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
           },
           "uxAnalysis": {
             "score": [sayı],
-            "review": "[Professional critique on UI/UX optimization and navigation usability]",
-            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
+            "review": "[Kullanıcı deneyimi ve UI/UX hakkında Türkçe profesyonel eleştiri yazısı]",
+            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
           },
           "missingItems": {
             "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
@@ -277,14 +277,14 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
               "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
               "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
               "score": [Satisfaction score from 1-10],
-              "comment": "[Candid, natural, realistic English user review about speed, UI layout, and clear flow]"
+              "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
             }
           ]
         }
       `;
 
       const apiKey = (userOpenRouterKey && userOpenRouterKey.trim() !== '') ? userOpenRouterKey.trim() : process.env.OPENROUTER_API_KEY;
-      const modelName = (userOpenRouterModel && userOpenRouterModel.trim() !== '') ? userOpenRouterModel.trim() : 'deepseek/deepseek-chat';
+      const modelName = (requestedModel && requestedModel.startsWith('openrouter/')) ? requestedModel.substring(11) : ((userOpenRouterModel && userOpenRouterModel.trim() !== '') ? userOpenRouterModel.trim() : 'deepseek/deepseek-chat');
       
       if (!apiKey || apiKey.trim() === '') {
         throw new Error("OpenRouter API anahtarı tanımlanmamış. Sağ üstten Ayarlar kısmına ekleyin.");
@@ -334,112 +334,6 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
     }
   }
 
-  // Eğer lokal model seçildiyse yerel API üzerinden analiz gerçekleştir
-  if (requestedModel === 'odysseus-local') {
-    try {
-      const $ = cheerio.load(htmlBody);
-      $('script, style, noscript, iframe, svg, path, img').remove();
-      
-      const cleanHtmlSkeleton = $('body').html() 
-        ? $('body').html().replace(/\s+/g, ' ').substring(0, 4500) 
-        : 'Gövde içeriği okunamadı.';
-
-      const prompt = `
-        You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
-        Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
-
-        URL: ${url}
-        
-        Teknik Metrikler:
-        - Yükleme Süresi: ${metrics.performance.details.loadTimeMs} ms
-        - Dahili/Harici Linkler: ${metrics.seo.details.internalLinks}/${metrics.seo.details.externalLinks}
-        - Kelime Sayısı: ${metrics.seo.details.wordCount}
-        - Görseller / Eksik Alt etiketli: ${metrics.seo.details.totalImages} / ${metrics.seo.details.missingAltImages}
-        - Başlıklar (H1-H6): ${JSON.stringify(metrics.seo.details.headings)}
-        - Semantik HTML Etiketleri: ${JSON.stringify(metrics.geo.details.usedSemantics)}
-        - Schema.org JSON-LD Tipleri: ${JSON.stringify(metrics.geo.details.schemasTypes)}
-        - Aktif Güvenlik Başlıkları: ${JSON.stringify(metrics.security.details.activeHeaders)}
-        - HTTPS SSL: ${metrics.security.details.https ? 'Evet' : 'Hayır'}
-        - Form Sayısı: ${metrics.uiux.details.formsCount}
-        
-        Temizlenmiş HTML İskeleti (İlk 4500 karakter):
-        """
-        ${cleanHtmlSkeleton}
-        """
-
-        Görevlerin:
-        1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
-        2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
-        3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
-
-        Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
-        {
-          "codeAnalysis": {
-            "score": [sayı],
-            "review": "[Professional critique on codebase quality and structural patterns]",
-            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
-          },
-          "uxAnalysis": {
-            "score": [sayı],
-            "review": "[Professional critique on UI/UX optimization and navigation usability]",
-            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
-          },
-          "missingItems": {
-            "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
-            "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
-          }
-        }
-      `;
-
-      let endpoint = userLocalApiUrl && userLocalApiUrl.trim() !== '' ? userLocalApiUrl.trim() : 'http://localhost:11434/v1';
-      if (!endpoint.endsWith('/chat/completions')) {
-        if (endpoint.endsWith('/v1') || endpoint.endsWith('/v1/')) {
-          endpoint = endpoint.replace(/\/$/, '') + '/chat/completions';
-        } else {
-          endpoint = endpoint.replace(/\/$/, '') + '/v1/chat/completions';
-        }
-      }
-
-      const localResponse = await axios.post(
-        endpoint,
-        {
-          model: 'llama3', // Ollama / Odysseus default model
-          messages: [
-            { role: 'system', content: 'You are a senior web auditor assistant.' },
-            { role: 'user', content: prompt }
-          ],
-          temperature: 0.2
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          timeout: 20000
-        }
-      );
-
-      let text = '';
-      if (localResponse.data && localResponse.data.choices && localResponse.data.choices[0]) {
-        text = localResponse.data.choices[0].message.content.trim();
-      } else {
-        throw new Error("Yerel modelden boş veya geçersiz yanıt döndü.");
-      }
-
-      if (text.startsWith('```json')) text = text.substring(7);
-      if (text.endsWith('```')) text = text.substring(0, text.length - 3);
-      text = text.trim();
-
-      const parsedResponse = JSON.parse(text);
-      parsedResponse.isMock = false;
-      parsedResponse.isLocalModel = true;
-      return parsedResponse;
-
-    } catch (localError) {
-      console.error('Lokal Model API Hatası:', localError.message);
-      const fallback = getFallbackAiAnalysis(metrics, url);
-      fallback.error = `Lokal AI Modeli Hatası (${localError.message}). Yerel simülasyon çalıştırıldı.`;
-      return fallback;
-    }
-  }
-
   const apiKey = (userKey && userKey.trim() !== '') ? userKey : process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey.trim() === '') {
     return getFallbackAiAnalysis(metrics, url);
@@ -482,17 +376,17 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
       3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization - LLM'lerin siteyi doğru anlaması) eksiklerini belirle.
       4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
-      Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+      Lütfen yanıtı SADECE aşağıdaki JSON formatında Türkçe olarak ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
       {
         "codeAnalysis": {
           "score": [sayı],
-          "review": "[Professional critique on codebase quality and structural patterns]",
-          "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
+          "review": "[Kod yapısı ve kalitesi hakkında Türkçe profesyonel eleştiri yazısı]",
+          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
         },
         "uxAnalysis": {
           "score": [sayı],
-          "review": "[Professional critique on UI/UX optimization and navigation usability]",
-          "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
+          "review": "[Kullanıcı deneyimi ve UI/UX hakkında Türkçe profesyonel eleştiri yazısı]",
+          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
         },
         "missingItems": {
           "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
@@ -506,7 +400,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
             "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
             "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
             "score": [Satisfaction score from 1-10],
-            "comment": "[Candid, natural, realistic English user review about speed, UI layout, and clear flow]"
+            "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
           }
         ]
       }
@@ -560,7 +454,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
 }
 
 // Detaylı analiz fonksiyonu
-async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userLocalApiUrl = null, userOpenRouterKey = null, userOpenRouterModel = null) {
+async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userOpenRouterKey = null, userOpenRouterModel = null) {
   const result = {
     url: targetUrl,
     success: false,
@@ -1284,7 +1178,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
     if (selectedTools === 'both' || selectedTools === 'gemini') {
-      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userOpenRouterKey, userOpenRouterModel);
     } else {
       result.aiAnalysis = null;
     }
@@ -1305,7 +1199,7 @@ app.get('/api/analyze', async (req, res) => {
   const { url, competitorUrl, model, tools } = req.query;
   const userGeminiKey = req.headers['x-gemini-key'];
   const userPageSpeedKey = req.headers['x-pagespeed-key'];
-  const userLocalApiUrl = req.headers['x-local-api-url'];
+  const userLocalApiUrl = '';
   const userOpenRouterKey = req.headers['x-openrouter-key'];
   const userOpenRouterModel = req.headers['x-openrouter-model'];
 
@@ -1327,11 +1221,11 @@ app.get('/api/analyze', async (req, res) => {
   }
 
   try {
-    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
+    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel);
     
     let competitorAnalysis = null;
     if (competitorUrl && competitorSafe) {
-      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userLocalApiUrl, userOpenRouterKey, userOpenRouterModel);
+      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel);
     }
 
     res.json({

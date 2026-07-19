@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebPulse - Advanced AI-Powered Website Performance Audit</title>
+    <title>WebPulse - Yapay Zeka Destekli Hepsi Bir Arada Web Denetim Aracı</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,11 +94,11 @@
                 <form id="analyze-form" class="analyze-form" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                     <div class="input-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                        <input type="url" id="target-url" placeholder="Website URL to analyze (e.g., https://example.com)" required>
+                        <input type="url" id="target-url" placeholder="Analiz edilecek web sitesi adresi (örn. https://siteadi.com)" required>
                     </div>
                     <div class="input-group competitor-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        <input type="url" id="competitor-url" placeholder="Competitor URL (Optional)">
+                        <input type="url" id="competitor-url" placeholder="Rakip Web Sitesi Adresi (İsteğe Bağlı)">
                     </div>
                     <div class="input-group model-select-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
@@ -126,7 +126,7 @@
                 
                 <button type="button" id="btn-settings-trigger" class="btn btn-secondary" title="API Anahtarlarını Ayarla" style="display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 10px 18px; border-radius: var(--border-radius); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    <span>Settings</span>
+                    <span>Ayarlar</span>
                 </button>
             </header>
 
@@ -154,11 +154,13 @@
                                 </div>
                                 <div class="input-group" style="position: relative;">
                                     <select id="model-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
-                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Fast)</option>
-                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detailed)</option>
-                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (New)</option>
-                                        <option value="odysseus-local">Odysseus / Ollama (Local)</option>
-                                        <option value="openrouter-custom">OpenRouter (Custom Model)</option>
+                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Hızlı)</option>
+                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detaylı)</option>
+                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Yeni)</option>
+                                        <option value="openrouter/deepseek/deepseek-chat">OpenRouter: DeepSeek V3</option>
+                                        <option value="openrouter/meta-llama/llama-3.1-8b-instruct:free">OpenRouter: Llama 3.1 (Ücretsiz)</option>
+                                        <option value="openrouter/anthropic/claude-3.5-sonnet">OpenRouter: Claude 3.5 Sonnet</option>
+                                        <option value="openrouter/openai/gpt-4o">OpenRouter: GPT-4o</option>
                                     </select>
                                 </div>
                                 <div class="input-group" style="position: relative;">
@@ -170,13 +172,23 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="submit-btn-hero" style="width: 100%; padding: 14px; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--border-radius); background-color: var(--color-emerald); color: white; border: none; cursor: pointer; transition: all 0.2s;">
-                                <span>Start Audit</span>
+                                <span>Analizi Başlat</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                             </button>
                         </form>
                     </div>
 
                     <!-- Visual Assets Group (Yan yana iki şık mockup kartı) -->
+                <!-- Sosyal Kanıt ve Güven Bloğu -->
+                <div class="social-proof-section" style="width: 100%; max-width: 1000px; margin: 40px auto 0 auto; text-align: center; border-top: 1px solid var(--border-color); padding-top: 32px;">
+                    <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 16px;">Güvenilir Altyapı ve Kapsamlı Raporlama Deneyimi</p>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 48px; opacity: 0.6;">
+                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">⚡ CORE WEB VITALS INTEGRATION</span>
+                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">🤖 GEMINI AI COMPLIANT</span>
+                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">🛡️ SSL SECURED ENVIRONMENT</span>
+                    </div>
+                </div>
+
                     <div class="hero-visual-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 24px; width: 100%; max-width: 1000px; margin-top: 16px;">
                         <div class="ui-mockup-card" style="flex: 1; min-width: 300px; max-width: 460px;">
                             <div class="mockup-header">
@@ -337,104 +349,112 @@
                     </div>
                 </section>
 
-                <!-- Fiyatlandırma Bölümü (AppSumo LTD) -->
+                <!-- Fiyatlandırma Bölümü (B2B LTD) -->
                 <section id="pricing" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
                     <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">AppSumo / Dealify Exclusive Lifetime Deal</h2>
-                        <p class="section-subtitle">Stack codes to upgrade limits. Try fully risk-free under our 60-day money-back guarantee.</p>
+                        <h2 class="section-title">Tek Seferlik Ödeme, Ömür Boyu Lisans</h2>
+                        <p class="section-subtitle">Aylık veya yıllık abonelik ücreti yok. İhtiyacınıza uygun lisans kodunu seçin ve ömür boyu kullanın.</p>
                         
-                        <!-- Taco Rating Badge -->
                         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px;">
-                            <div style="display: flex; gap: 2px; color: #f59e0b;">
-                                <span>🌮</span><span>🌮</span><span>🌮</span><span>🌮</span><span>🌮</span>
-                            </div>
-                            <span style="font-size: 13px; font-weight: 700; color: var(--text-primary);">5/5 Taco Rating (48 Reviews)</span>
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-primary);">🛡️ %100 Memnuniyet & 60 Gün Para İade Garantisi</span>
                         </div>
                     </div>
                     
                     <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; width: 100%; max-width: 1050px; margin: 0 auto;">
-                        <!-- Single Code -->
+                        <!-- Tek Lisans -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 4px 30px rgba(0,0,0,0.01);">
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Single Code</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$49<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/one-time</span></div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Tekli Kod (Tier 1)</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$49<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/tek seferlik</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1 Active Website Monitor</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1,000 scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Default Gemini 1.5 Flash API</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; text-decoration: line-through;"><svg style="color: var(--text-muted); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>10x AI Persona testing</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1 Aktif Web Sitesi İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Aylık 1,000 Tarama Hakkı</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Flash Yapay Zeka Desteği</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-Label PDF Rapor Dışa Aktarma</li>
+                                <li style="font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; text-decoration: line-through;"><svg style="color: var(--text-muted); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>10x AI Persona Kullanıcı Testi</li>
                             </ul>
-                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Get Lifetime Access</button>
+                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Ömür Boyu Lisans Satın Al</button>
                         </div>
                         
-                        <!-- Double Code -->
+                        <!-- Çift Lisans -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 2px solid var(--color-emerald); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 10px 40px rgba(5,150,105,0.05); position: relative;">
-                            <div style="position: absolute; top: -12px; right: 24px; background: var(--color-emerald); color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Most Popular</div>
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--color-emerald); margin-bottom: 8px; letter-spacing: 0.5px;">Double Code</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$98<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/one-time</span></div>
+                            <div style="position: absolute; top: -12px; right: 24px; background: var(--color-emerald); color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">En Popüler</div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--color-emerald); margin-bottom: 8px; letter-spacing: 0.5px;">Çift Kod (Tier 2)</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$98<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/tek seferlik</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5 Active Website Monitors</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5,000 scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Pro AI Engine</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona testing suite</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5 Aktif Web Sitesi İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Aylık 5,000 Tarama Hakkı</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Pro & 2.0 Flash Desteği</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-Label PDF Rapor Dışa Aktarma</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona Kullanıcı Testi</li>
                             </ul>
-                            <button class="btn btn-primary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); border: none; cursor: pointer; background: var(--color-emerald); color: white;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Get Double Code</button>
+                            <button class="btn btn-primary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); border: none; cursor: pointer; background: var(--color-emerald); color: white;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Ömür Boyu Lisans Satın Al</button>
                         </div>
                         
-                        <!-- Multiple Codes -->
+                        <!-- Sınırsız Lisans -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 4px 30px rgba(0,0,0,0.01);">
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Multiple Codes (Tier 3)</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$147<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/one-time</span></div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Sınırsız Kod (Tier 3)</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$147<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/tek seferlik</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Unlimited Website Monitors</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Unlimited scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Custom API Key integration</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona testing suite</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Sınırsız Web Sitesi İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Sınırsız Aylık Tarama Hakkı</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Kendi API Anahtarlarınızı Ekleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-Label PDF Rapor Dışa Aktarma</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona Kullanıcı Testi</li>
                             </ul>
-                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Get Unlimited Access</button>
+                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Sınırsız Lisans Satın Al</button>
                         </div>
                     </div>
 
-                    <!-- 60 Day Guarantee Seal -->
+                    <!-- Para İade Garantisi -->
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 48px; text-align: center;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; color: var(--color-emerald);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">60-Day Money-Back Guarantee</h3>
-                        <p style="font-size: 13px; color: var(--text-secondary); max-width: 500px; margin: 0;">Try WebPulse today risk-free. If it doesn't fit your optimization workflows, ask for a full refund within 60 days. No questions asked.</p>
+                        <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">60 Gün Koşulsuz Para İade Garantisi</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); max-width: 550px; margin: 0;">WebPulse'ı hemen bugün tamamen risksiz deneyin. Ajansınızın veya müşterilerinizin web denetim ihtiyaçlarını karşılamazsa, 60 gün içinde sorgusuz sualsiz tam iade talep edebilirsiniz.</p>
                     </div>
-                </section>
+                </section><!-- SSS Bölümü (Akordeon Tarzı) -->
+                <section id="faq" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
+                    <div style="text-align: center; margin-bottom: 48px;">
+                        <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+                        <p class="section-subtitle">WebPulse ve lisans seçenekleri hakkında bilmeniz gereken her şey.</p>
+                    </div>
+                    <div class="faq-accordion" style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Bu araç ajansımın müşterilerine rapor sunması için uygun mu?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Evet. Raporlarınızı White-label PDF olarak dışa aktarabilir, kendi logo ve marka bilgilerinizi ekleyerek doğrudan müşterilerinizle paylaşabilirsiniz.</p>
+                            </div>
+                        </div>
 
-                <!-- SSS Bölümü (Akordeon Tarzı) -->
-                <div id="faq-anchor" style="position: relative; top: -80px;"></div>
-                <section id="faq" class="funnel-section">
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                    <div class="faq-accordion-container">
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Do I need to add my own API key?</span>
+                                <span>Kendi API anahtarlarımı kullanabilir miyim?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>No, by default WebPulse works with a limited public heuristics engine. You can add your Gemini, PageSpeed, or OpenRouter keys in Settings to unlock full features and remove limits.</p>
+                                <p>Evet. Ayarlar kısmından kendi Gemini, Google PageSpeed veya OpenRouter API anahtarlarınızı ekleyerek limitleri tamamen ortadan kaldırabilirsiniz.</p>
                             </div>
                         </div>
+
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>How accurate is the competitor analysis?</span>
+                                <span>Satın almadan önce ücretsiz deneme seçeneği var mı?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>Both websites are queried simultaneously through Google PageSpeed API and comparatively analyzed by Gemini 2.0. The metrics are fully authentic.</p>
+                                <p>Evet, sitenizin performans ve SEO metriklerini test etmek için herhangi bir API anahtarı veya ödeme bilgisi girmeden anında ücretsiz analiz başlatabilirsiniz.</p>
                             </div>
                         </div>
+
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Are my API keys and data secure?</span>
+                                <span>Verilerim ve API anahtarlarım güvende mi?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>Your API keys are never stored on our servers. They are stored locally on your device (localStorage) and passed securely via request headers.</p>
+                                <p>API anahtarlarınız asla sunucularımızda saklanmaz. Tamamen tarayıcınızın yerel depolama alanında (localStorage) güvenle barındırılır ve analiz isteklerinde şifreli olarak taşınır.</p>
                             </div>
                         </div>
                     </div>
@@ -449,9 +469,9 @@
                             <span>WebPulse</span>
                         </div>
                         <div class="footer-links">
-                            <a href="#features-anchor">Features</a>
-                            <a href="#pricing-anchor">Pricing</a>
-                            <a href="#faq-anchor">FAQ</a>
+                            <a href="#features-anchor">Özellikler</a>
+                            <a href="#pricing-anchor">Fiyatlandırma</a>
+                            <a href="#faq-anchor">SSS</a>
                             <a href="#" onclick="alert('WebPulse is an advanced website auditing SaaS application.'); return false;">Terms of Service</a>
                             <a href="#" onclick="alert('Your API keys are securely stored locally on your browser.'); return false;">Privacy Policy</a>
                         </div>
@@ -886,50 +906,75 @@
     
     <!-- Ayarlar Modalı (Custom API Keys Settings) -->
     <div id="settings-modal" class="modal-backdrop hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;">
-        <div class="modal-card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); width: 90%; max-width: 480px; padding: var(--sp-4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-3);">
-                <h2 style="font-family: var(--font-heading); font-size: 20px; color: var(--text-primary); margin: 0;">WebPulse Settings</h2>
+        <div class="modal-card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); width: 90%; max-width: 800px; padding: var(--sp-4); box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: var(--sp-3);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-family: var(--font-heading); font-size: 20px; color: var(--text-primary); margin: 0;">WebPulse API ve Model Ayarları</h2>
                 <button id="close-settings" class="btn-close" style="background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
             </div>
-            <div class="modal-body" style="display: flex; flex-direction: column; gap: var(--sp-3); margin-bottom: var(--sp-4);">
-                <p class="modal-desc" style="color: var(--text-muted); font-size: 13px; line-height: 1.5; margin: 0;">Kendi API anahtarlarınızı tanımlayarak analiz limitlerini kaldırın. Değerler güvenli şekilde tarayıcınızda (localStorage) saklanır.</p>
+            
+            <!-- İki Sütunlu Düzen -->
+            <div class="modal-columns-container" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; max-height: 70vh; overflow-y: auto;">
                 
-                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                    <label for="user-gemini-key" style="color: var(--text-primary); font-size: 13px; font-weight: 500;">Google Gemini API Key:</label>
-                    <input type="password" id="user-gemini-key" placeholder="AQ.Ab8RN...">
-                    <small style="color: var(--text-muted); font-size: 11px;">Google AI Studio üzerinden ücretsiz alabilirsiniz.</small>
-                </div>
-                
-                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                    <label for="user-pagespeed-key" style="color: var(--text-primary); font-size: 13px; font-weight: 500;">Google PageSpeed API Key:</label>
-                    <input type="password" id="user-pagespeed-key" placeholder="AIzaSy...">
-                    <small style="color: var(--text-muted); font-size: 11px;">Google Cloud Console'dan PageSpeed API'yi etkinleştirip alabilirsiniz.</small>
-                </div>
-                
-                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                    <label for="user-local-api-url" style="color: var(--text-primary); font-size: 13px; font-weight: 500;">Lokal Model API Endpoint (Odysseus / Ollama):</label>
-                    <input type="url" id="user-local-api-url" placeholder="http://localhost:11434/v1" style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
-                    <small style="color: var(--text-muted); font-size: 11px;">Odysseus veya Ollama yerel sunucunuzun API adresini girin (Varsayılan: http://localhost:11434/v1).</small>
-                </div>
+                <!-- Sol Sütun: Form Girdileri -->
+                <div class="modal-inputs-column" style="display: flex; flex-direction: column; gap: 16px;">
+                    <p style="color: var(--text-muted); font-size: 13px; line-height: 1.5; margin: 0;">Kendi bulut API anahtarlarınızı tanımlayarak analiz limitlerini kaldırın. Tüm veriler şifreli şekilde tarayıcınızda (localStorage) saklanır.</p>
+                    
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label for="user-gemini-key" style="color: var(--text-primary); font-size: 13px; font-weight: 600;">Google Gemini API Key:</label>
+                        <input type="password" id="user-gemini-key" placeholder="AQ.Ab8RN..." style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label for="user-pagespeed-key" style="color: var(--text-primary); font-size: 13px; font-weight: 600;">Google PageSpeed API Key:</label>
+                        <input type="password" id="user-pagespeed-key" placeholder="AIzaSy..." style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label for="user-openrouter-key" style="color: var(--text-primary); font-size: 13px; font-weight: 600;">OpenRouter API Key:</label>
+                        <input type="password" id="user-openrouter-key" placeholder="sk-or-v1-..." style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
+                    </div>
 
-                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                    <label for="user-openrouter-key" style="color: var(--text-primary); font-size: 13px; font-weight: 500;">OpenRouter API Key:</label>
-                    <input type="password" id="user-openrouter-key" placeholder="sk-or-v1-..." style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
-                    <small style="color: var(--text-muted); font-size: 11px;">OpenRouter portalından edindiğiniz anahtarı girin.</small>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                        <label for="user-openrouter-model" style="color: var(--text-primary); font-size: 13px; font-weight: 600;">Özel OpenRouter Model Kimliği:</label>
+                        <input type="text" id="user-openrouter-model" placeholder="deepseek/deepseek-chat" style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
+                        <small style="color: var(--text-muted); font-size: 11px;">Seçtiğiniz modeli belirtin (Örn: anthropic/claude-3.5-sonnet veya openai/gpt-4o).</small>
+                    </div>
                 </div>
-
-                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-                    <label for="user-openrouter-model" style="color: var(--text-primary); font-size: 13px; font-weight: 500;">OpenRouter Model Tanımlayıcısı:</label>
-                    <input type="text" id="user-openrouter-model" placeholder="deepseek/deepseek-chat" style="width: 100%; padding: 8px 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); outline: none; font-size: 13px;">
-                    <small style="color: var(--text-muted); font-size: 11px;">Kullanmak istediğiniz model ismini yazın (örn: meta-llama/llama-3.1-8b-instruct:free veya deepseek/deepseek-chat).</small>
+                
+                <!-- Sağ Sütun: API Alım Kılavuzu -->
+                <div class="modal-guide-column" style="background-color: var(--bg-primary); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
+                    <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; display: flex; align-items: center; gap: 6px;">
+                        <span>📚 API Kurulum Kılavuzu</span>
+                    </h3>
+                    
+                    <div style="font-size: 12px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
+                        <div>
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">1. Google Gemini Key Nasıl Alınır?</strong>
+                            <span style="display: block; margin-bottom: 4px;">Gemini yapay zeka analizlerini çalıştırmak için:</span>
+                            <a href="https://aistudio.google.com/" target="_blank" style="color: var(--color-emerald); font-weight: 600; text-decoration: none;">Google AI Studio</a> sayfasına gidin, ücretsiz olarak API anahtarınızı oluşturun ve buraya yapıştırın.
+                        </div>
+                        
+                        <div>
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">2. Google PageSpeed Key Nasıl Alınır?</strong>
+                            <span style="display: block; margin-bottom: 4px;">Lighthouse ve hız metriklerini doğrudan Google altyapısıyla test etmek için:</span>
+                            <a href="https://console.cloud.google.com/" target="_blank" style="color: var(--color-emerald); font-weight: 600; text-decoration: none;">Google Cloud Console</a> portalına gidin, PageSpeed Insights API'sini aratarak etkinleştirin ve API anahtarı oluşturun.
+                        </div>
+                        
+                        <div>
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">3. OpenRouter Key Nasıl Alınır?</strong>
+                            <span style="display: block; margin-bottom: 4px;">DeepSeek, Claude 3.5 ve GPT-4o gibi diğer modelleri çalıştırmak için:</span>
+                            <a href="https://openrouter.ai/keys" target="_blank" style="color: var(--color-emerald); font-weight: 600; text-decoration: none;">OpenRouter Panel</a> adresinden yeni bir API anahtarı üretin.
+                        </div>
+                    </div>
                 </div>
+                
             </div>
-            <div class="modal-footer" style="display: flex; justify-content: flex-end;">
-                <button id="save-settings" class="btn btn-primary" style="font-weight: 600;">Save & Close</button>
+            
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; padding-top: var(--sp-2); border-top: 1px solid var(--border-color);">
+                <button id="save-settings" class="btn btn-primary" style="font-weight: 600; background-color: var(--color-emerald); border: none; padding: 10px 20px; border-radius: 8px; color: white; cursor: pointer;">Kaydet ve Kapat</button>
             </div>
         </div>
     </div>
-    
     <!-- Script -->
     <script src="app.js"></script>
 </body>

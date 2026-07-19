@@ -1803,3 +1803,10 @@ body.funnel-mode .funnel-sections {
     transform: translateY(-4px);
     box-shadow: 0 16px 40px rgba(0,0,0,0.04) !important;
 }
+
+/* Settings Modal Column layout style rules */
+@media (max-width: 768px) {
+    .modal-columns-container {
+        grid-template-columns: 1fr !important;
+    }
+}
