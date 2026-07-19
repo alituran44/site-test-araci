@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             settingsModal.classList.remove('open');
             setTimeout(() => settingsModal.classList.add('hidden'), 300);
-            alert('Ayarlar başarıyla kaydedildi!');
+            alert('Settings saved successfully!');
         });
     }
     
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (formSubmitBtn) {
             formSubmitBtn.disabled = true;
             const btnText = formSubmitBtn.querySelector('span');
-            if (btnText) btnText.textContent = 'Analiz Ediliyor...';
+            if (btnText) btnText.textContent = 'Analyzing Website...';
         }
         document.getElementById('pdf-export-container').classList.add('hidden');
 

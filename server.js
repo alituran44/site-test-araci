@@ -78,7 +78,7 @@ async function getPageSpeedMetrics(targetUrl, userKey = null) {
     const data = response.data;
     
     if (!data.lighthouseResult) {
-      return { success: false, error: 'Lighthouse sonuçları alınamadı.' };
+      return { success: false, error: 'Unable to retrieve Lighthouse report.' };
     }
 
     const lighthouse = data.lighthouseResult;
@@ -120,23 +120,23 @@ function getFallbackAiAnalysis(metrics, url) {
   
   if (perf.renderBlocking > 3) {
     codeScore -= 15;
-    codeSuggestions.push("Render engelleyici harici CSS ve JS dosyalarını erteleyin (defer/async) veya kritik stilleri satır içi yapın.");
+    codeSuggestions.push("De-prioritize render-blocking CSS/JS files using defer/async or inline critical assets.");
   }
   if (seo.headings.h1.length === 0) {
     codeScore -= 10;
-    codeSuggestions.push("Sayfanızda hiç H1 başlığı bulunamadı. Yapısal anlamlılık için tek bir ana H1 ekleyin.");
+    codeSuggestions.push("No H1 tags found. Inject a single descriptive H1 tag for semantic search engine crawler indexing.");
   }
   if (geo.usedSemantics.length < 3) {
     codeScore -= 20;
-    codeSuggestions.push("Sayfada semantik HTML5 etiketleri (main, article, section vb.) neredeyse hiç kullanılmamış. Kod yapısını bu etiketlerle dzenleyin.");
+    codeSuggestions.push("Semantic HTML5 structure elements are missing. Wrap your content inside main, section, and article elements.");
   }
   if (perf.cssCount > 5 || perf.jsCount > 5) {
     codeScore -= 10;
-    codeSuggestions.push("Çok fazla harici CSS/JS isteği var. Dosyaları birleştirmeyi (bundling) veya küçültmeyi (minify) düşünün.");
+    codeSuggestions.push("Too many external stylesheet/script payloads. Minify assets and bundle files to reduce network latency.");
   }
 
   if (codeSuggestions.length === 0) {
-    codeSuggestions.push("Kod yapınız genel standartlara uygun görünüyor. Mevcut yapıyı koruyabilirsiniz.");
+    codeSuggestions.push("Your HTML layout structure complies with standard guidelines.");
   }
 
   let uxScore = 100;
@@ -144,70 +144,70 @@ function getFallbackAiAnalysis(metrics, url) {
 
   if (!sec.https) {
     uxScore -= 30;
-    uxSuggestions.push("HTTPS kullanılmıyor. Tarayıcılar sitenizi 'Güvenli Değil' olarak işaretleyeceğinden kullanıcı güveni ciddi oranda düşecektir.");
+    uxSuggestions.push("SSL/TLS certificate missing (HTTP protocol). Modern browsers will alert users that the site is insecure.");
   }
   if (metrics.uiux.details.ctas.length === 0) {
     uxScore -= 20;
-    uxSuggestions.push("Kullanıcıları aksiyona yönlendiren belirgin bir CTA (Harekete geçirici mesaj) butonu tespit edilemedi. Görünür bir buton ekleyin.");
+    uxSuggestions.push("A primary Call-To-Action (CTA) link could not be detected. Design a prominent button above the fold.");
   }
   if (acc.undocumentedInputs > 0) {
     uxScore -= 15;
-    uxSuggestions.push("Erişilebilirlik hatası: Form alanlarında açıklayıcı etiketler (label) bulunmuyor. Ekran okuyucu kullananlar için bu alanlar anlamsız kalabilir.");
+    uxSuggestions.push("Accessibility issue: Form elements lack descriptive aria-labels or associated HTML labels.");
   }
   if (perf.loadTimeMs > 1500) {
     uxScore -= 15;
-    uxSuggestions.push(`Sayfa yükleme süresi (${perf.loadTimeMs} ms) yüksek. Yavaş yüklenen sitelerde kullanıcıların sayfayı terk etme oranı (bounce rate) artar.`);
+    uxSuggestions.push(`Overall load time is quite high (${perf.loadTimeMs} ms). Slow responses significantly increase bounce rates.`);
   }
 
   if (uxSuggestions.length === 0) {
-    uxSuggestions.push("Kullanıcı deneyimi performansı oldukça güçlü. Dönüşüm oranlarını artırmak için mikro etkileşimleri geliştirebilirsiniz.");
+    uxSuggestions.push("UX parameters are highly functional. Introduce micro-interactions to optimize conversion paths.");
   }
 
   const criticalMissing = [];
   const geoMissing = [];
 
-  if (!sec.https) criticalMissing.push("SSL Sertifikası (HTTPS)");
-  if (!metrics.technicalSeo.details.hasRobots) criticalMissing.push("Robots.txt Dosyası");
-  if (!metrics.technicalSeo.details.hasSitemap) criticalMissing.push("XML Site Haritası (Sitemap.xml)");
+  if (!sec.https) criticalMissing.push("SSL Certificate (HTTPS)");
+  if (!metrics.technicalSeo.details.hasRobots) criticalMissing.push("Robots.txt Configuration File");
+  if (!metrics.technicalSeo.details.hasSitemap) criticalMissing.push("XML Sitemap Configuration (sitemap.xml)");
   if (seo.missingAltImages > 0) criticalMissing.push(`${seo.missingAltImages} adet görselde 'alt' açıklaması eksik.`);
 
   if (geo.schemasTypes.length === 0) {
-    geoMissing.push("Schema.org Yapısal Verisi (Arama motoru ve LLM'lerin içeriği tanıması için JSON-LD eklenmeli)");
+    geoMissing.push("Schema.org Metadata Integration (JSON-LD markup for search indexing)");
   }
   if (!geo.schemasTypes.includes('FAQPage')) {
-    geoMissing.push("FAQPage Schema (AI asistanlarının soru-cevap bloklarını doğrudan çekebilmesi için)");
+    geoMissing.push("FAQPage Schema Markup (for instant chatbot/answer box extraction)");
   }
   if (geo.foundEeatKeywords.length < 2) {
-    geoMissing.push("E-E-A-T Sinyalleri (Yazar bilgisi, hakkımızda bağlantısı veya referans kaynakları eksik)");
+    geoMissing.push("E-E-A-T signals (Missing author bio links, referencing sources, or about pages)");
   }
 
   return {
     isMock: true,
     codeAnalysis: {
       score: Math.max(20, codeScore),
-      review: `${parsedUrl.hostname} sitesinin HTML kod yapısı incelendiğinde; ${seo.headings.h1.length === 0 ? 'H1 başlık hiyerarşisinin eksik olduğu' : 'başlık yapısının düzenli ve semantik standartlara uygun olduğu'}, sayfa genelinde semantik HTML etiket kullanımının ${geo.usedSemantics.length < 3 ? 'yetersiz kaldığı' : 'yeterli düzeyde tercih edildiği'} ve harici dosya (CSS/JS) isteklerinin ${perf.cssCount + perf.jsCount > 10 ? 'yüksek miktarda olduğu' : 'makul düzeyde tutulduğu'} görülmüştür. Bu durum tarayıcıların render performansını ve arama motorlarının tarama verimliliğini doğrudan etkilemektedir.`,
+      review: `Analyzing HTML quality parameters of ${parsedUrl.hostname} shows that ${seo.headings.h1.length === 0 ? 'header hierarchies lack a primary H1 node' : 'heading nodes conform correctly to outline guidelines'}. Structuring semantic layouts is ${geo.usedSemantics.length < 3 ? 'inadequate, lacking modern structure keywords' : 'well-designed utilizing semantic tags'}. Additionally, static stylesheet and script payloads are ${perf.cssCount + perf.jsCount > 10 ? 'somewhat bloated' : 'efficiently limited'}.`,
       suggestions: codeSuggestions
     },
     uxAnalysis: {
       score: Math.max(20, uxScore),
-      review: `Kullanıcı deneyimi (UX) açısından siteniz incelendiğinde; ${sec.https ? 'bağlantının güvenli (HTTPS) olması son derece olumlu bir durumdur' : 'bağlantının şifresiz olması ziyaretçileriniz için ciddi bir güvenlik açığı teşkil etmektedir'}. Sayfada ${metrics.uiux.details.ctas.length === 0 ? 'belirgin bir Harekete Geçirici Mesaj (CTA) butonunun bulunmaması kullanıcı dönüşüm oranlarını düşürebilir' : 'kullanıcıları yönlendiren CTA elemanlarının yer alması dönüşüm oranlarını olumlu etkilemektedir'}. Ayrıca sayfa ilk yükleme hızının kullanıcı akışına ${perf.loadTimeMs > 1500 ? 'yavaşlık nedeniyle olumsuz yansıyabileceği' : 'hızlı yanıt süresi sayesinde olumlu katkı sağlayacağı'} öngörülmektedir.`,
+      review: `Examining the user interface shows that ${sec.https ? 'SSL certificate setup ensures secure navigation' : 'lack of SSL credentials exposes vulnerabilities to visitors'}. CTA links are ${metrics.uiux.details.ctas.length === 0 ? 'underrepresented, limiting potential conversion rates' : 'properly embedded above the fold'}. Page responsiveness speeds will ${perf.loadTimeMs > 1500 ? 'likely slow down visitor pathways' : 'actively improve browse speed retention'}.`,
       suggestions: uxSuggestions
     },
     missingItems: {
-      critical: criticalMissing.length > 0 ? criticalMissing : ["Belirgin kritik eksiklik tespit edilmedi."],
-      seo_geo: geoMissing.length > 0 ? geoMissing : ["Yapay zeka ve GEO uyumluluğu için temel semantik gereksinimler karşılanmış."]
+      critical: criticalMissing.length > 0 ? criticalMissing : ["No critical deficiencies detected."],
+      seo_geo: geoMissing.length > 0 ? geoMissing : ["Core semantic elements for AI assistant indexing have been satisfied."]
     },
     personaAnalysis: [
-      { name: "Ahmet Yılmaz", age: 28, role: "Yazılım Geliştirici", device: "Desktop (MacBook Pro)", speed: "Fiber", score: 8, comment: "Sayfa hızlı yükleniyor ve tasarım sade. Ancak kod bloklarındaki yazı tipi boyutu mobil ekranda biraz küçük kalmış." },
-      { name: "Ayşe Kaya", age: 67, role: "Emekli Öğretmen", device: "Tablet (iPad)", speed: "4G", score: 6, comment: "Yazıların okunması kolay ama bazı yerlerdeki buton renklerinin kontrastı düşük olduğundan nereye tıklayacağımı seçmekte zorlandım." },
-      { name: "Can Demir", age: 21, role: "Üniversite Öğrencisi", device: "Mobile (iPhone 14)", speed: "3G (Kısıtlı)", score: 5, comment: "Sitenin mobil versiyonunda resimlerin yüklenmesi biraz uzun sürdü. Tasarım fena değil ama daha hızlı olabilirdi." },
-      { name: "Selin Şahin", age: 34, role: "Dijital Pazarlama Uzmanı", device: "Desktop (Windows)", speed: "Fiber", score: 7, comment: "SEO başlıkları ve meta yapılandırması genel olarak iyi fakat ana sayfada daha belirgin bir kayıt olma (CTA) alanı olmalıydı." },
-      { name: "Mehmet Öz", age: 45, role: "Mali Müşavir", device: "Desktop (iMac)", speed: "Fiber", score: 9, comment: "Güvenlik sertifikası (HTTPS) aktif olması güven verici. Sayfa düzeni karmaşık değil, aradığım bilgilere kolayca ulaştım." },
-      { name: "Elif Yıldız", age: 19, role: "Lise Öğrencisi", device: "Mobile (Xiaomi Redmi)", speed: "4G", score: 8, comment: "Genç ve dinamik bir tasarım var. Mobil menü geçişleri akıcı, sadece footer kısmındaki linkler birbirine çok yakın." },
-      { name: "Burak Çelik", age: 39, role: "Proje Yöneticisi", device: "Mobile (Samsung S23)", speed: "4G", score: 7, comment: "Sitenin genel yapısı profesyonel duruyor. Yükleme süresi tatmin edici ama form doldururken hata mesajları net gösterilmiyor." },
-      { name: "Zeynep Aslan", age: 52, role: "Ev Hanımı", device: "Mobile (Samsung A54)", speed: "3G", score: 6, comment: "Telefonumla girdiğimde sayfanın alt kısmındaki menüleri bulamadım. Tasarım aydınlık ve ferah ama menü daha belirgin olmalı." },
-      { name: "Onur Koç", age: 31, role: "E-Ticaret Danışmanı", device: "Desktop (Windows)", speed: "Fiber", score: 8, comment: "Site performansı iyi. GEO ve yapay zeka tarayıcıları için yapısal verilerin eklenmiş olması arama görünürlüğünü artıracaktır." },
-      { name: "Derya Bulut", age: 43, role: "Grafik Tasarımcı", device: "Tablet (Galaxy Tab)", speed: "4G", score: 7, comment: "Renk paleti ve tipografi uyumlu seçilmiş. Grid sisteminin yerleşimi düzgün, görsel hiyerarşi biraz daha güçlendirilebilir." }
+      { name: "Arthur Dent", age: 28, role: "Software Developer", device: "Desktop (MacBook Pro)", speed: "Fiber", score: 8, comment: "Page loads extremely fast and features a clean layout. However, font sizes in code blocks feel a bit small on mobile screens." },
+      { name: "Sarah Jenkins", age: 67, role: "Retired Teacher", device: "Tablet (iPad)", speed: "4G", score: 6, comment: "The text hierarchy is easy to read, but low color contrast on several action buttons made it tricky to navigate." },
+      { name: "Leo Carter", age: 21, role: "College Student", device: "Mobile (iPhone 14)", speed: "3G (Limited)", score: 5, comment: "Images took a while to resolve on the mobile layout. The UI is modern, but could benefit from image optimization." },
+      { name: "Chloe Vance", age: 34, role: "Digital Marketer", device: "Desktop (Windows)", speed: "Fiber", score: 7, comment: "Title tags and metadata are structured well, but the homepage lacks a prominent primary Call-To-Action (CTA)." },
+      { name: "Marcus Aurelius", age: 45, role: "Financial Advisor", device: "Desktop (iMac)", speed: "Fiber", score: 9, comment: "SSL (HTTPS) implementation provides great trust. Clean layout allowed me to find information effortlessly." },
+      { name: "Sophia Martinez", age: 19, role: "High School Student", device: "Mobile (Xiaomi Redmi)", speed: "4G", score: 8, comment: "A vibrant, modern UI layout. Interactive elements are smooth, but the footer links are clustered too closely." },
+      { name: "Ryan Gosling", age: 39, role: "Project Manager", device: "Mobile (Samsung S23)", speed: "4G", score: 7, comment: "Overall UI looks highly professional. Speed is decent, but form input errors should be rendered more clearly." },
+      { name: "Linda Smith", age: 52, role: "Homemaker", device: "Mobile (Samsung A54)", speed: "3G", score: 6, comment: "Had trouble locating the navigation drawer links on my screen. The spacing is clean, but hamburger menu icon should stand out." },
+      { name: "Ethan Hunt", age: 31, role: "E-Commerce Consultant", device: "Desktop (Windows)", speed: "Fiber", score: 8, comment: "Solid load-time. Schema metadata markup is well-integrated, which will optimize search engine visibility." },
+      { name: "Diana Prince", age: 43, role: "Graphic Designer", device: "Tablet (Galaxy Tab)", speed: "4G", score: 7, comment: "Clean palette and typography alignment. The asymmetrical grid functions well, though visual hierarchies could be bolded." }
     ]
   };
 }
@@ -225,7 +225,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         : 'Gövde içeriği okunamadı.';
 
       const prompt = `
-        Sen kıdemli bir UI/UX Tasarımcısı ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
+        You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
         Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
 
         URL: ${url}
@@ -253,31 +253,31 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
         4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
-        Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+        Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
         {
           "codeAnalysis": {
             "score": [sayı],
-            "review": "[Kod yapısı ve kalitesi hakkında profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+            "review": "[Professional critique on codebase quality and structural patterns]",
+            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
           },
           "uxAnalysis": {
             "score": [sayı],
-            "review": "[UI/UX ve kullanıcı deneyimi hakkında profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+            "review": "[Professional critique on UI/UX optimization and navigation usability]",
+            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
           },
           "missingItems": {
-            "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
-            "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
+            "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
+            "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
           },
           "personaAnalysis": [
             {
-              "name": "[Kullanıcı adı, örn: Ahmet Yılmaz]",
+              "name": "[User name, e.g. John Doe]",
               "age": [yaş],
-              "role": "[Meslek, örn: Yazılım Geliştirici veya Ev Hanımı]",
-              "device": "[Cihaz, örn: Mobile (iPhone 14) veya Desktop (Windows)]",
-              "speed": "[İnternet Hızı, örn: 3G, 4G, Fiber]",
-              "score": [1-10 arası memnuniyet skoru],
-              "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
+              "role": "[Profession, e.g. Software Engineer or Graphic Designer]",
+              "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
+              "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
+              "score": [Satisfaction score from 1-10],
+              "comment": "[Candid, natural, realistic English user review about speed, UI layout, and clear flow]"
             }
           ]
         }
@@ -345,7 +345,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         : 'Gövde içeriği okunamadı.';
 
       const prompt = `
-        Sen kıdemli bir UI/UX Tasarımcısı ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
+        You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
         Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
 
         URL: ${url}
@@ -372,21 +372,21 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
         2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
         3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
 
-        Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+        Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
         {
           "codeAnalysis": {
             "score": [sayı],
-            "review": "[Kod yapısı ve kalitesi hakkında profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+            "review": "[Professional critique on codebase quality and structural patterns]",
+            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
           },
           "uxAnalysis": {
             "score": [sayı],
-            "review": "[UI/UX ve kullanıcı deneyimi hakkında profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+            "review": "[Professional critique on UI/UX optimization and navigation usability]",
+            "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
           },
           "missingItems": {
-            "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
-            "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
+            "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
+            "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
           }
         }
       `;
@@ -454,7 +454,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
       : 'Gövde içeriği okunamadı.';
 
     const prompt = `
-      Sen kıdemli bir UI/UX Tasarımcısı ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
+      You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
       Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
 
       URL: ${url}
@@ -482,31 +482,31 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
       3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization - LLM'lerin siteyi doğru anlaması) eksiklerini belirle.
       4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
 
-      Lütfen yanıtı SADECE aşağıdaki JSON formatında ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
+      Please provide the response ONLY in the following JSON format. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
       {
         "codeAnalysis": {
           "score": [sayı],
-          "review": "[Kod yapısı ve kalitesi hakkında profesyonel eleştiri yazısı]",
-          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+          "review": "[Professional critique on codebase quality and structural patterns]",
+          "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
         },
         "uxAnalysis": {
           "score": [sayı],
-          "review": "[UI/UX ve kullanıcı deneyimi hakkında profesyonel eleştiri yazısı]",
-          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
+          "review": "[Professional critique on UI/UX optimization and navigation usability]",
+          "suggestions": ["[Recommendation 1]", "[Recommendation 2]", "[Recommendation 3]"]
         },
         "missingItems": {
-          "critical": ["[Kritik eksik 1]", "[Kritik eksik 2]"],
-          "seo_geo": ["[Yapay zeka taramaları ve GEO uyumluluğu için eksik veya geliştirilmesi gereken 2-3 madde]"]
+          "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
+          "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
         },
         "personaAnalysis": [
           {
-            "name": "[Kullanıcı adı, örn: Ahmet Yılmaz]",
+            "name": "[User name, e.g. John Doe]",
             "age": [yaş],
-            "role": "[Meslek, örn: Yazılım Geliştirici veya Ev Hanımı]",
-            "device": "[Cihaz, örn: Mobile (iPhone 14) veya Desktop (Windows)]",
-            "speed": "[İnternet Hızı, örn: 3G, 4G, Fiber]",
-            "score": [1-10 arası memnuniyet skoru],
-            "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
+            "role": "[Profession, e.g. Software Engineer or Graphic Designer]",
+            "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
+            "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
+            "score": [Satisfaction score from 1-10],
+            "comment": "[Candid, natural, realistic English user review about speed, UI layout, and clear flow]"
           }
         ]
       }
