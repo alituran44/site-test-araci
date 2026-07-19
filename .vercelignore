@@ -1,0 +1,4 @@
+backend/
+database/
+docker-compose.yml
+node_modules/
