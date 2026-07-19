@@ -1904,3 +1904,10 @@ body.funnel-mode .top-header {
     border: 1px solid rgba(15, 23, 42, 0.06) !important;
     border-radius: 20px !important;
 }
+
+/* Showcase Gallery Stilleri */
+.showcase-card:hover {
+    transform: translateY(-6px) !important;
+    border-color: var(--color-emerald) !important;
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.05) !important;
+}
