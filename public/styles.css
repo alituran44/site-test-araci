@@ -1810,3 +1810,97 @@ body.funnel-mode .funnel-sections {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* WebPulse Premium Overhaul Stilleri */
+body.funnel-mode {
+    background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 45%),
+                #f8fafc !important;
+    min-height: 100vh;
+}
+
+body.funnel-mode .hero-badge {
+    background-color: rgba(16, 185, 129, 0.08) !important;
+    border: 1px solid rgba(16, 185, 129, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03) !important;
+    color: var(--color-emerald) !important;
+}
+
+body.funnel-mode .hero-analyze-form {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(16, 185, 129, 0.15) !important;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.03), 0 1px 3px rgba(16, 185, 129, 0.05) !important;
+    border-radius: 24px !important;
+    padding: 32px !important;
+}
+
+body.funnel-mode .hero-analyze-form input, 
+body.funnel-mode .hero-analyze-form select {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    transition: all 0.2s ease !important;
+}
+
+body.funnel-mode .hero-analyze-form input:focus, 
+body.funnel-mode .hero-analyze-form select:focus {
+    border-color: var(--color-emerald) !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08) !important;
+    background-color: #ffffff !important;
+}
+
+body.funnel-mode #submit-btn-hero {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border: none !important;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.25) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-radius: 12px !important;
+}
+
+body.funnel-mode #submit-btn-hero:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 30px rgba(16, 185, 129, 0.35) !important;
+}
+
+body.funnel-mode #submit-btn-hero:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* Glassmorphism Cards for mockups and features */
+body.funnel-mode .ui-mockup-card, 
+body.funnel-mode .live-status-card {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.02) !important;
+}
+
+body.funnel-mode .feature-card {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(15, 23, 42, 0.06) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.01) !important;
+}
+
+body.funnel-mode .pricing-card {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.02) !important;
+}
+
+body.funnel-mode .pricing-card:hover {
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 30px 60px rgba(16, 185, 129, 0.06) !important;
+}
+
+body.funnel-mode .top-header {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(15, 23, 42, 0.06) !important;
+    border-radius: 20px !important;
+}
