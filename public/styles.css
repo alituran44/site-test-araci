@@ -1565,24 +1565,58 @@ body.funnel-mode #btn-settings-trigger {
 }
 
 
+
 /* getdale.com Premium SaaS Funnel Stilleri */
 body.funnel-mode {
     background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+body.funnel-mode .app-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 body.funnel-mode .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--sp-4);
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 var(--sp-4) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 }
 
+/* Huni Modundayken Üst Header Düzenlemesi */
 body.funnel-mode .top-header {
-    margin-bottom: var(--sp-4);
-    border-radius: var(--border-radius);
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 var(--sp-4) 0 !important;
     padding: var(--sp-3) var(--sp-4) !important;
-    background-color: var(--bg-secondary) !important;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+    box-sizing: border-box !important;
+}
+
+/* Huni Modunda Üst Arama/Analiz Formunu Gizle (Çünkü Hero'da zaten var) */
+body.funnel-mode .top-header .analyze-form {
+    display: none !important;
+}
+
+.funnel-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .funnel-nav-links a {
@@ -1598,6 +1632,13 @@ body.funnel-mode .top-header {
 }
 
 /* Centered Hero Container getdale.com Stili */
+body.funnel-mode .funnel-sections {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
 .funnel-hero-container {
     display: flex !important;
     flex-direction: column !important;
@@ -1618,14 +1659,15 @@ body.funnel-mode .top-header {
     letter-spacing: -1.5px;
     color: var(--text-primary);
     max-width: 760px;
+    margin-bottom: var(--sp-2);
 }
 
 .funnel-hero-container p {
-    font-size: 17px !important;
+    font-size: 18px !important;
     color: var(--text-secondary);
     max-width: 640px;
     line-height: 1.6;
-    margin: 0 0 var(--sp-2) 0;
+    margin: 0 0 var(--sp-3) 0 !important;
 }
 
 .hero-analyze-form {
@@ -1634,6 +1676,8 @@ body.funnel-mode .top-header {
     box-shadow: 0 20px 40px rgba(15,23,42,0.04) !important;
     border-radius: 16px !important;
     transition: var(--transition-smooth);
+    width: 100%;
+    max-width: 680px;
 }
 
 .hero-analyze-form:focus-within {
@@ -1641,15 +1685,17 @@ body.funnel-mode .top-header {
     box-shadow: 0 20px 40px rgba(5,150,105,0.06) !important;
 }
 
-/* Visual Mockups Grid */
+/* Visual Mockups & Live Widgets Grid */
 .hero-visual-group {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--sp-4);
-    width: 100%;
-    margin-top: var(--sp-4);
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin: var(--sp-6) auto 0 auto !important;
 }
 
 .ui-mockup-card {
