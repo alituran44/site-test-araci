@@ -496,7 +496,7 @@ body {
 .gauge-text .label {
     font-size: 11px;
     color: var(--text-secondary);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 0.5px;
     margin-top: 4px;
 }
