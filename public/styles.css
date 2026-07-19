@@ -1785,3 +1785,21 @@ body.funnel-mode .funnel-sections {
         display: none !important;
     }
 }
+
+/* Feature Cards Hover micro-interactions */
+.feature-card {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-emerald) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.03) !important;
+}
+
+.pricing-card {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.04) !important;
+}
