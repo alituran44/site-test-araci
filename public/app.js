@@ -14,22 +14,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSaveSettings = document.getElementById('save-settings');
     const userGeminiKeyInput = document.getElementById('user-gemini-key');
     const userPageSpeedKeyInput = document.getElementById('user-pagespeed-key');
-    const userLocalApiUrlInput = null;
+    const userLocalApiUrlInput = document.getElementById('user-local-api-url');
     const userOpenRouterKeyInput = document.getElementById('user-openrouter-key');
     const userOpenRouterModelInput = document.getElementById('user-openrouter-model');
 
     // Load saved API Keys from localStorage
     if (userGeminiKeyInput) userGeminiKeyInput.value = localStorage.getItem('user_gemini_key') || '';
     if (userPageSpeedKeyInput) userPageSpeedKeyInput.value = localStorage.getItem('user_pagespeed_key') || '';
+    if (userLocalApiUrlInput) userLocalApiUrlInput.value = localStorage.getItem('user_local_api_url') || 'http://localhost:11434/v1';
     
     if (userOpenRouterKeyInput) userOpenRouterKeyInput.value = localStorage.getItem('user_openrouter_key') || '';
     if (userOpenRouterModelInput) userOpenRouterModelInput.value = localStorage.getItem('user_openrouter_model') || 'deepseek/deepseek-chat';
 
     // Settings Modal Event Listeners
     if (btnSettingsTrigger && settingsModal) {
-        btnSettingsTrigger.addEventListener('click', () => {
+        btnSettingsTrigger.addEventListener('click', async () => {
             settingsModal.classList.remove('hidden');
             setTimeout(() => settingsModal.classList.add('open'), 10);
+            
+            // Dynamically load Ollama models if local endpoint is active
+            const localEndpoint = localStorage.getItem('user_local_api_url') || 'http://localhost:11434';
+            try {
+                const response = await fetch(`/api/local-models?endpoint=${encodeURIComponent(localEndpoint)}`);
+                const data = await response.json();
+                if (data.success && data.models && data.models.length > 0) {
+                    console.log('Discovered local Ollama models:', data.models);
+                }
+            } catch (err) {
+                console.log('Unable to auto-fetch local model tags:', err);
+            }
         });
     }
     if (btnCloseSettings && settingsModal) {
@@ -53,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             settingsModal.classList.remove('open');
             setTimeout(() => settingsModal.classList.add('hidden'), 300);
-            alert('Ayarlar başarıyla kaydedildi!');
+            alert('Settings saved successfully!');
         });
     }
     
@@ -97,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (formSubmitBtn) {
             formSubmitBtn.disabled = true;
             const btnText = formSubmitBtn.querySelector('span');
-            if (btnText) btnText.textContent = 'Web Sitesi Analiz Ediliyor...';
+            if (btnText) btnText.textContent = 'Analyzing Website...';
         }
         document.getElementById('pdf-export-container').classList.add('hidden');
 

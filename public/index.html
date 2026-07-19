@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebPulse - Yapay Zeka Destekli Hepsi Bir Arada Web Denetim Aracı</title>
+    <title>WebPulse - AI-Powered Website Performance, SEO & Usability Audit</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,11 +94,11 @@
                 <form id="analyze-form" class="analyze-form" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                     <div class="input-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                        <input type="url" id="target-url" placeholder="Analiz edilecek web sitesi adresi (örn. https://siteadi.com)" required>
+                        <input type="url" id="target-url" placeholder="Website URL to analyze (e.g., https://example.com)" required>
                     </div>
                     <div class="input-group competitor-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        <input type="url" id="competitor-url" placeholder="Rakip Web Sitesi Adresi (İsteğe Bağlı)">
+                        <input type="url" id="competitor-url" placeholder="Competitor URL (Optional)">
                     </div>
                     <div class="input-group model-select-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
@@ -126,7 +126,7 @@
                 
                 <button type="button" id="btn-settings-trigger" class="btn btn-secondary" title="API Anahtarlarını Ayarla" style="display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 10px 18px; border-radius: var(--border-radius); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    <span>Ayarlar</span>
+                    <span>Settings</span>
                 </button>
             </header>
 
@@ -154,11 +154,12 @@
                                 </div>
                                 <div class="input-group" style="position: relative;">
                                     <select id="model-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
-                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Hızlı)</option>
-                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detaylı)</option>
-                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Yeni)</option>
+                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Fast)</option>
+                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detailed)</option>
+                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (New)</option>
+                                        <option value="odysseus-local">Odysseus / Ollama (Local Model)</option>
                                         <option value="openrouter/deepseek/deepseek-chat">OpenRouter: DeepSeek V3</option>
-                                        <option value="openrouter/meta-llama/llama-3.1-8b-instruct:free">OpenRouter: Llama 3.1 (Ücretsiz)</option>
+                                        <option value="openrouter/meta-llama/llama-3.1-8b-instruct:free">OpenRouter: Llama 3.1 (Free)</option>
                                         <option value="openrouter/anthropic/claude-3.5-sonnet">OpenRouter: Claude 3.5 Sonnet</option>
                                         <option value="openrouter/openai/gpt-4o">OpenRouter: GPT-4o</option>
                                     </select>
@@ -172,7 +173,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="submit-btn-hero" style="width: 100%; padding: 14px; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--border-radius); background-color: var(--color-emerald); color: white; border: none; cursor: pointer; transition: all 0.2s;">
-                                <span>Analizi Başlat</span>
+                                <span>Start Audit</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                             </button>
                         </form>
@@ -414,494 +415,53 @@
                 </section><!-- SSS Bölümü (Akordeon Tarzı) -->
                 <section id="faq" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
                     <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">Sıkça Sorulan Sorular</h2>
-                        <p class="section-subtitle">WebPulse ve lisans seçenekleri hakkında bilmeniz gereken her şey.</p>
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-subtitle">Everything you need to know about WebPulse limits and licenses.</p>
                     </div>
                     <div class="faq-accordion" style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Bu araç ajansımın müşterilerine rapor sunması için uygun mu?</span>
+                                <span>Is this tool suitable for client presentations?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>Evet. Raporlarınızı White-label PDF olarak dışa aktarabilir, kendi logo ve marka bilgilerinizi ekleyerek doğrudan müşterilerinizle paylaşabilirsiniz.</p>
+                                <p>Yes. You can export complete diagnostics reports as White-label PDFs, add your agency branding, and present them directly to clients.</p>
                             </div>
                         </div>
 
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Kendi API anahtarlarımı kullanabilir miyim?</span>
+                                <span>Can I use my own API keys?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>Evet. Ayarlar kısmından kendi Gemini, Google PageSpeed veya OpenRouter API anahtarlarınızı ekleyerek limitleri tamamen ortadan kaldırabilirsiniz.</p>
+                                <p>Yes. Simply paste your Gemini, Google PageSpeed, or OpenRouter credentials inside the Settings panel to bypass standard limits.</p>
                             </div>
                         </div>
 
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Satın almadan önce ücretsiz deneme seçeneği var mı?</span>
+                                <span>Is there a free trial option before purchase?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>Evet, sitenizin performans ve SEO metriklerini test etmek için herhangi bir API anahtarı veya ödeme bilgisi girmeden anında ücretsiz analiz başlatabilirsiniz.</p>
+                                <p>Yes, you can initiate a standard audit test completely free without entering any credentials or billing details.</p>
                             </div>
                         </div>
 
                         <div class="accordion-item">
                             <button class="accordion-trigger">
-                                <span>Verilerim ve API anahtarlarım güvende mi?</span>
+                                <span>Are my API keys and data secure?</span>
                                 <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="accordion-content">
-                                <p>API anahtarlarınız asla sunucularımızda saklanmaz. Tamamen tarayıcınızın yerel depolama alanında (localStorage) güvenle barındırılır ve analiz isteklerinde şifreli olarak taşınır.</p>
+                                <p>Your API keys are never stored on our servers. They reside strictly inside your local device storage (localStorage) and travel over encrypted headers.</p>
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- getdale.com Premium SaaS Footer -->
-                <footer class="funnel-footer">
-                    <div class="funnel-footer-container">
-                        <div class="footer-brand">
-                            <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--color-emerald);">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                            </svg>
-                            <span>WebPulse</span>
-                        </div>
-                        <div class="footer-links">
-                            <a href="#features-anchor">Özellikler</a>
-                            <a href="#pricing-anchor">Fiyatlandırma</a>
-                            <a href="#faq-anchor">SSS</a>
-                            <a href="#" onclick="alert('WebPulse is an advanced website auditing SaaS application.'); return false;">Terms of Service</a>
-                            <a href="#" onclick="alert('Your API keys are securely stored locally on your browser.'); return false;">Privacy Policy</a>
-                        </div>
-                        <div class="footer-copy">
-                            &copy; 2026 WebPulse. All rights reserved.
-                        </div>
-                    </div>
-                </footer>
-
             </div>
-
-            <!-- Loading Shimmer -->
-            <div id="loader" class="loader-container hidden">
-                <div class="loader-spinner"></div>
-                <p>Scanning website and analyzing performance metrics with AI...</p>
-            </div>
-
-            <!-- Dashboard Content -->
-            <div id="dashboard" class="dashboard-grid">
-                
-                <!-- Tab: Overview (Default) -->
-                <section id="tab-overview" class="tab-panel active">
-                    <!-- API Key Fallback Warning Banner -->
-                    <div id="fallback-warning-banner" class="fallback-warning-banner hidden" style="background-color: #fef2f2; border: 1px solid #fee2e2; border-radius: var(--border-radius); padding: 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: #991b1b; box-shadow: 0 4px 12px rgba(153, 27, 27, 0.05); margin-top: 12px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #dc2626;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                        <div style="font-size: 14px; line-height: 1.5; font-weight: 500;">
-                            <strong>Sınırlı Yerel Analiz:</strong> Google Gemini API anahtarı tanımlanmadığı için bu rapor yerel Heuristics analiz motoru ile oluşturulmuştur. Tam AI analizi ve kod/SEO tavsiyeleri için sağ üstten kendi API anahtarınızı ekleyin.
-                        </div>
-                    </div>
-
-                    <div class="welcome-card">
-                        <h1>Dijital Varlığınızı Derinlemesine Analiz Edin</h1>
-                        <p>Web sitenizin SEO, Performans, Güvenlik, Erişilebilirlik ve GEO (Generative Engine Optimization) puanlarını gerçek zamanlı analiz motorumuzla ölçün.</p>
-                    </div>
-
-                    <!-- PDF Export Bar -->
-                    <div class="pdf-export-bar hidden" id="pdf-export-container" style="display: flex; justify-content: flex-end; margin-bottom: var(--sp-3); width: 100%;">
-                        <button id="btn-export-pdf" class="btn btn-secondary" style="display: flex; align-items: center; gap: 8px; font-weight: 500; background-color: var(--color-bg-card); border: 1px solid var(--color-border); color: var(--color-text-primary); cursor: pointer; padding: 10px 16px; border-radius: var(--radius-lg); transition: all 0.2s;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            PDF Raporu İndir
-                        </button>
-                    </div>
-
-                    <!-- Score Grid -->
-                    <div class="scores-container hidden">
-                        <div class="score-card main-score-card">
-                            <div class="gauge-container">
-                                <svg class="gauge" viewBox="0 0 36 36">
-                                    <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                    <path id="overall-gauge-fill" class="gauge-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                </svg>
-                                <div class="gauge-text">
-                                    <span id="overall-score-val">0</span>
-                                    <span class="label">Genel Puan</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mini-scores-grid">
-                            <div class="mini-score-item" onclick="document.querySelector('[data-tab=seo]').click()">
-                                <span class="label">SEO</span>
-                                <div class="mini-bar-bg"><div id="bar-seo" class="mini-bar-fill"></div></div>
-                                <span class="value" id="val-seo">0/100</span>
-                            </div>
-                            <div class="mini-score-item" onclick="document.querySelector('[data-tab=performance]').click()">
-                                <span class="label">Performans</span>
-                                <div class="mini-bar-bg"><div id="bar-performance" class="mini-bar-fill"></div></div>
-                                <span class="value" id="val-performance">0/100</span>
-                            </div>
-                            <div class="mini-score-item" onclick="document.querySelector('[data-tab=security]').click()">
-                                <span class="label">Güvenlik</span>
-                                <div class="mini-bar-bg"><div id="bar-security" class="mini-bar-fill"></div></div>
-                                <span class="value" id="val-security">0/100</span>
-                            </div>
-                            <div class="mini-score-item" onclick="document.querySelector('[data-tab=accessibility]').click()">
-                                <span class="label">Accessibility</span>
-                                <div class="mini-bar-bg"><div id="bar-accessibility" class="mini-bar-fill"></div></div>
-                                <span class="value" id="val-accessibility">0/100</span>
-                            </div>
-                            <div class="mini-score-item" onclick="document.querySelector('[data-tab=geo]').click()">
-                                <span class="label">GEO & AI</span>
-                                <div class="mini-bar-bg"><div id="bar-geo" class="mini-bar-fill"></div></div>
-                                <span class="value" id="val-geo">0/100</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Critical Suggestions Card -->
-                    <div id="critical-warnings-card" class="report-card hidden">
-                        <h2 class="card-title">Kritik İyileştirme Fırsatları</h2>
-                        <ul id="critical-warnings-list" class="warning-list">
-                            <!-- JS ile doldurulacak -->
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- Tab: SEO -->
-                <section id="tab-seo" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>SEO (Arama Motoru Optimizasyonu)</h2>
-                        <span class="score-badge" id="badge-seo">0/100</span>
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card font-details">
-                            <h3>Meta Bilgileri</h3>
-                            <div class="meta-preview">
-                                <div class="google-preview-title" id="preview-title">Google Arama Önizlemesi Burada Görünecek</div>
-                                <div class="google-preview-url" id="preview-url">https://example.com</div>
-                                <div class="google-preview-desc" id="preview-desc">Meta açıklamanız burada listelenecektir. Arama sonuçlarında kullanıcıları çeken en önemli alandır.</div>
-                            </div>
-                            <div class="detail-row"><span>Canonical URL:</span> <strong id="seo-canonical">-</strong></div>
-                            <div class="detail-row"><span>Toplam Kelime Sayısı:</span> <strong id="seo-wordcount">0</strong></div>
-                        </div>
-
-                        <div class="report-card">
-                            <h3>Başlık Hiyerarşisi (H1-H6)</h3>
-                            <div id="seo-headings-list" class="tag-hierarchy-list">
-                                <!-- JS ile doldurulacak -->
-                            </div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>SEO Denetim Kalemleri</h3>
-                            <ul id="seo-checklist" class="audit-list"></ul>
-                        </div>
-                        
-                        <div class="report-card full-width">
-                            <h3>Anahtar Kelime Yoğunluğu (İlk 10)</h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Anahtar Kelime</th>
-                                            <th>Adet</th>
-                                            <th>Yoğunluk (%)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="seo-keywords-table">
-                                        <!-- JS ile doldurulacak -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: Performans -->
-                <section id="tab-performance" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Performans ve Hız Analizi</h2>
-                        <span class="score-badge" id="badge-performance">0/100</span>
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <h3>Yükleme Süresi & CDN</h3>
-                            <div class="perf-stat-large">
-                                <span class="stat-val" id="perf-loadtime">0 ms</span>
-                                <span class="stat-label">Sunucu Yanıt Süresi</span>
-                            </div>
-                            <div class="detail-row"><span>CDN Sağlayıcısı:</span> <strong id="perf-cdn">-</strong></div>
-                            <div class="detail-row"><span>Veri Sıkıştırma:</span> <strong id="perf-compression">-</strong></div>
-                        </div>
-
-                        <div class="report-card">
-                            <h3>Kaynak Analizi</h3>
-                            <div class="detail-row"><span>Harici CSS Sayısı:</span> <strong id="perf-css-count">0</strong></div>
-                            <div class="detail-row"><span>Harici JS Sayısı:</span> <strong id="perf-js-count">0</strong></div>
-                            <div class="detail-row"><span>Render Engelleyici Kaynaklar:</span> <strong id="perf-blocking-count">0</strong></div>
-                            <div class="detail-row"><span>Lazy Load Görseller:</span> <strong id="perf-lazy-images">0</strong></div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>Google Core Web Vitals (Gerçek Kullanıcı Deneyimi)</h3>
-                            <div class="badge-grid" style="justify-content: space-around; padding: var(--sp-2) 0;">
-                                <div class="mini-score-item" style="flex: 1; text-align: center; max-width: 180px;">
-                                    <span class="label">LCP (En Büyük Yükleme)</span>
-                                    <span class="value" id="vitals-lcp" style="align-self: center; font-size: 20px; color: var(--color-emerald);">-</span>
-                                </div>
-                                <div class="mini-score-item" style="flex: 1; text-align: center; max-width: 180px;">
-                                    <span class="label">CLS (Düzen Kayması)</span>
-                                    <span class="value" id="vitals-cls" style="align-self: center; font-size: 20px; color: var(--color-emerald);">-</span>
-                                </div>
-                                <div class="mini-score-item" style="flex: 1; text-align: center; max-width: 180px;">
-                                    <span class="label">TBT (Engelleme Süresi)</span>
-                                    <span class="value" id="vitals-tbt" style="align-self: center; font-size: 20px; color: var(--color-emerald);">-</span>
-                                </div>
-                                <div class="mini-score-item" style="flex: 1; text-align: center; max-width: 180px;">
-                                    <span class="label">Speed Index (Hız Endeksi)</span>
-                                    <span class="value" id="vitals-speedindex" style="align-self: center; font-size: 20px; color: var(--color-emerald);">-</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>Performans Denetim Kalemleri</h3>
-                            <ul id="performance-checklist" class="audit-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: Güvenlik -->
-                <section id="tab-security" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Güvenlik ve Başlık (Header) Analizi</h2>
-                        <span class="score-badge" id="badge-security">0/100</span>
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <h3>SSL & HTTPS</h3>
-                            <div id="sec-ssl-status" class="alert-box">
-                                HTTPS bağlantı durumu kontrol ediliyor...
-                            </div>
-                            <div class="detail-row"><span>CORS Politikası:</span> <strong id="sec-cors">-</strong></div>
-                            <div class="detail-row"><span>Sunucu Çerez Sayısı:</span> <strong id="sec-cookies">-</strong></div>
-                        </div>
-
-                        <div class="report-card">
-                            <h3>Güvenlik Başlıkları</h3>
-                            <div id="sec-headers-grid" class="badge-grid">
-                                <!-- JS ile rozetler oluşturulacak -->
-                            </div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>Güvenlik Denetim Kalemleri</h3>
-                            <ul id="security-checklist" class="audit-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: Erişilebilirlik -->
-                <section id="tab-accessibility" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Erişilebilirlik (WCAG / Usability)</h2>
-                        <span class="score-badge" id="badge-accessibility">0/100</span>
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <h3>Genel Özet</h3>
-                            <div class="detail-row"><span>HTML Dil Tanımı:</span> <strong id="acc-lang">-</strong></div>
-                            <div class="detail-row"><span>Toplam Form Girişi:</span> <strong id="acc-inputs">0</strong></div>
-                            <div class="detail-row"><span>Etiketsiz Form Girişi:</span> <strong id="acc-undoc-inputs" class="text-error">0</strong></div>
-                            <div class="detail-row"><span>ARIA Kullanımı:</span> <strong id="acc-aria">0</strong></div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>Erişilebilirlik Denetim Kalemleri</h3>
-                            <ul id="accessibility-checklist" class="audit-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: GEO & AI -->
-                <section id="tab-geo" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>GEO (Generative Engine Optimization) & AI Dostu Yapı</h2>
-                        <span class="score-badge" id="badge-geo">0/100</span>
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <h3>LLM Okunabilirlik Sinyalleri</h3>
-                            <div class="detail-row"><span>Kullanılan Semantik Etiketler:</span> <strong id="geo-semantics">-</strong></div>
-                            <div class="detail-row"><span>Bulunan E-E-A-T Terimleri:</span> <strong id="geo-eeat">-</strong></div>
-                            <div class="detail-row"><span>Toplam Paragraf:</span> <strong id="geo-paragraphs">0</strong></div>
-                            <div class="detail-row"><span>Uzun Paragraf Sayısı (60+ Kelime):</span> <strong id="geo-long-paragraphs">0</strong></div>
-                        </div>
-
-                        <div class="report-card">
-                            <h3>Yapısal Veri (Schema.org) Tipleri</h3>
-                            <div id="geo-schemas-list" class="badge-grid">
-                                <!-- JS ile doldurulacak -->
-                            </div>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>GEO Denetim Kalemleri</h3>
-                            <ul id="geo-checklist" class="audit-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: Responsive Simulator -->
-                <section id="tab-responsive" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Çoklu Cihaz ve Responsive Test Simülatörü</h2>
-                    </div>
-                    <div class="simulator-wrapper">
-                        <!-- Controls -->
-                        <div class="simulator-controls">
-                            <button class="btn btn-secondary sim-btn active" data-width="375" data-height="667" data-name="Mobil (iPhone SE)">
-                                Mobil (375x667)
-                            </button>
-                            <button class="btn btn-secondary sim-btn" data-width="768" data-height="1024" data-name="Tablet (iPad)">
-                                Tablet (768x1024)
-                            </button>
-                            <button class="btn btn-secondary sim-btn" data-width="1280" data-height="800" data-name="Dizüstü (Masaüstü)">
-                                Masaüstü (1280x800)
-                            </button>
-                            <button class="btn btn-secondary sim-btn" data-width="1920" data-height="1080" data-name="Büyük Ekran">
-                                Geniş Ekran (1920x1080)
-                            </button>
-                            <button class="btn btn-secondary" id="sim-rotate-btn">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-only"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                            </button>
-                        </div>
-                        
-                        <div class="simulator-meta">
-                            <span>Aktif Mod: <strong id="sim-active-name">Mobil (iPhone SE)</strong></span>
-                            <span>Yönelim: <strong id="sim-active-orientation">Dikey (Portrait)</strong></span>
-                        </div>
-
-                        <!-- Frame Viewport Container -->
-                        <div class="viewport-outer">
-                            <div id="viewport-container" class="viewport-container" style="width: 375px; height: 667px;">
-                                <iframe id="simulator-iframe" src="about:blank"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: Competitor Analysis -->
-                <section id="tab-competitor" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Rakip Karşılaştırma Analizi</h2>
-                    </div>
-                    <div class="competitor-grid">
-                        <div id="competitor-empty-state" class="welcome-card">
-                            <p>Rakip karşılaştırması yapmak için üst menüdeki "Rakip site URL'si" alanını doldurarak yeniden analiz başlatın.</p>
-                        </div>
-                        
-                        <div id="competitor-comparison-card" class="report-card full-width hidden">
-                            <h3>Metrik Karşılaştırma Tablosu</h3>
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Özellik / Parametre</th>
-                                            <th id="comp-label-main">Ana Siteniz</th>
-                                            <th id="comp-label-competitor">Rakip Site</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="competitor-table-body">
-                                        <!-- JS ile doldurulacak -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tab: 10x AI Persona Testi -->
-                <section id="tab-persona" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>10x AI Persona Kullanıcı Grubu Simülasyonu</h2>
-                        <span class="score-badge" style="border-color: var(--color-emerald); color: var(--color-emerald);">PopJam UX Modülü</span>
-                    </div>
-
-                    <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 16px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);">
-                        <p style="color: var(--text-primary); font-size: 14px; line-height: 1.6; margin: 0; font-weight: 500;">
-                            💡 <strong>Bu Modül Nasıl Çalışır?</strong> Sayfa kod iskeletiniz, hız metrikleriniz ve tasarım yapınız yapay zeka ile 10 farklı kullanıcı personasına (farklı yaş grupları, meslekler, cihaz türleri ve internet hızları) simüle ettirilir. AI ajanlarının gözünden sitenizin gerçek kullanıcı deneyimi memnuniyet skorlarını, eleştirilerini ve sesli/yazılı yorum simülasyonlarını aşağıdan inceleyebilirsiniz.
-                        </p>
-                    </div>
-
-                    <div id="persona-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
-                        <!-- JS ile dinamik olarak 10 adet şık kullanıcı persona kartı basılacak -->
-                    </div>
-                </section>
-
-                <!-- Tab: Yapay Zeka Analizi -->
-                <section id="tab-ai-insights" class="tab-panel">
-                    <div class="panel-header">
-                        <h2>Yapay Zeka Analiz Raporu</h2>
-                        <span class="score-badge" id="badge-ai-overall" style="border-color: var(--color-blue); color: var(--color-blue);">Gemini AI</span>
-                    </div>
-
-                    <!-- AI Status Alert Box -->
-                    <div id="ai-status-box" class="alert-box success">
-                        AI analiz motoru kontrol ediliyor...
-                    </div>
-
-                    <!-- AI Score & Summary Cards -->
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <h3>Kod Yapısı ve Kalite İncelemesi</h3>
-                            <div class="perf-stat-large">
-                                <span class="stat-val" id="ai-code-score" style="color: var(--color-blue);">0/100</span>
-                                <span class="stat-label">Kod Kalite Skoru</span>
-                            </div>
-                            <p id="ai-code-review" class="text-secondary" style="font-size: 14px; line-height: 1.5; margin-top: var(--sp-1); text-align: justify;">
-                                Analiz bekleniyor...
-                            </p>
-                            <h4 style="font-size: 13px; margin-top: var(--sp-2); margin-bottom: 8px; color: var(--text-primary);">İyileştirme Önerileri:</h4>
-                            <ul id="ai-code-suggestions" class="audit-list">
-                                <!-- JS ile doldurulacak -->
-                            </ul>
-                        </div>
-
-                        <div class="report-card">
-                            <h3>Kullanıcı Deneyimi (UI/UX) Analizi</h3>
-                            <div class="perf-stat-large">
-                                <span class="stat-val" id="ai-ux-score" style="color: var(--color-blue);">0/100</span>
-                                <span class="stat-label">UX Experience Score</span>
-                            </div>
-                            <p id="ai-ux-review" class="text-secondary" style="font-size: 14px; line-height: 1.5; margin-top: var(--sp-1); text-align: justify;">
-                                Analiz bekleniyor...
-                            </p>
-                            <h4 style="font-size: 13px; margin-top: var(--sp-2); margin-bottom: 8px; color: var(--text-primary);">UX Önerileri:</h4>
-                            <ul id="ai-ux-suggestions" class="audit-list">
-                                <!-- JS ile doldurulacak -->
-                            </ul>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>Yapay Zeka Tarafından Belirlenen Kritik Eksiklikler</h3>
-                            <ul id="ai-critical-missing" class="audit-list">
-                                <!-- JS ile doldurulacak -->
-                            </ul>
-                        </div>
-
-                        <div class="report-card full-width">
-                            <h3>GEO & AI Search Engine Optimization (Improvements)</h3>
-                            <ul id="ai-geo-missing" class="audit-list">
-                                <!-- JS ile doldurulacak -->
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </main>
+        </main></main>
     </div>
     
     <!-- Ayarlar Modalı (Custom API Keys Settings) -->

@@ -1,3 +1,8 @@
+
+const cdnSignatures = require('./config/cdn-signatures');
+const GeminiProvider = require('./providers/gemini');
+const OpenRouterProvider = require('./providers/openrouter');
+const OllamaProvider = require('./providers/ollama');
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
@@ -69,11 +74,11 @@ async function getPageSpeedMetrics(targetUrl, userKey = null) {
     const apiKey = (userKey && userKey.trim() !== '') ? userKey : (process.env.PAGESPEED_API_KEY || process.env.GEMINI_API_KEY || '');
     let apiUri = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&category=performance&category=accessibility&category=seo`;
     
-    // Geçerli bir Google API anahtarı varsa ekle (Limitsiz / yüksek limitli istekler için)
     if (apiKey && apiKey.startsWith('AIzaSy')) {
       apiUri += `&key=${apiKey}`;
     }
     
+    console.log(`[LOG] PageSpeed Insights request sent to target: ${targetUrl} (API Key: ${apiKey ? 'Yes' : 'No'})`);
     const response = await axios.get(apiUri, { timeout: 28000 });
     const data = response.data;
     
@@ -85,8 +90,21 @@ async function getPageSpeedMetrics(targetUrl, userKey = null) {
     const categories = lighthouse.categories;
     const audits = lighthouse.audits;
 
+    // Separate CrUX (Real User Experience) and Lab Metrics
+    let cruxData = null;
+    if (data.loadingExperience && data.loadingExperience.metrics) {
+      const cruxMetrics = data.loadingExperience.metrics;
+      cruxData = {
+        lcp: cruxMetrics.LARGEST_CONTENTFUL_PAINT_MS ? (cruxMetrics.LARGEST_CONTENTFUL_PAINT_MS.percentile / 1000) + 's' : '-',
+        cls: cruxMetrics.CUMULATIVE_LAYOUT_SHIFT_SCORE ? (cruxMetrics.CUMULATIVE_LAYOUT_SHIFT_SCORE.percentile / 100) : '-',
+        fid: cruxMetrics.FIRST_INPUT_DELAY_MS ? cruxMetrics.FIRST_INPUT_DELAY_MS.percentile + 'ms' : '-',
+        inp: cruxMetrics.INTERACTION_TO_NEXT_PAINT ? cruxMetrics.INTERACTION_TO_NEXT_PAINT.percentile + 'ms' : '-'
+      };
+    }
+
     return {
       success: true,
+      crux: cruxData, // Can be null if low traffic
       scores: {
         performance: Math.round(categories.performance.score * 100),
         accessibility: Math.round(categories.accessibility.score * 100),
@@ -101,14 +119,12 @@ async function getPageSpeedMetrics(targetUrl, userKey = null) {
       }
     };
   } catch (error) {
-    console.error('PageSpeed API Hatası:', error.message);
+    console.error('[ERROR] PageSpeed API Request Failed:', error.message);
     return { success: false, error: error.message };
   }
 }
-
-// Heuristics Fallback AI Analiz motoru (Gemini key yoksa veya hata verirse)
+// Heuristics Fallback AI Analiz motoru (Rule-based clean English output)
 function getFallbackAiAnalysis(metrics, url) {
-  const parsedUrl = new URL(url);
   const seo = metrics.seo.details;
   const perf = metrics.performance.details;
   const sec = metrics.security.details;
@@ -120,23 +136,23 @@ function getFallbackAiAnalysis(metrics, url) {
   
   if (perf.renderBlocking > 3) {
     codeScore -= 15;
-    codeSuggestions.push("De-prioritize render-blocking CSS/JS files using defer/async or inline critical assets.");
+    codeSuggestions.push("Optimize render-blocking CSS/JS files using defer/async attributes or by inlining critical styles.");
   }
   if (seo.headings.h1.length === 0) {
     codeScore -= 10;
-    codeSuggestions.push("No H1 tags found. Inject a single descriptive H1 tag for semantic search engine crawler indexing.");
+    codeSuggestions.push("No H1 tags found. Inject a single descriptive H1 tag to establish proper semantic document headers.");
   }
   if (geo.usedSemantics.length < 3) {
     codeScore -= 20;
-    codeSuggestions.push("Semantic HTML5 structure elements are missing. Wrap your content inside main, section, and article elements.");
+    codeSuggestions.push("Semantic HTML5 structure elements are missing. Wrap body structures within main, section, or article elements.");
   }
   if (perf.cssCount > 5 || perf.jsCount > 5) {
     codeScore -= 10;
-    codeSuggestions.push("Too many external stylesheet/script payloads. Minify assets and bundle files to reduce network latency.");
+    codeSuggestions.push("High count of external style sheet or script payloads. Minify assets and bundle files to reduce network latency.");
   }
 
   if (codeSuggestions.length === 0) {
-    codeSuggestions.push("Your HTML layout structure complies with standard guidelines.");
+    codeSuggestions.push("Your HTML layout structure complies with standard accessibility guidelines.");
   }
 
   let uxScore = 100;
@@ -148,311 +164,92 @@ function getFallbackAiAnalysis(metrics, url) {
   }
   if (metrics.uiux.details.ctas.length === 0) {
     uxScore -= 20;
-    uxSuggestions.push("A primary Call-To-Action (CTA) link could not be detected. Design a prominent button above the fold.");
+    uxSuggestions.push("No clear Call-to-Action button found. Place a visible button in the Hero layout to increase conversions.");
   }
-  if (acc.undocumentedInputs > 0) {
-    uxScore -= 15;
-    uxSuggestions.push("Accessibility issue: Form elements lack descriptive aria-labels or associated HTML labels.");
-  }
-  if (perf.loadTimeMs > 1500) {
-    uxScore -= 15;
-    uxSuggestions.push(`Overall load time is quite high (${perf.loadTimeMs} ms). Slow responses significantly increase bounce rates.`);
+  if (seo.missingAltImages > 0) {
+    uxScore -= 10;
+    uxSuggestions.push("Images are missing alt attributes. Accessibility users with screen readers will experience incomplete content.");
   }
 
   if (uxSuggestions.length === 0) {
-    uxSuggestions.push("UX parameters are highly functional. Introduce micro-interactions to optimize conversion paths.");
-  }
-
-  const criticalMissing = [];
-  const geoMissing = [];
-
-  if (!sec.https) criticalMissing.push("SSL Certificate (HTTPS)");
-  if (!metrics.technicalSeo.details.hasRobots) criticalMissing.push("Robots.txt Configuration File");
-  if (!metrics.technicalSeo.details.hasSitemap) criticalMissing.push("XML Sitemap Configuration (sitemap.xml)");
-  if (seo.missingAltImages > 0) criticalMissing.push(`${seo.missingAltImages} adet görselde 'alt' açıklaması eksik.`);
-
-  if (geo.schemasTypes.length === 0) {
-    geoMissing.push("Schema.org Metadata Integration (JSON-LD markup for search indexing)");
-  }
-  if (!geo.schemasTypes.includes('FAQPage')) {
-    geoMissing.push("FAQPage Schema Markup (for instant chatbot/answer box extraction)");
-  }
-  if (geo.foundEeatKeywords.length < 2) {
-    geoMissing.push("E-E-A-T signals (Missing author bio links, referencing sources, or about pages)");
+    uxSuggestions.push("Usability interface checks completed with zero errors.");
   }
 
   return {
     isMock: true,
+    isLocalModel: false,
+    analysisSource: 'heuristics',
     codeAnalysis: {
-      score: Math.max(20, codeScore),
-      review: `Analyzing HTML quality parameters of ${parsedUrl.hostname} shows that ${seo.headings.h1.length === 0 ? 'header hierarchies lack a primary H1 node' : 'heading nodes conform correctly to outline guidelines'}. Structuring semantic layouts is ${geo.usedSemantics.length < 3 ? 'inadequate, lacking modern structure keywords' : 'well-designed utilizing semantic tags'}. Additionally, static stylesheet and script payloads are ${perf.cssCount + perf.jsCount > 10 ? 'somewhat bloated' : 'efficiently limited'}.`,
+      score: Math.max(0, codeScore),
+      review: "Local rule-based scan completed. Code layout requires asset minification, structural HTML5 wraps, and heading hierarchies.",
       suggestions: codeSuggestions
     },
     uxAnalysis: {
-      score: Math.max(20, uxScore),
-      review: `Examining the user interface shows that ${sec.https ? 'SSL certificate setup ensures secure navigation' : 'lack of SSL credentials exposes vulnerabilities to visitors'}. CTA links are ${metrics.uiux.details.ctas.length === 0 ? 'underrepresented, limiting potential conversion rates' : 'properly embedded above the fold'}. Page responsiveness speeds will ${perf.loadTimeMs > 1500 ? 'likely slow down visitor pathways' : 'actively improve browse speed retention'}.`,
+      score: Math.max(0, uxScore),
+      review: "Local usability rules scan completed. The interface should enforce SSL, provide clear CTA indicators, and embed descriptive alt tags.",
       suggestions: uxSuggestions
     },
     missingItems: {
-      critical: criticalMissing.length > 0 ? criticalMissing : ["No critical deficiencies detected."],
-      seo_geo: geoMissing.length > 0 ? geoMissing : ["Core semantic elements for AI assistant indexing have been satisfied."]
+      critical: [
+        !sec.https ? "Enable SSL/TLS certificate to redirect traffic to secure HTTPS protocol." : null,
+        seo.headings.h1.length === 0 ? "Add a single H1 header containing your core page topic." : null
+      ].filter(Boolean),
+      seo_geo: [
+        "Include structured JSON-LD schemas like WebSite or Article to assist AI crawler parsing."
+      ]
     },
     personaAnalysis: [
-      { name: "Arthur Dent", age: 28, role: "Software Developer", device: "Desktop (MacBook Pro)", speed: "Fiber", score: 8, comment: "Page loads extremely fast and features a clean layout. However, font sizes in code blocks feel a bit small on mobile screens." },
-      { name: "Sarah Jenkins", age: 67, role: "Retired Teacher", device: "Tablet (iPad)", speed: "4G", score: 6, comment: "The text hierarchy is easy to read, but low color contrast on several action buttons made it tricky to navigate." },
-      { name: "Leo Carter", age: 21, role: "College Student", device: "Mobile (iPhone 14)", speed: "3G (Limited)", score: 5, comment: "Images took a while to resolve on the mobile layout. The UI is modern, but could benefit from image optimization." },
-      { name: "Chloe Vance", age: 34, role: "Digital Marketer", device: "Desktop (Windows)", speed: "Fiber", score: 7, comment: "Title tags and metadata are structured well, but the homepage lacks a prominent primary Call-To-Action (CTA)." },
-      { name: "Marcus Aurelius", age: 45, role: "Financial Advisor", device: "Desktop (iMac)", speed: "Fiber", score: 9, comment: "SSL (HTTPS) implementation provides great trust. Clean layout allowed me to find information effortlessly." },
-      { name: "Sophia Martinez", age: 19, role: "High School Student", device: "Mobile (Xiaomi Redmi)", speed: "4G", score: 8, comment: "A vibrant, modern UI layout. Interactive elements are smooth, but the footer links are clustered too closely." },
-      { name: "Ryan Gosling", age: 39, role: "Project Manager", device: "Mobile (Samsung S23)", speed: "4G", score: 7, comment: "Overall UI looks highly professional. Speed is decent, but form input errors should be rendered more clearly." },
-      { name: "Linda Smith", age: 52, role: "Homemaker", device: "Mobile (Samsung A54)", speed: "3G", score: 6, comment: "Had trouble locating the navigation drawer links on my screen. The spacing is clean, but hamburger menu icon should stand out." },
-      { name: "Ethan Hunt", age: 31, role: "E-Commerce Consultant", device: "Desktop (Windows)", speed: "Fiber", score: 8, comment: "Solid load-time. Schema metadata markup is well-integrated, which will optimize search engine visibility." },
-      { name: "Diana Prince", age: 43, role: "Graphic Designer", device: "Tablet (Galaxy Tab)", speed: "4G", score: 7, comment: "Clean palette and typography alignment. The asymmetrical grid functions well, though visual hierarchies could be bolded." }
+      { name: "John Doe", age: 29, role: "Software Engineer", device: "Desktop (Windows)", speed: "Fiber", score: 8, comment: "Site assets loaded fairly quickly. Layout hierarchy is easy to read, although forms could be unified." },
+      { name: "Sarah Connor", age: 34, role: "Marketing Director", device: "Mobile (iPhone 14)", speed: "4G", score: 6, comment: "The page has clear branding but loads slowly over mobile connection. Asset compression is recommended." },
+      { name: "Diana Prince", age: 43, role: "Graphic Designer", device: "Tablet (Galaxy Tab)", speed: "4G", score: 7, comment: "Clean palette and typography alignment. The layout functions well, though visual hierarchies could be bolded." }
     ]
   };
 }
 
-// Gemini API AI Analiz motoru
-async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userOpenRouterKey = null, userOpenRouterModel = null) {
-  // Eğer OpenRouter seçildiyse OpenRouter API üzerinden analiz gerçekleştir
-  if (requestedModel === 'openrouter-custom') {
-    try {
-      const $ = cheerio.load(htmlBody);
-      $('script, style, noscript, iframe, svg, path, img').remove();
-      
-      const cleanHtmlSkeleton = $('body').html() 
-        ? $('body').html().replace(/\s+/g, ' ').substring(0, 4500) 
-        : 'Gövde içeriği okunamadı.';
+// Unified AI Provider router interface function
+async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gemini-flash-latest', userKey = null, userOpenRouterKey = null, userOpenRouterModel = null, userOllamaEndpoint = null) {
+  let provider = null;
+  let source = 'heuristics';
 
-      const prompt = `
-        You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
-        Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
-
-        URL: ${url}
-        
-        Teknik Metrikler:
-        - Yükleme Süresi: ${metrics.performance.details.loadTimeMs} ms
-        - Dahili/Harici Linkler: ${metrics.seo.details.internalLinks}/${metrics.seo.details.externalLinks}
-        - Kelime Sayısı: ${metrics.seo.details.wordCount}
-        - Görseller / Eksik Alt etiketli: ${metrics.seo.details.totalImages} / ${metrics.seo.details.missingAltImages}
-        - Başlıklar (H1-H6): ${JSON.stringify(metrics.seo.details.headings)}
-        - Semantik HTML Etiketleri: ${JSON.stringify(metrics.geo.details.usedSemantics)}
-        - Schema.org JSON-LD Tipleri: ${JSON.stringify(metrics.geo.details.schemasTypes)}
-        - Aktif Güvenlik Başlıkları: ${JSON.stringify(metrics.security.details.activeHeaders)}
-        - HTTPS SSL: ${metrics.security.details.https ? 'Evet' : 'Hayır'}
-        - Form Sayısı: ${metrics.uiux.details.formsCount}
-        
-        Temizlenmiş HTML İskeleti (İlk 4500 karakter):
-        """
-        ${cleanHtmlSkeleton}
-        """
-
-        Görevlerin:
-        1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
-        2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
-        3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization) eksiklerini belirle.
-        4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
-
-        Lütfen yanıtı SADECE aşağıdaki JSON formatında Türkçe olarak ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
-        {
-          "codeAnalysis": {
-            "score": [sayı],
-            "review": "[Kod yapısı ve kalitesi hakkında Türkçe profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
-          },
-          "uxAnalysis": {
-            "score": [sayı],
-            "review": "[Kullanıcı deneyimi ve UI/UX hakkında Türkçe profesyonel eleştiri yazısı]",
-            "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
-          },
-          "missingItems": {
-            "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
-            "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
-          },
-          "personaAnalysis": [
-            {
-              "name": "[User name, e.g. John Doe]",
-              "age": [yaş],
-              "role": "[Profession, e.g. Software Engineer or Graphic Designer]",
-              "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
-              "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
-              "score": [Satisfaction score from 1-10],
-              "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
-            }
-          ]
-        }
-      `;
-
-      const apiKey = (userOpenRouterKey && userOpenRouterKey.trim() !== '') ? userOpenRouterKey.trim() : process.env.OPENROUTER_API_KEY;
-      const modelName = (requestedModel && requestedModel.startsWith('openrouter/')) ? requestedModel.substring(11) : ((userOpenRouterModel && userOpenRouterModel.trim() !== '') ? userOpenRouterModel.trim() : 'deepseek/deepseek-chat');
-      
-      if (!apiKey || apiKey.trim() === '') {
-        throw new Error("OpenRouter API anahtarı tanımlanmamış. Sağ üstten Ayarlar kısmına ekleyin.");
-      }
-
-      const openRouterResponse = await axios.post(
-        'https://openrouter.ai/api/v1/chat/completions',
-        {
-          model: modelName,
-          messages: [
-            { role: 'user', content: prompt }
-          ],
-          response_format: { type: 'json_object' }
-        },
-        {
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-            'HTTP-Referer': 'https://site-test-araci.vercel.app',
-            'X-Title': 'WebPulse Audit Tool'
-          },
-          timeout: 25000
-        }
-      );
-
-      let text = '';
-      if (openRouterResponse.data && openRouterResponse.data.choices && openRouterResponse.data.choices[0]) {
-        text = openRouterResponse.data.choices[0].message.content.trim();
-      } else {
-        throw new Error("OpenRouter'dan boş veya geçersiz yanıt döndü.");
-      }
-
-      if (text.startsWith('```json')) text = text.substring(7);
-      if (text.endsWith('```')) text = text.substring(0, text.length - 3);
-      text = text.trim();
-
-      const parsedResponse = JSON.parse(text);
-      parsedResponse.isMock = false;
-      parsedResponse.isLocalModel = false;
-      return parsedResponse;
-
-    } catch (orError) {
-      console.error('OpenRouter API Hatası:', orError.message);
-      const fallback = getFallbackAiAnalysis(metrics, url);
-      fallback.error = `OpenRouter Hatası (${orError.message}). Yerel simülasyon çalıştırıldı.`;
-      return fallback;
-    }
+  // 1. Check if model is OpenRouter
+  if (requestedModel.startsWith('openrouter/') || requestedModel === 'openrouter-custom') {
+    const key = (userOpenRouterKey && userOpenRouterKey.trim() !== '') ? userOpenRouterKey : process.env.OPENROUTER_API_KEY;
+    const model = requestedModel.startsWith('openrouter/') ? requestedModel : (userOpenRouterModel || 'deepseek/deepseek-chat');
+    provider = new OpenRouterProvider(key, model);
+    source = (userOpenRouterKey && userOpenRouterKey.trim() !== '') ? 'user-openrouter' : 'server-default';
+  }
+  // 2. Check if model is Ollama local
+  else if (requestedModel === 'odysseus-local') {
+    const endpoint = (userOllamaEndpoint && userOllamaEndpoint.trim() !== '') ? userOllamaEndpoint : 'http://localhost:11434/v1';
+    provider = new OllamaProvider(endpoint, 'llama3');
+    source = 'ollama-local';
+  }
+  // 3. Fallback to Gemini
+  else {
+    const key = (userKey && userKey.trim() !== '') ? userKey : process.env.GEMINI_API_KEY;
+    provider = new GeminiProvider(key, requestedModel);
+    source = (userKey && userKey.trim() !== '') ? 'user-gemini' : 'server-default';
   }
 
-  const apiKey = (userKey && userKey.trim() !== '') ? userKey : process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey.trim() === '') {
+  // Check if provider is configured. If not, fallback to Heuristics Engine
+  if (!provider.isConfigured()) {
+    console.log('[LOG] AI Provider not configured. Falling back to Heuristics Engine.');
     return getFallbackAiAnalysis(metrics, url);
   }
 
   try {
-    const $ = cheerio.load(htmlBody);
-    $('script, style, noscript, iframe, svg, path, img').remove();
-    
-    const cleanHtmlSkeleton = $('body').html() 
-      ? $('body').html().replace(/\s+/g, ' ').substring(0, 4500) 
-      : 'Gövde içeriği okunamadı.';
-
-    const prompt = `
-      You are a senior UI/UX Designer and Code Quality Auditor ve Kıdemli Kod Kalitesi/Güvenlik Denetçisisin.
-      Aşağıda belirtilen web sitesinin teknik metriklerini ve temizlenmiş HTML kod iskeletini incele:
-
-      URL: ${url}
-      
-      Teknik Metrikler:
-      - Yükleme Süresi: ${metrics.performance.details.loadTimeMs} ms
-      - Dahili/Harici Linkler: ${metrics.seo.details.internalLinks}/${metrics.seo.details.externalLinks}
-      - Kelime Sayısı: ${metrics.seo.details.wordCount}
-      - Görseller / Eksik Alt etiketli: ${metrics.seo.details.totalImages} / ${metrics.seo.details.missingAltImages}
-      - Başlıklar (H1-H6): ${JSON.stringify(metrics.seo.details.headings)}
-      - Semantik HTML Etiketleri: ${JSON.stringify(metrics.geo.details.usedSemantics)}
-      - Schema.org JSON-LD Tipleri: ${JSON.stringify(metrics.geo.details.schemasTypes)}
-      - Aktif Güvenlik Başlıkları: ${JSON.stringify(metrics.security.details.activeHeaders)}
-      - HTTPS SSL: ${metrics.security.details.https ? 'Evet' : 'Hayır'}
-      - Form Sayısı: ${metrics.uiux.details.formsCount}
-      
-      Temizlenmiş HTML İskeleti (İlk 4500 karakter):
-      """
-      ${cleanHtmlSkeleton}
-      """
-
-      Görevlerin:
-      1. Sitenin kod kalitesini (temizlik, semantik yapı, standartlar) incele. 0-100 arası bir skor ver.
-      2. Kullanıcı deneyimini (UI/UX, dönüşüm yolları, erişilebilirlik, etkileşim kalitesi) incele. 0-100 arası bir skor ver.
-      3. Sitenin kod ve UX alanındaki en kritik eksikliklerini ve GEO (Generative Engine Optimization - LLM'lerin siteyi doğru anlaması) eksiklerini belirle.
-      4. popjam.io tarzı, siteyi ziyaret eden 10 farklı simüle yapay zeka kullanıcısının (farklı yaş, meslek, cihaz, internet hızı ve hedeflere sahip) site hakkındaki gerçekçi yorumlarını ve memnuniyet skorlarını oluştur.
-
-      Lütfen yanıtı SADECE aşağıdaki JSON formatında Türkçe olarak ver. Yanıtın başında veya sonunda "json" veya backtick gibi hiçbir açıklama metni olmasın, doğrudan geçerli bir JSON objesi döndür:
-      {
-        "codeAnalysis": {
-          "score": [sayı],
-          "review": "[Kod yapısı ve kalitesi hakkında Türkçe profesyonel eleştiri yazısı]",
-          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
-        },
-        "uxAnalysis": {
-          "score": [sayı],
-          "review": "[Kullanıcı deneyimi ve UI/UX hakkında Türkçe profesyonel eleştiri yazısı]",
-          "suggestions": ["[Öneri 1]", "[Öneri 2]", "[Öneri 3]"]
-        },
-        "missingItems": {
-          "critical": ["[Critical deficiency 1]", "[Critical deficiency 2]"],
-          "seo_geo": ["[2-3 action points to optimize for LLM crawlers and GEO schemas]"]
-        },
-        "personaAnalysis": [
-          {
-            "name": "[User name, e.g. John Doe]",
-            "age": [yaş],
-            "role": "[Profession, e.g. Software Engineer or Graphic Designer]",
-            "device": "[Device, e.g. Mobile (iPhone 14) or Desktop (Windows)]",
-            "speed": "[Connection speed, e.g. 3G, 4G, Fiber]",
-            "score": [Satisfaction score from 1-10],
-            "comment": "[Sitenin hızı, tasarımı, anlaşılabilirliği hakkında samimi, gerçekçi ve doğal Türkçe kullanıcı yorumu]"
-          }
-        ]
-      }
-    `;
-
-    const apiResponse = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/${requestedModel}:generateContent?key=${apiKey}`,
-      {
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt
-              }
-            ]
-          }
-        ]
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 30000
-      }
-    );
-
-    if (!apiResponse.data || !apiResponse.data.candidates || !apiResponse.data.candidates[0]) {
-      throw new Error("Gemini API'den geçersiz yanıt döndü.");
-    }
-
-    let text = apiResponse.data.candidates[0].content.parts[0].text.trim();
-    
-    if (text.startsWith('```json')) {
-      text = text.substring(7);
-    }
-    if (text.endsWith('```')) {
-      text = text.substring(0, text.length - 3);
-    }
-    text = text.trim();
-
-    const parsedResponse = JSON.parse(text);
-    parsedResponse.isMock = false;
-    return parsedResponse;
-
+    console.log(`[LOG] Executing AI analysis using provider source: ${source} (Model: ${requestedModel})`);
+    const report = await provider.generateReport(metrics, url, htmlBody);
+    report.analysisSource = source;
+    return report;
   } catch (error) {
-    console.error('Gemini API Hatası:', error);
+    console.error(`[ERROR] Provider analysis failed (${error.message}). Falling back to Heuristics.`);
     const fallback = getFallbackAiAnalysis(metrics, url);
-    fallback.error = error.message;
+    fallback.error = `AI Analysis failed (${error.message}). Local heuristics simulated.`;
+    fallback.analysisSource = 'heuristics';
     return fallback;
   }
 }
-
 // Detaylı analiz fonksiyonu
 async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userOpenRouterKey = null, userOpenRouterModel = null) {
   const result = {
@@ -754,34 +551,13 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
     const viaHeader = headers['via'] || '';
     
     // Genişletilmiş Edge/CDN Tanımlama Başlıkları
-    const xVercelId = headers['x-vercel-id'] || '';
-    const xVercelCache = headers['x-vercel-cache'] || '';
-    const xNfRequestId = headers['x-nf-request-id'] || '';
-    const cfRay = headers['cf-ray'] || '';
-    const xFastlyRequestId = headers['x-fastly-request-id'] || headers['x-served-by'] || '';
-    const xAmzCfId = headers['x-amz-cf-id'] || '';
-    const xAkamai = headers['x-akamai-transformed'] || '';
-    
     let cdnName = '';
-    
-    if (serverHeader.toLowerCase().includes('cloudflare') || cfRay) {
-      cdnName = 'Cloudflare';
-    } else if (xVercelId || xVercelCache) {
-      cdnName = 'Vercel Edge Network';
-    } else if (xNfRequestId) {
-      cdnName = 'Netlify Edge';
-    } else if (viaHeader.toLowerCase().includes('cloudfront') || xAmzCfId || serverHeader.toLowerCase().includes('cloudfront')) {
-      cdnName = 'Amazon CloudFront';
-    } else if (cacheHeader.toLowerCase().includes('fastly') || xFastlyRequestId) {
-      cdnName = 'Fastly';
-    } else if (xAkamai || cacheHeader.toLowerCase().includes('akamai')) {
-      cdnName = 'Akamai';
-    } else if (serverHeader.toLowerCase().includes('litespeed')) {
-      cdnName = 'LiteSpeed Web Server';
-    } else if (viaHeader.toLowerCase().includes('varnish')) {
-      cdnName = 'Varnish Cache';
+    for (const [name, headerList] of Object.entries(cdnSignatures)) {
+      if (headerList.some(h => headers[h.toLowerCase()])) {
+        cdnName = name;
+        break;
+      }
     }
-
     if (cdnName) {
       perf.items.push({ status: 'success', text: `CDN / Gelişmiş Sunucu Altyapısı tespit edildi: ${cdnName}` });
     } else {
@@ -1178,7 +954,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
     if (selectedTools === 'both' || selectedTools === 'gemini') {
-      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userOpenRouterKey, userOpenRouterModel);
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userOpenRouterKey, userOpenRouterModel, req.headers['x-local-api-url']);
     } else {
       result.aiAnalysis = null;
     }
@@ -1221,11 +997,11 @@ app.get('/api/analyze', async (req, res) => {
   }
 
   try {
-    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel);
+    const mainAnalysis = await runAnalysis(url, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel, req.headers['x-local-api-url']);
     
     let competitorAnalysis = null;
     if (competitorUrl && competitorSafe) {
-      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel);
+      competitorAnalysis = await runAnalysis(competitorUrl, model, tools, userGeminiKey, userPageSpeedKey, userOpenRouterKey, userOpenRouterModel, req.headers['x-local-api-url']);
     }
 
     res.json({
@@ -1285,7 +1061,25 @@ app.get('/api/proxy', async (req, res) => {
 
 // Sunucuyu Başlat
 if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
+  
+// Ollama Dynamic models listing API endpoint
+app.get('/api/local-models', async (req, res) => {
+  const endpoint = req.query.endpoint || 'http://localhost:11434';
+  try {
+    console.log(`[LOG] Querying local Ollama models list at: ${endpoint}`);
+    const healthUrl = endpoint.replace(/\/v1\/?$/, '');
+    const response = await axios.get(`${healthUrl}/api/tags`, { timeout: 3500 });
+    if (response.data && response.data.models) {
+      res.json({ success: true, models: response.data.models.map(m => m.name) });
+    } else {
+      res.json({ success: true, models: [] });
+    }
+  } catch (error) {
+    res.json({ success: false, error: 'Local model server unreachable.' });
+  }
+});
+
+app.listen(PORT, () => {
     console.log(`WebAudit Pro Sunucusu http://localhost:${PORT} üzerinde çalışıyor.`);
   });
 }
