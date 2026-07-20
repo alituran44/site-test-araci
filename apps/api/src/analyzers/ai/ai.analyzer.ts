@@ -34,18 +34,28 @@ export class AiAnalyzer {
     url: string,
     scores: Record<string, number>,
     issues: Omit<Issue, 'id' | 'auditId'>[],
-    provider: 'openai' | 'gemini' = 'gemini',
+    provider: 'openai' | 'gemini' | 'nvidia' = 'gemini',
   ): Promise<AiAuditSummary> {
     const prompt = this.buildPrompt(url, scores, issues);
 
     try {
       if (provider === 'openai') {
         return await this.runOpenAI(prompt);
+      } else if (provider === 'nvidia') {
+        return await this.runNvidia(prompt);
       } else {
         return await this.runGemini(prompt);
       }
     } catch (err) {
       this.logger.error(`AI Summary generation failed via ${provider}: ${err.message}`);
+      if (provider !== 'gemini' && (this.config.get('GEMINI_API_KEY') || this.config.get('USER_GEMINI_KEY'))) {
+        try {
+          this.logger.log('Attempting fallback to Gemini after provider failure...');
+          return await this.runGemini(prompt);
+        } catch (geminiErr) {
+          this.logger.error(`Gemini fallback also failed: ${geminiErr.message}`);
+        }
+      }
       return this.getFallbackSummary(scores);
     }
   }
@@ -114,6 +124,31 @@ Provide ONLY valid JSON output, without markdown decoration wrapper tags. Do not
 
     const text = response.response.text();
     return JSON.parse(text);
+  }
+
+  private async runNvidia(prompt: string): Promise<AiAuditSummary> {
+    const apiKey = this.config.get('NVIDIA_API_KEY');
+    if (!apiKey) throw new Error('NVIDIA_API_KEY is not defined');
+
+    const openai = new OpenAI({
+      apiKey,
+      baseURL: 'https://integrate.api.nvidia.com/v1',
+    });
+
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'meta/llama-3.1-8b-instruct',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.2,
+      });
+
+      const text = response.choices[0]?.message?.content || '{}';
+      const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
+      return JSON.parse(cleaned);
+    } catch (err) {
+      this.logger.error(`Nvidia AI call failed: ${err.message}`);
+      throw err;
+    }
   }
 
   private getFallbackSummary(scores: Record<string, number>): AiAuditSummary {
