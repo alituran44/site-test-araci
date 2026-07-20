@@ -1,8 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as chromeLauncher from 'chrome-launcher';
 import { Issue, Severity } from '@webaudit/shared';
 
-// We dynamically import lighthouse since it's an ES module that might need special handling
+const chromeLauncherImport = () => import('chrome-launcher');
 const lighthouseImport = () => import('lighthouse');
 
 @Injectable()
@@ -26,6 +25,7 @@ export class PerformanceAnalyzer {
     let chrome: any = null;
     try {
       this.logger.log(`Starting programmatic Lighthouse run for ${url}`);
+      const chromeLauncher = await chromeLauncherImport();
       chrome = await chromeLauncher.launch({
         chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
       });
