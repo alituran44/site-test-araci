@@ -1,0 +1,201 @@
+// WebAudit AI — Prisma Database Schema
+// PostgreSQL 16
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Users & Auth ─────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  password     String
+  plan         Plan     @default(FREE)
+  apiKey       String?  @unique // personal API key for embedding
+  isActive     Boolean  @default(true)
+  audits       Audit[]
+  refreshTokens RefreshToken[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([email])
+}
+
+enum Plan {
+  FREE
+  STARTER
+  PRO
+  AGENCY
+  ENTERPRISE
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ── Audits ───────────────────────────────────────
+
+model Audit {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url         String
+  status      AuditStatus @default(PENDING)
+  progress    Int         @default(0)
+  
+  // Aggregate scores (JSON for flexibility)
+  scores      Json?       // { overall, seo, geo, performance, security, accessibility, codeQuality, uiux }
+  
+  // Raw crawl data
+  crawlData   Json?
+  
+  // AI-generated summary
+  aiSummary   String?     @db.Text
+  aiInsights  Json?       // structured AiInsight object
+  
+  // Relations
+  pages       AuditPage[]
+  issues      Issue[]
+  report      Report?
+  
+  // SEO module results
+  seoAnalysis    Json?
+  geoAnalysis    Json?
+  perfAnalysis   Json?
+  secAnalysis    Json?
+  a11yAnalysis   Json?
+  codeAnalysis   Json?
+  uiuxAnalysis   Json?
+
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum AuditStatus {
+  PENDING
+  CRAWLING
+  SEO_ANALYSIS
+  GEO_ANALYSIS
+  PERFORMANCE_ANALYSIS
+  SECURITY_ANALYSIS
+  ACCESSIBILITY_ANALYSIS
+  AI_ANALYSIS
+  REPORT_GENERATION
+  COMPLETED
+  FAILED
+}
+
+// ── Pages ────────────────────────────────────────
+
+model AuditPage {
+  id         String  @id @default(cuid())
+  auditId    String
+  audit      Audit   @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  url        String
+  title      String?
+  statusCode Int?
+  isCanonical Boolean @default(false)
+  canonicalUrl String?
+  
+  // Raw analysis data per page
+  data       Json    @default("{}")
+  
+  // Lighthouse result per page (if run per-page)
+  lighthouseData Json?
+  
+  // axe results per page
+  axeData    Json?
+
+  createdAt  DateTime @default(now())
+
+  @@index([auditId])
+  @@index([url])
+}
+
+// ── Issues ───────────────────────────────────────
+
+model Issue {
+  id          String   @id @default(cuid())
+  auditId     String
+  audit       Audit    @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  
+  module      Module
+  checkId     String   // e.g. "meta-description-missing"
+  title       String
+  description String   @db.Text
+  severity    Severity
+  
+  impact      String?  @db.Text
+  solution    String?  @db.Text
+  codeExample String?  @db.Text
+  standard    String?  // "WCAG 2.1 AA", "Google Core Web Vitals"
+  resources   String[] // URLs
+  improvement Float?   // estimated % improvement
+  
+  pageUrl     String?  // specific page where found
+  metadata    Json?    // module-specific data
+
+  createdAt   DateTime @default(now())
+
+  @@index([auditId])
+  @@index([module])
+  @@index([severity])
+  @@index([auditId, module])
+}
+
+enum Module {
+  SEO
+  GEO
+  PERFORMANCE
+  SECURITY
+  ACCESSIBILITY
+  CODE_QUALITY
+  UIUX
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFO
+}
+
+// ── Reports ──────────────────────────────────────
+
+model Report {
+  id        String  @id @default(cuid())
+  auditId   String  @unique
+  audit     Audit   @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  
+  pdfUrl    String?  // MinIO signed URL or path
+  htmlUrl   String?
+  jsonUrl   String?
+  csvUrl    String?
+  
+  // White-label config (agency branding)
+  brandName    String?
+  brandLogoUrl String?
+  brandColor   String?  // hex
+
+  createdAt DateTime @default(now())
+}

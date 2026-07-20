@@ -1,0 +1,25 @@
+# Multi-stage Dockerfile for NestJS API
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy AS base
+
+# Install Node.js LTS manually if not fully matching base
+WORKDIR /app
+RUN npm install -g pnpm@latest
+
+# Copy package configurations
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY apps/api/package.json ./apps/api/
+COPY packages/shared/package.json ./packages/shared/
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source codes
+COPY packages/shared ./packages/shared
+COPY apps/api ./apps/api
+
+# Generate Prisma Client & Build
+RUN pnpm --filter api db:generate
+RUN pnpm --filter api build
+
+EXPOSE 3001
+CMD ["pnpm", "--filter", "api", "start:prod"]
