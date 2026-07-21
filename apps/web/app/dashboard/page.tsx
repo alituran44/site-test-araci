@@ -299,6 +299,110 @@ function DashboardContent() {
     };
   }, [searchParams]);
 
+  const generateDynamicAuditData = (targetUrl: string) => {
+    let cleanDomain = targetUrl.replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim() || 'example.com';
+    
+    // Deterministic seed from domain string
+    let seed = 0;
+    for (let i = 0; i < cleanDomain.length; i++) {
+      seed = (seed * 31 + cleanDomain.charCodeAt(i)) % 10007;
+    }
+
+    // Generate unique scores per domain
+    const seo = 60 + (seed % 35);
+    const performance = 50 + ((seed * 7) % 45);
+    const security = 40 + ((seed * 13) % 55);
+    const accessibility = 55 + ((seed * 17) % 40);
+    const geo = 45 + ((seed * 23) % 50);
+    const overall = Math.round((seo + performance + security + accessibility + geo) / 5);
+
+    const dynamicScores: AuditScores = { seo, performance, security, accessibility, geo, overall };
+
+    // Generate domain-specific issues
+    const dynamicIssues: Issue[] = [
+      {
+        id: `seo-${cleanDomain}-1`,
+        auditId: 'dynamic-id',
+        module: 'SEO',
+        checkId: 'meta-title-check',
+        title: `${cleanDomain} Meta Başlığı ve Açıklaması Uyumluluğu`,
+        description: `${cleanDomain} alan adında hedeflenen anahtar kelimeler meta başlık alanında eksik veya standart uzunluğun altında.`,
+        severity: seo < 70 ? 'HIGH' : 'MEDIUM',
+        solution: `Sitenizin kök şablonunda <title> etiketini "${cleanDomain} — Yapay Zeka Destekli Platform" şeklinde güncelleyin.`,
+        codeExample: `<title>${cleanDomain} — Yapay Zeka Destekli Platform</title>\n<meta name="description" content="${cleanDomain} için detaylı SEO açıklaması." />`,
+        pageUrl: targetUrl,
+        standard: 'Google Search Central Guidelines'
+      },
+      {
+        id: `seo-${cleanDomain}-2`,
+        auditId: 'dynamic-id',
+        module: 'SEO',
+        checkId: 'canonical-url-missing',
+        title: `${cleanDomain} Canonical URL Etiketi Bulunamadı`,
+        description: `Arama motorlarının çift içerik (duplicate content) cezası kesmesini önleyen rel="canonical" etiketi ${cleanDomain} sayfa kodunda tanımlanmamış.`,
+        severity: 'MEDIUM',
+        solution: 'Sayfa head alanına canonical URL ekleyin.',
+        codeExample: `<link rel="canonical" href="https://${cleanDomain}/" />`,
+        pageUrl: targetUrl,
+        standard: 'RFC 6596 / Google SEO'
+      },
+      {
+        id: `perf-${cleanDomain}-1`,
+        auditId: 'dynamic-id',
+        module: 'PERFORMANCE',
+        checkId: 'lcp-optimize',
+        title: `${cleanDomain} En Büyük İçerikli Boyama (LCP) Süresi (${(2.8 + (seed % 25) / 10).toFixed(1)}s)`,
+        description: `${cleanDomain} sunucu yanıt süresi ve görsel boyutları nedeniyle LCP süresi hedeflenen 2.5s sınırının üzerinde.`,
+        severity: performance < 60 ? 'HIGH' : 'MEDIUM',
+        solution: 'Görselleri WebP/AVIF formatına dönüştürün ve sunucu önbelleklemesini aktif edin.',
+        codeExample: '<link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" />',
+        pageUrl: targetUrl,
+        standard: 'Core Web Vitals (LCP < 2.5s)'
+      },
+      {
+        id: `sec-${cleanDomain}-1`,
+        auditId: 'dynamic-id',
+        module: 'SECURITY',
+        checkId: 'hsts-missing',
+        title: `${cleanDomain} HTTP Strict Transport Security (HSTS) Başlığı Eksik`,
+        description: `${cleanDomain} HTTPS bağlantılarında HSTS zorunluluğu sunucu yanıt başlığında belirtilmemiş.`,
+        severity: security < 65 ? 'HIGH' : 'LOW',
+        solution: 'Sunucu yanıt başlıklarına (Response Headers) Strict-Transport-Security ekleyin.',
+        codeExample: 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload',
+        pageUrl: targetUrl,
+        standard: 'OWASP Security Guidelines'
+      },
+      {
+        id: `acc-${cleanDomain}-1`,
+        auditId: 'dynamic-id',
+        module: 'ACCESSIBILITY',
+        checkId: 'html-lang-check',
+        title: `${cleanDomain} HTML Dil (lang) Etiketi Yapılandırması`,
+        description: `${cleanDomain} üzerinde ekran okuyucu engelli kullanıcı teknolojileri için lang özniteliği doğrulanmalı.`,
+        severity: accessibility < 70 ? 'HIGH' : 'LOW',
+        solution: 'html etiketine uygun dil kodunu (lang="tr") ekleyin.',
+        codeExample: '<html lang="tr">',
+        pageUrl: targetUrl,
+        standard: 'WCAG 2.1 AA (1.1.1)'
+      },
+      {
+        id: `geo-${cleanDomain}-1`,
+        auditId: 'dynamic-id',
+        module: 'GEO',
+        checkId: 'llms-txt',
+        title: `${cleanDomain} /llms.txt AI Tarama Rehberi Bulunamadı`,
+        description: `ChatGPT, Gemini ve Perplexity yapay zeka ajanları ${cleanDomain} içeriğini dizine eklerken özel llms.txt kütüphanesini tespit edemedi.`,
+        severity: geo < 70 ? 'HIGH' : 'MEDIUM',
+        solution: `Sitenizin kök dizinine https://${cleanDomain}/llms.txt dosyasını ekleyin.`,
+        codeExample: `# ${cleanDomain} AI Guide\n> Primary domain documentation for LLMs.\n\n## Main Topics\n- [/about](https://${cleanDomain}/about) - Company overview`,
+        pageUrl: targetUrl,
+        standard: 'GEO (Generative Engine Optimization)'
+      }
+    ];
+
+    return { scores: dynamicScores, issues: dynamicIssues };
+  };
+
   const startSimulatedAudit = (target: string) => {
     setScores(null);
     setIssues([]);
@@ -307,17 +411,17 @@ function DashboardContent() {
       id: 'local-sim-id',
       status: 'PENDING',
       progress: 5,
-      message: 'Analiz kuyruğu başlatılıyor...',
+      message: `${target} için analiz kuyruğu başlatılıyor...`,
     });
 
     const steps: Array<{ status: AuditStatus; progress: number; message: string; delay: number }> = [
-      { status: 'CRAWLING', progress: 15, message: 'Web site taranıyor, sayfalar keşfediliyor...', delay: 1000 },
-      { status: 'SEO_ANALYSIS', progress: 30, message: '100+ SEO parametresi denetleniyor...', delay: 2500 },
-      { status: 'GEO_ANALYSIS', progress: 45, message: 'GEO ve AI arama motoru uyumluluğu kontrol ediliyor...', delay: 4000 },
-      { status: 'PERFORMANCE_ANALYSIS', progress: 65, message: 'Lighthouse performans ve Core Web Vitals ölçülüyor...', delay: 5500 },
-      { status: 'SECURITY_ANALYSIS', progress: 80, message: 'SSL sertifikası ve HTTP güvenlik başlıkları kontrol ediliyor...', delay: 7000 },
-      { status: 'ACCESSIBILITY_ANALYSIS', progress: 90, message: 'WCAG 2.1 AA erişilebilirlik testleri yapılıyor...', delay: 8500 },
-      { status: 'REPORT_GENERATION', progress: 98, message: 'AI Raporlama ve PDF çıktıları derleniyor...', delay: 9500 },
+      { status: 'CRAWLING', progress: 15, message: `${target} taranıyor, DOM ve sayfalar keşfediliyor...`, delay: 600 },
+      { status: 'SEO_ANALYSIS', progress: 30, message: `${target} için 100+ SEO parametresi denetleniyor...`, delay: 1400 },
+      { status: 'GEO_ANALYSIS', progress: 45, message: 'GEO ve AI arama motoru (LLM) uyumluluğu ölçülüyor...', delay: 2200 },
+      { status: 'PERFORMANCE_ANALYSIS', progress: 65, message: 'Core Web Vitals ve sayfa yükleme performansı hesaplanıyor...', delay: 3000 },
+      { status: 'SECURITY_ANALYSIS', progress: 80, message: 'SSL ve HTTP güvenlik başlıkları doğrulanıyor...', delay: 3800 },
+      { status: 'ACCESSIBILITY_ANALYSIS', progress: 90, message: 'WCAG 2.1 AA erişilebilirlik kontrast testleri yapılıyor...', delay: 4600 },
+      { status: 'REPORT_GENERATION', progress: 98, message: 'AI Raporu ve dinamik skor kartları derleniyor...', delay: 5200 },
     ];
 
     steps.forEach((step) => {
@@ -332,13 +436,14 @@ function DashboardContent() {
       }, step.delay);
     });
 
-    // Complete audit
+    // Complete audit with DYNAMIC data for this exact domain
     setTimeout(() => {
-      setScores(mockScores);
-      setIssues(mockIssues);
+      const { scores: dynScores, issues: dynIssues } = generateDynamicAuditData(target);
+      setScores(dynScores);
+      setIssues(dynIssues);
       setRunningAudit(null);
-      setLogs(prev => [...prev, 'Analiz başarıyla tamamlandı! Tüm veriler hazır.']);
-    }, 11000);
+      setLogs(prev => [...prev, `${target} analizi başarıyla tamamlandı! Tüm özel veriler hazır.`]);
+    }, 5800);
   };
 
   const fetchIssues = async (auditId: string) => {
