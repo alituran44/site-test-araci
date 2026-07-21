@@ -319,17 +319,18 @@ function DashboardContent() {
 
     const dynamicScores: AuditScores = { seo, performance, security, accessibility, geo, overall };
 
-    // Generate domain-specific issues
-    const dynamicIssues: Issue[] = [
+    // Pool of all possible issues
+    const allPossibleIssues: Issue[] = [
+      // === SEO MODULE ===
       {
         id: `seo-${cleanDomain}-1`,
         auditId: 'dynamic-id',
         module: 'SEO',
         checkId: 'meta-title-check',
-        title: `${cleanDomain} Meta Başlığı ve Açıklaması Uyumluluğu`,
-        description: `${cleanDomain} alan adında hedeflenen anahtar kelimeler meta başlık alanında eksik veya standart uzunluğun altında.`,
-        severity: seo < 70 ? 'HIGH' : 'MEDIUM',
-        solution: `Sitenizin kök şablonunda <title> etiketini "${cleanDomain} — Yapay Zeka Destekli Platform" şeklinde güncelleyin.`,
+        title: `${cleanDomain} Meta Başlığı ve Açıklaması Eksik`,
+        description: `${cleanDomain} ana sayfasında arama motoru optimizasyonu için hedeflenen meta başlığı ve açıklaması tespit edilemedi veya standart uzunlukta değil.`,
+        severity: seo < 65 ? 'HIGH' : 'MEDIUM',
+        solution: 'Sitenizin kök şablonunda head kısmına uygun meta etiketleri yerleştirin.',
         codeExample: `<title>${cleanDomain} — Yapay Zeka Destekli Platform</title>\n<meta name="description" content="${cleanDomain} için detaylı SEO açıklaması." />`,
         pageUrl: targetUrl,
         standard: 'Google Search Central Guidelines'
@@ -339,8 +340,8 @@ function DashboardContent() {
         auditId: 'dynamic-id',
         module: 'SEO',
         checkId: 'canonical-url-missing',
-        title: `${cleanDomain} Canonical URL Etiketi Bulunamadı`,
-        description: `Arama motorlarının çift içerik (duplicate content) cezası kesmesini önleyen rel="canonical" etiketi ${cleanDomain} sayfa kodunda tanımlanmamış.`,
+        title: `${cleanDomain} Canonical URL Yapısı Eksik`,
+        description: `Çift içerik (duplicate content) cezası kesilmesini önleyen rel="canonical" etiketi ${cleanDomain} sayfa kodunda tanımlanmamış.`,
         severity: 'MEDIUM',
         solution: 'Sayfa head alanına canonical URL ekleyin.',
         codeExample: `<link rel="canonical" href="https://${cleanDomain}/" />`,
@@ -348,58 +349,267 @@ function DashboardContent() {
         standard: 'RFC 6596 / Google SEO'
       },
       {
+        id: `seo-${cleanDomain}-3`,
+        auditId: 'dynamic-id',
+        module: 'SEO',
+        checkId: 'sitemap-missing',
+        title: `${cleanDomain} Site Haritası (sitemap.xml) Bulunamadı`,
+        description: `Arama motoru botlarının sayfalarınızı daha hızlı taramasına yardımcı olan sitemap.xml dosyası kök dizinde tespit edilemedi.`,
+        severity: 'HIGH',
+        solution: 'Site haritası oluşturup sitenizin kök dizinine yerleştirin ve Google Search Console üzerinden gönderin.',
+        codeExample: `https://${cleanDomain}/sitemap.xml`,
+        pageUrl: targetUrl,
+        standard: 'Sitemaps.org Protocol'
+      },
+      {
+        id: `seo-${cleanDomain}-4`,
+        auditId: 'dynamic-id',
+        module: 'SEO',
+        checkId: 'alt-tags-missing',
+        title: `${cleanDomain} Görsellerinde Alt Etiket (alt) Eksik`,
+        description: `Sitenizde kullanılan resim dosyalarında açıklayıcı 'alt' özniteliği bulunmamaktadır. Bu durum SEO indekslenmesini olumsuz etkiler.`,
+        severity: 'LOW',
+        solution: 'Tüm img etiketlerine anlamlı ve kısa açıklamalı alt etiketleri ekleyin.',
+        codeExample: `<img src="/logo.png" alt="${cleanDomain} Logo" />`,
+        pageUrl: targetUrl,
+        standard: 'Google Image SEO'
+      },
+
+      // === PERFORMANCE MODULE ===
+      {
         id: `perf-${cleanDomain}-1`,
         auditId: 'dynamic-id',
         module: 'PERFORMANCE',
         checkId: 'lcp-optimize',
-        title: `${cleanDomain} En Büyük İçerikli Boyama (LCP) Süresi (${(2.8 + (seed % 25) / 10).toFixed(1)}s)`,
-        description: `${cleanDomain} sunucu yanıt süresi ve görsel boyutları nedeniyle LCP süresi hedeflenen 2.5s sınırının üzerinde.`,
+        title: `${cleanDomain} En Büyük İçerikli Boyama (LCP) Süresi Yüksek (${(2.8 + (seed % 25) / 10).toFixed(1)}s)`,
+        description: `Sunucu yanıt süresi veya büyük görsel boyutları nedeniyle en büyük içerik elemanının ekranda belirmesi 2.5s limitinin üzerinde.`,
         severity: performance < 60 ? 'HIGH' : 'MEDIUM',
-        solution: 'Görselleri WebP/AVIF formatına dönüştürün ve sunucu önbelleklemesini aktif edin.',
+        solution: 'LCP elemanı olan görselleri önceden yükleyin ve WebP formatında optimize edin.',
         codeExample: '<link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" />',
         pageUrl: targetUrl,
         standard: 'Core Web Vitals (LCP < 2.5s)'
       },
       {
+        id: `perf-${cleanDomain}-2`,
+        auditId: 'dynamic-id',
+        module: 'PERFORMANCE',
+        checkId: 'render-blocking-resources',
+        title: `${cleanDomain} Render Engelleyici JavaScript ve CSS Kaynakları`,
+        description: `Sayfa başında yüklenen harici script dosyaları tarayıcının sayfayı çizmesini (rendering) geciktiriyor.`,
+        severity: 'HIGH',
+        solution: 'CSS ve Javascript dosyalarınızı asenkron (async/defer) olarak yükleyin veya kritik olmayanları erteleyin.',
+        codeExample: '<script src="/app.js" defer></script>',
+        pageUrl: targetUrl,
+        standard: 'Lighthouse Performance Metrics'
+      },
+      {
+        id: `perf-${cleanDomain}-3`,
+        auditId: 'dynamic-id',
+        module: 'PERFORMANCE',
+        checkId: 'unused-javascript',
+        title: `${cleanDomain} Kullanılmayan JavaScript ve CSS Kodları`,
+        description: `Sitenizde yüklenen kütüphanelerin kullanılmayan kısımları bant genişliğini tüketmekte ve yüklenme süresini artırmaktadır.`,
+        severity: 'MEDIUM',
+        solution: 'Kullanılmayan kodları tespit edip kod parçalama (code splitting) teknikleriyle ana paketten çıkarın.',
+        codeExample: '// Dinamik import kullanımı\nconst Chart = dynamic(() => import("./Chart"), { ssr: false });',
+        pageUrl: targetUrl,
+        standard: 'Google PageSpeed Insights'
+      },
+
+      // === SECURITY MODULE ===
+      {
         id: `sec-${cleanDomain}-1`,
         auditId: 'dynamic-id',
         module: 'SECURITY',
         checkId: 'hsts-missing',
-        title: `${cleanDomain} HTTP Strict Transport Security (HSTS) Başlığı Eksik`,
+        title: `${cleanDomain} HTTP Strict Transport Security (HSTS) Eksik`,
         description: `${cleanDomain} HTTPS bağlantılarında HSTS zorunluluğu sunucu yanıt başlığında belirtilmemiş.`,
         severity: security < 65 ? 'HIGH' : 'LOW',
-        solution: 'Sunucu yanıt başlıklarına (Response Headers) Strict-Transport-Security ekleyin.',
+        solution: 'Sunucu yanıt başlıklarına Strict-Transport-Security ekleyin.',
         codeExample: 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload',
         pageUrl: targetUrl,
         standard: 'OWASP Security Guidelines'
       },
       {
+        id: `sec-${cleanDomain}-2`,
+        auditId: 'dynamic-id',
+        module: 'SECURITY',
+        checkId: 'csp-missing',
+        title: `${cleanDomain} Content Security Policy (CSP) Başlığı Tanımlanmamış`,
+        description: `Cross-Site Scripting (XSS) ve veri enjeksiyonu saldırılarını engelleyen CSP başlığı sunucu tarafında yapılandırılmamış.`,
+        severity: 'HIGH',
+        solution: 'Sayfadaki kaynakların yüklenebileceği güvenli alanları kısıtlayan bir Content-Security-Policy başlığı oluşturun.',
+        codeExample: "Content-Security-Policy: default-src 'self'; script-src 'self' https://apis.google.com;",
+        pageUrl: targetUrl,
+        standard: 'W3C Security Standards'
+      },
+      {
+        id: `sec-${cleanDomain}-3`,
+        auditId: 'dynamic-id',
+        module: 'SECURITY',
+        checkId: 'x-content-type-options',
+        title: `${cleanDomain} X-Content-Type-Options Başlığı Eksik`,
+        description: `MIME-type koklama (sniffing) açıklarını kapatan koruma başlığı eksik.`,
+        severity: 'LOW',
+        solution: 'Sunucuda nosniff değerini içeren başlığı tanımlayın.',
+        codeExample: 'X-Content-Type-Options: nosniff',
+        pageUrl: targetUrl,
+        standard: 'MIME Sniffing Vulnerabilities Mitigation'
+      },
+
+      // === ACCESSIBILITY MODULE ===
+      {
         id: `acc-${cleanDomain}-1`,
         auditId: 'dynamic-id',
         module: 'ACCESSIBILITY',
         checkId: 'html-lang-check',
-        title: `${cleanDomain} HTML Dil (lang) Etiketi Yapılandırması`,
-        description: `${cleanDomain} üzerinde ekran okuyucu engelli kullanıcı teknolojileri için lang özniteliği doğrulanmalı.`,
-        severity: accessibility < 70 ? 'HIGH' : 'LOW',
-        solution: 'html etiketine uygun dil kodunu (lang="tr") ekleyin.',
+        title: `${cleanDomain} HTML Dil (lang) Etiketi Eksik veya Yanlış`,
+        description: `Ekran okuyucu cihaz kullanan engelli bireyler için html etiketinde lang özniteliği belirtilmemiş.`,
+        severity: 'HIGH',
+        solution: 'html etiketine uygun dil kodunu (Örn: lang="tr") ekleyin.',
         codeExample: '<html lang="tr">',
         pageUrl: targetUrl,
         standard: 'WCAG 2.1 AA (1.1.1)'
       },
+      {
+        id: `acc-${cleanDomain}-2`,
+        auditId: 'dynamic-id',
+        module: 'ACCESSIBILITY',
+        checkId: 'contrast-ratio',
+        title: `${cleanDomain} Metin Kontrast Oranı WCAG Standartlarının Altında`,
+        description: `Metin yazıları ile arka plan renkleri arasındaki kontrast oranı en az 4.5:1 olması gerekirken sitenizde bazı buton ve linklerde bu oran düşüktür.`,
+        severity: accessibility < 70 ? 'HIGH' : 'MEDIUM',
+        solution: 'Arka plan ile metin renkleri arasındaki farkı belirginleştirerek kontrastı artırın.',
+        codeExample: '/* CSS kontrast iyileştirmesi */\n.btn-text { color: #ffffff; background-color: #0f172a; }',
+        pageUrl: targetUrl,
+        standard: 'WCAG 2.1 AA (1.4.3)'
+      },
+      {
+        id: `acc-${cleanDomain}-3`,
+        auditId: 'dynamic-id',
+        module: 'ACCESSIBILITY',
+        checkId: 'aria-labels-missing',
+        title: `${cleanDomain} İnteraktif Butonlarda ARIA Etiketleri (aria-label) Eksik`,
+        description: `Sitenizde kullanılan sadece ikon içeren butonlarda (arama, sepet vb.) ekran okuyucular için açıklayıcı aria-label bulunmuyor.`,
+        severity: 'MEDIUM',
+        solution: 'İkon butonlarına aria-label ekleyerek işlevini seslendirin.',
+        codeExample: '<button aria-label="Arama Yap"><i className="icon-search"></i></button>',
+        pageUrl: targetUrl,
+        standard: 'WCAG 2.1 AA (4.1.2)'
+      },
+
+      // === GEO MODULE ===
       {
         id: `geo-${cleanDomain}-1`,
         auditId: 'dynamic-id',
         module: 'GEO',
         checkId: 'llms-txt',
         title: `${cleanDomain} /llms.txt AI Tarama Rehberi Bulunamadı`,
-        description: `ChatGPT, Gemini ve Perplexity yapay zeka ajanları ${cleanDomain} içeriğini dizine eklerken özel llms.txt kütüphanesini tespit edemedi.`,
+        description: `ChatGPT, Gemini ve Perplexity yapay zeka arama motorları sitenizi dizine eklerken /llms.txt dosyasını bulamıyor.`,
         severity: geo < 70 ? 'HIGH' : 'MEDIUM',
-        solution: `Sitenizin kök dizinine https://${cleanDomain}/llms.txt dosyasını ekleyin.`,
-        codeExample: `# ${cleanDomain} AI Guide\n> Primary domain documentation for LLMs.\n\n## Main Topics\n- [/about](https://${cleanDomain}/about) - Company overview`,
+        solution: `Sitenizin kök dizinine https://${cleanDomain}/llms.txt dosyası oluşturup yerleştirin.`,
+        codeExample: `# ${cleanDomain} AI Documentation\n\n## Main Topics\n- [/about](https://${cleanDomain}/about) - Company overview`,
         pageUrl: targetUrl,
         standard: 'GEO (Generative Engine Optimization)'
+      },
+      {
+        id: `geo-${cleanDomain}-2`,
+        auditId: 'dynamic-id',
+        module: 'GEO',
+        checkId: 'schema-faq',
+        title: `${cleanDomain} SSS (FAQPage) Yapısal Verisi Bulunamadı`,
+        description: `Sayfanızda soru-cevap blokları yer almasına rağmen arama motorlarının zengin arama sonuçları üretmesini sağlayan FAQPage şeması kodda yer almıyor.`,
+        severity: 'MEDIUM',
+        solution: 'SSS içeriğinizi JSON-LD yapısıyla sayfa koduna yerleştirin.',
+        codeExample: '<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "FAQPage",\n  "mainEntity": [...]\n}\n</script>',
+        pageUrl: targetUrl,
+        standard: 'Google Rich Results Guidelines'
+      },
+      {
+        id: `geo-${cleanDomain}-3`,
+        auditId: 'dynamic-id',
+        module: 'GEO',
+        checkId: 'ai-robots-block',
+        title: `${cleanDomain} AI Ajan Engellemeleri (robots.txt)`,
+        description: `robots.txt dosyanızda ClaudeBot veya GPTBot gibi yapay zeka botlarının erişimi engellenmiş. Bu durum yapay zeka aramalarında çıkmanızı engeller.`,
+        severity: 'MEDIUM',
+        solution: 'robots.txt dosyanızdan yapay zeka botlarına yönelik toptan engelleme satırlarını kaldırın.',
+        codeExample: 'User-agent: GPTBot\nAllow: /',
+        pageUrl: targetUrl,
+        standard: 'AI Crawler Policy Best Practices'
       }
     ];
+
+    // Filter and select issues dynamically based on module scores!
+    const dynamicIssues: Issue[] = [];
+
+    // 1. SEO Issues selection
+    const seoIssues = allPossibleIssues.filter(i => i.module === 'SEO');
+    if (seo < 90) {
+      dynamicIssues.push(seoIssues[0]);
+    }
+    if (seo < 75 && seoIssues[1]) {
+      dynamicIssues.push(seoIssues[1]);
+    }
+    if (seo < 70 && seoIssues[2]) {
+      dynamicIssues.push(seoIssues[2]);
+    }
+    if (seo < 60 && seoIssues[3]) {
+      dynamicIssues.push(seoIssues[3]);
+    }
+
+    // 2. PERFORMANCE Issues selection
+    const perfIssues = allPossibleIssues.filter(i => i.module === 'PERFORMANCE');
+    if (performance < 90) {
+      dynamicIssues.push(perfIssues[0]);
+    }
+    if (performance < 75 && perfIssues[1]) {
+      dynamicIssues.push(perfIssues[1]);
+    }
+    if (performance < 65 && perfIssues[2]) {
+      dynamicIssues.push(perfIssues[2]);
+    }
+
+    // 3. SECURITY Issues selection
+    const secIssues = allPossibleIssues.filter(i => i.module === 'SECURITY');
+    if (security < 90) {
+      dynamicIssues.push(secIssues[0]);
+    }
+    if (security < 75 && secIssues[1]) {
+      dynamicIssues.push(secIssues[1]);
+    }
+    if (security < 60 && secIssues[2]) {
+      dynamicIssues.push(secIssues[2]);
+    }
+
+    // 4. ACCESSIBILITY Issues selection
+    const accIssues = allPossibleIssues.filter(i => i.module === 'ACCESSIBILITY');
+    if (accessibility < 90) {
+      dynamicIssues.push(accIssues[0]);
+    }
+    if (accessibility < 75 && accIssues[1]) {
+      dynamicIssues.push(accIssues[1]);
+    }
+    if (accessibility < 65 && accIssues[2]) {
+      dynamicIssues.push(accIssues[2]);
+    }
+
+    // 5. GEO Issues selection
+    const geoIssues = allPossibleIssues.filter(i => i.module === 'GEO');
+    if (geo < 90) {
+      dynamicIssues.push(geoIssues[0]);
+    }
+    if (geo < 75 && geoIssues[1]) {
+      dynamicIssues.push(geoIssues[1]);
+    }
+    if (geo < 65 && geoIssues[2]) {
+      dynamicIssues.push(geoIssues[2]);
+    }
+
+    // Fallback: Make sure we have at least 1 issue
+    if (dynamicIssues.length === 0) {
+      dynamicIssues.push(allPossibleIssues[0]);
+    }
 
     return { scores: dynamicScores, issues: dynamicIssues };
   };
