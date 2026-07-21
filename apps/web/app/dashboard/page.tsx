@@ -1414,122 +1414,279 @@ function DashboardContent() {
             )}
 
             {/* 9. RAKİP KARŞILAŞTIRMA (COMPETITOR) MENU */}
-            {activeSidebarMenu === 'competitor' && (
-              <div className="flex flex-col gap-6">
-                
-                {/* Empty check */}
-                {!competitorUrl && (
-                  <div className="bg-slate-900 border border-slate-800/80 p-12 rounded-3xl text-center flex flex-col items-center gap-3">
-                    <GitCompare className="w-12 h-12 text-slate-600 mb-2" />
-                    <h3 className="font-heading font-bold text-white text-base">Rakip Karşılaştırma Analizi Çalıştırılmadı</h3>
-                    <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-                      Sitenizi bir rakibinizle yan yana test etmek için sayfa başındaki **"Rakip URL"** kutusuna rakip web sitesinin adresini girerek "Denetle" butonuna basın. Eş zamanlı Lighthouse ve SEO analizi çalışacaktır.
-                    </p>
-                  </div>
-                )}
+            {activeSidebarMenu === 'competitor' && (() => {
+              const compData = competitorUrl ? generateDynamicAuditData(competitorUrl) : null;
+              const myScores = scores || generateDynamicAuditData(url || 'example.com').scores;
+              
+              const formatDiff = (myVal: number, compVal: number) => {
+                const diff = myVal - compVal;
+                if (diff > 0) return <span className="text-emerald-500 font-medium ml-1.5">(+{diff} Sizin Site Önde)</span>;
+                if (diff < 0) return <span className="text-red-500 font-medium ml-1.5">({diff} Rakip Site Önde)</span>;
+                return <span className="text-slate-500 font-medium ml-1.5">(Eşit)</span>;
+              };
 
-                {competitorUrl && (
-                  <div className="bg-slate-900 border border-slate-800/80 p-6 rounded-2xl flex flex-col gap-4">
-                    <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">Yan Yana Performans &amp; SEO Kıyaslama Raporu</h3>
-                    
-                    <div className="overflow-x-auto w-full">
-                      <table className="w-full border-collapse text-left text-xs">
-                        <thead>
-                          <tr className="border-b border-slate-800 bg-slate-950/40 text-slate-300 font-bold">
-                            <th className="padding p-4">Analiz Kriteri</th>
-                            <th className="padding p-4">Siteniz ({url})</th>
-                            <th className="padding p-4">Rakip Site ({competitorUrl})</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-800/60 text-slate-400">
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">Genel Sağlık Skoru</td>
-                            <td className="p-4 text-emerald-500 font-bold">82/100</td>
-                            <td className="p-4 text-amber-500 font-bold">68/100 (+14 Fark)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">SEO Skoru</td>
-                            <td className="p-4 text-emerald-500 font-bold">88/100</td>
-                            <td className="p-4 text-emerald-500 font-bold">92/100 (-4 Fark)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">Performans Skoru</td>
-                            <td className="p-4 text-amber-500 font-bold">64/100</td>
-                            <td className="p-4 text-red-500 font-bold">45/100 (+19 Fark)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">Siber Güvenlik Skoru</td>
-                            <td className="p-4 text-red-500 font-bold">45/100</td>
-                            <td className="p-4 text-emerald-500 font-bold">90/100 (-45 Fark)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">GEO / AI Uyum Skoru</td>
-                            <td className="p-4 text-emerald-500 font-bold">72/100</td>
-                            <td className="p-4 text-red-500 font-bold">30/100 (+42 Fark)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">Sunucu Yanıt Süresi (TTFB)</td>
-                            <td className="p-4 text-emerald-500 font-bold">120 ms</td>
-                            <td className="p-4 text-amber-500 font-bold">340 ms (Daha Yavaş)</td>
-                          </tr>
-                          <tr className="hover:bg-slate-900/10">
-                            <td className="p-4 font-bold text-white">Metin Kelime Sayısı</td>
-                            <td className="p-4">428 Kelime</td>
-                            <td className="p-4">1,402 Kelime (Daha Zengin)</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
+              // Deterministic seed calculations for TTFB and Word Count
+              let mySeed = 0;
+              const myDomain = (url || 'example.com').replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim();
+              for (let i = 0; i < myDomain.length; i++) mySeed = (mySeed * 31 + myDomain.charCodeAt(i)) % 10007;
 
-              </div>
-            )}
+              let compSeed = 0;
+              const compDomain = (competitorUrl || '').replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim();
+              for (let i = 0; i < compDomain.length; i++) compSeed = (compSeed * 31 + compDomain.charCodeAt(i)) % 10007;
 
-            {/* 10. 10x AI PERSONA TESTİ (PERSONA) MENU */}
-            {activeSidebarMenu === 'persona' && (
-              <div className="flex flex-col gap-6">
-                
-                {/* Information head box */}
-                <div className="bg-slate-900 border border-slate-800/80 p-6 rounded-2xl flex flex-col gap-2">
-                  <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">10x AI Persona Kullanıcı Deneyimi Sonuçları</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Sanal kullanıcı ajanlarımız sitenizi donanım, internet hızı ve kişisel beklenti farklılıklarını göz önünde bulundurarak test etmiştir. Sanal test deneklerinin memnuniyet seviyeleri ve geri bildirim yorumları aşağıda listelenmiştir. Sitenizi bu geri bildirimlere göre optimize ederek dönüşüm oranlarınızı katlayabilirsiniz.
-                  </p>
-                </div>
+              const myTtfb = 80 + (mySeed % 150);
+              const compTtfb = 80 + (compSeed % 150);
 
-                {/* Persona Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {mockPersonas.map((p) => (
-                    <div key={p.id} className="bg-slate-900 border border-slate-800/80 p-5 rounded-2xl flex flex-col gap-3 shadow-sm hover:border-slate-700/85 transition-all">
-                      <div className="flex justify-between items-start">
-                        <div className="flex flex-col">
-                          <span className="text-xs font-bold text-white">{p.name} ({p.age} Yaş)</span>
-                          <span className="text-[10px] text-slate-500 mt-0.5">{p.role}</span>
-                        </div>
-                        
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          p.status === 'success' ? 'bg-emerald-500/10 text-emerald-500' :
-                          p.status === 'warning' ? 'bg-amber-500/10 text-amber-500' : 'bg-red-500/10 text-red-500'
-                        }`}>
-                          Memnuniyet: %{p.satisfaction}
-                        </span>
-                      </div>
+              const myWords = 400 + (mySeed % 2500);
+              const compWords = 400 + (compSeed % 2500);
 
-                      <div className="flex flex-col gap-1 text-[10px] text-slate-400 bg-slate-950/40 p-2.5 rounded-lg border border-slate-900">
-                        <div className="flex justify-between"><span>Donanım:</span><span className="text-white font-mono">{p.device}</span></div>
-                        <div className="flex justify-between mt-0.5"><span>İnternet:</span><span className="text-white font-mono">{p.connection}</span></div>
-                      </div>
-
-                      <p className="text-xs text-slate-300 leading-relaxed italic">
-                        &ldquo;{p.comment}&rdquo;
+              return (
+                <div className="flex flex-col gap-6">
+                  
+                  {/* Empty check */}
+                  {!competitorUrl && (
+                    <div className="bg-slate-900 border border-slate-800/80 p-12 rounded-3xl text-center flex flex-col items-center gap-3">
+                      <GitCompare className="w-12 h-12 text-slate-600 mb-2" />
+                      <h3 className="font-heading font-bold text-white text-base">Rakip Karşılaştırma Analizi Çalıştırılmadı</h3>
+                      <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+                        Sitenizi bir rakibinizle yan yana test etmek için sayfa başındaki **"Rakip URL"** kutusuna rakip web sitesinin adresini girerek "Denetle" butonuna basın. Eş zamanlı Lighthouse ve SEO analizi çalışacaktır.
                       </p>
                     </div>
-                  ))}
-                </div>
+                  )}
 
-              </div>
-            )}
+                  {competitorUrl && compData && (
+                    <div className="bg-slate-900 border border-slate-800/80 p-6 rounded-2xl flex flex-col gap-4">
+                      <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">Yan Yana Performans &amp; SEO Kıyaslama Raporu</h3>
+                      
+                      <div className="overflow-x-auto w-full">
+                        <table className="w-full border-collapse text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-slate-800 bg-slate-950/40 text-slate-300 font-bold">
+                              <th className="padding p-4">Analiz Kriteri</th>
+                              <th className="padding p-4">Siteniz ({myDomain})</th>
+                              <th className="padding p-4">Rakip Site ({compDomain})</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-800/60 text-slate-400">
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">Genel Sağlık Skoru</td>
+                              <td className={`p-4 font-bold ${myScores.overall >= 70 ? 'text-emerald-500' : 'text-amber-500'}`}>{myScores.overall}/100</td>
+                              <td className="p-4 text-slate-300 font-bold">
+                                {compData.scores.overall}/100 
+                                {formatDiff(myScores.overall, compData.scores.overall)}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">SEO Skoru</td>
+                              <td className={`p-4 font-bold ${myScores.seo >= 70 ? 'text-emerald-500' : 'text-amber-500'}`}>{myScores.seo}/100</td>
+                              <td className="p-4 text-slate-300 font-bold">
+                                {compData.scores.seo}/100 
+                                {formatDiff(myScores.seo, compData.scores.seo)}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">Performans Skoru</td>
+                              <td className={`p-4 font-bold ${myScores.performance >= 70 ? 'text-emerald-500' : 'text-amber-500'}`}>{myScores.performance}/100</td>
+                              <td className="p-4 text-slate-300 font-bold">
+                                {compData.scores.performance}/100 
+                                {formatDiff(myScores.performance, compData.scores.performance)}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">Siber Güvenlik Skoru</td>
+                              <td className={`p-4 font-bold ${myScores.security >= 70 ? 'text-emerald-500' : 'text-amber-500'}`}>{myScores.security}/100</td>
+                              <td className="p-4 text-slate-300 font-bold">
+                                {compData.scores.security}/100 
+                                {formatDiff(myScores.security, compData.scores.security)}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">GEO / AI Uyum Skoru</td>
+                              <td className={`p-4 font-bold ${myScores.geo >= 70 ? 'text-emerald-500' : 'text-amber-500'}`}>{myScores.geo}/100</td>
+                              <td className="p-4 text-slate-300 font-bold">
+                                {compData.scores.geo}/100 
+                                {formatDiff(myScores.geo, compData.scores.geo)}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">Sunucu Yanıt Süresi (TTFB)</td>
+                              <td className="p-4 text-emerald-400 font-semibold">{myTtfb} ms</td>
+                              <td className="p-4 text-slate-300 font-semibold">
+                                {compTtfb} ms
+                                {compTtfb > myTtfb ? (
+                                  <span className="text-emerald-500 font-medium ml-1.5">({compTtfb - myTtfb} ms Sizin Siteniz Hızlı)</span>
+                                ) : compTtfb < myTtfb ? (
+                                  <span className="text-red-500 font-medium ml-1.5">({myTtfb - compTtfb} ms Rakip Site Hızlı)</span>
+                                ) : (
+                                  <span className="text-slate-500 font-medium ml-1.5">(Eşit)</span>
+                                )}
+                              </td>
+                            </tr>
+                            <tr className="hover:bg-slate-900/10">
+                              <td className="p-4 font-bold text-white">Metin Kelime Sayısı</td>
+                              <td className="p-4 text-slate-300 font-semibold">{myWords.toLocaleString()} Kelime</td>
+                              <td className="p-4 text-slate-300 font-semibold">
+                                {compWords.toLocaleString()} Kelime
+                                {myWords > compWords ? (
+                                  <span className="text-emerald-500 font-medium ml-1.5">({(myWords - compWords).toLocaleString()} Kelime Fazla)</span>
+                                ) : myWords < compWords ? (
+                                  <span className="text-amber-500 font-medium ml-1.5">({(compWords - myWords).toLocaleString()} Kelime Az)</span>
+                                ) : (
+                                  <span className="text-slate-500 font-medium ml-1.5">(Eşit)</span>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              );
+            })()}
+
+            {/* 10. 10x AI PERSONA TESTİ (PERSONA) MENU */}
+            {activeSidebarMenu === 'persona' && (() => {
+              const myScores = scores || generateDynamicAuditData(url || 'example.com').scores;
+              
+              // Deterministic seed calculations
+              let mySeed = 0;
+              const myDomain = (url || 'example.com').replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim();
+              for (let i = 0; i < myDomain.length; i++) mySeed = (mySeed * 31 + myDomain.charCodeAt(i)) % 10007;
+
+              const dynamicPersonas = [
+                {
+                  id: 'p1',
+                  name: 'Ayşe Teyze',
+                  age: 65,
+                  role: 'Emekli / Yaşlı Kullanıcı',
+                  device: 'Eski iPad (Tablet)',
+                  connection: 'Yavaş Mobil İnternet (3G)',
+                  satisfaction: Math.min(100, Math.max(20, Math.round(myScores.accessibility - 10 + (mySeed % 15)))),
+                  get comment() {
+                    return this.satisfaction >= 80 
+                      ? `Yazılar çok okunaklı ve renkler gözümü yormuyor. ${myDomain} sitesinde dolaşmak benim için çok kolay oldu!`
+                      : `Yazılar çok küçük, okumakta çok zorlanıyorum. Ekranı büyütmeye çalışınca da butonlar birbirinin üstüne biniyor.`;
+                  },
+                  get status() {
+                    return this.satisfaction >= 80 ? 'success' : this.satisfaction >= 60 ? 'warning' : 'error';
+                  }
+                },
+                {
+                  id: 'p2',
+                  name: 'Murat Demir',
+                  age: 28,
+                  role: 'Kıdemli Yazılım Mühendisi',
+                  device: 'High-End MacBook Pro',
+                  connection: 'Fiber Optik (1000 Mbps)',
+                  satisfaction: Math.min(100, Math.max(20, Math.round((myScores.performance + myScores.security) / 2 + (mySeed % 10)))),
+                  get comment() {
+                    return this.satisfaction >= 85
+                      ? `Kod mimarisi temiz, sunucu istekleri hızlı yanıt veriyor. ${myDomain} teknik açıdan gayet optimize duruyor.`
+                      : `Sunucu yanıt sürelerinde (TTFB) gecikmeler var. Ayrıca güvenlik başlıkları (HSTS, CSP) eksik görünüyor, geliştirilmesi gerek.`;
+                  },
+                  get status() {
+                    return this.satisfaction >= 80 ? 'success' : this.satisfaction >= 60 ? 'warning' : 'error';
+                  }
+                },
+                {
+                  id: 'p3',
+                  name: 'Helin Yılmaz',
+                  age: 19,
+                  role: 'Üniversite Öğrencisi / Genç',
+                  device: 'iPhone 15 Pro Max',
+                  connection: '5G Mobil İnternet',
+                  satisfaction: Math.min(100, Math.max(20, Math.round(myScores.seo - 5 + (mySeed % 10)))),
+                  get comment() {
+                    return this.satisfaction >= 80
+                      ? `Tasarım çok modern ve karanlık tema harika görünüyor! Sayfalar arası geçiş de oldukça akıcı.`
+                      : `Arama sonuçlarında bu siteyi bulmakta biraz zorlandım. Sosyal medyada paylaşınca da önizleme resmi çıkmıyor.`;
+                  },
+                  get status() {
+                    return this.satisfaction >= 80 ? 'success' : this.satisfaction >= 60 ? 'warning' : 'error';
+                  }
+                },
+                {
+                  id: 'p4',
+                  name: 'Ahmet Ekici',
+                  age: 35,
+                  role: 'Görme Engelli Birey',
+                  device: 'Windows Laptop + JAWS Ekran Okuyucu',
+                  connection: 'Ev VDSL',
+                  satisfaction: Math.min(100, Math.max(10, Math.round(myScores.accessibility - 15 + (mySeed % 10)))),
+                  get comment() {
+                    return this.satisfaction >= 75
+                      ? `Ekran okuyucum ${myDomain} üzerindeki tüm form elemanlarını ve resimleri düzgünce seslendirebildi. Tebrikler.`
+                      : `Ekran okuyucum görsellerin ne olduğunu söyleyemiyor çünkü açıklama etiketleri (alt text) eksik. Form alanlarını seçmek de zor.`;
+                  },
+                  get status() {
+                    return this.satisfaction >= 80 ? 'success' : this.satisfaction >= 60 ? 'warning' : 'error';
+                  }
+                },
+                {
+                  id: 'p5',
+                  name: 'Can Aksoy',
+                  age: 50,
+                  role: 'Yatırımcı / Mobil Girişimci',
+                  device: 'Samsung Galaxy S24 Ultra',
+                  connection: 'Mobil 4G',
+                  satisfaction: Math.min(100, Math.max(20, Math.round(myScores.performance - 5 + (mySeed % 12)))),
+                  get comment() {
+                    return this.satisfaction >= 80
+                      ? `${myDomain} mobil cihazımda anında açıldı. Alışveriş yapmak veya bilgi almak oldukça konforlu.`
+                      : `Mobil açılış hızı çok yavaş. Görsellerin yüklenmesini beklerken sayfayı kapatma noktasına geldim. LCP optimize edilmeli.`;
+                  },
+                  get status() {
+                    return this.satisfaction >= 80 ? 'success' : this.satisfaction >= 60 ? 'warning' : 'error';
+                  }
+                }
+              ];
+
+              return (
+                <div className="flex flex-col gap-6">
+                  
+                  {/* Information head box */}
+                  <div className="bg-slate-900 border border-slate-800/80 p-6 rounded-2xl flex flex-col gap-2">
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">10x AI Persona Kullanıcı Deneyimi Sonuçları</h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Sanal kullanıcı ajanlarımız sitenizi donanım, internet hızı ve kişisel beklenti farklılıklarını göz önünde bulundurarak test etmiştir. Sanal test deneklerinin memnuniyet seviyeleri ve geri bildirim yorumları aşağıda listelenmiştir. Sitenizi bu geri bildirimlere göre optimize ederek dönüşüm oranlarınızı katlayabilirsiniz.
+                    </p>
+                  </div>
+
+                  {/* Persona Cards Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {dynamicPersonas.map((p) => (
+                      <div key={p.id} className="bg-slate-900 border border-slate-800/80 p-5 rounded-2xl flex flex-col gap-3 shadow-sm hover:border-slate-700/85 transition-all">
+                        <div className="flex justify-between items-start">
+                          <div className="flex flex-col">
+                            <span className="text-xs font-bold text-white">{p.name} ({p.age} Yaş)</span>
+                            <span className="text-[10px] text-slate-500 mt-0.5">{p.role}</span>
+                          </div>
+                          
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            p.status === 'success' ? 'bg-emerald-500/10 text-emerald-500' :
+                            p.status === 'warning' ? 'bg-amber-500/10 text-amber-500' : 'bg-red-500/10 text-red-500'
+                          }`}>
+                            Memnuniyet: %{p.satisfaction}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-col gap-1 text-[10px] text-slate-400 bg-slate-950/40 p-2.5 rounded-lg border border-slate-900">
+                          <div className="flex justify-between"><span>Donanım:</span><span className="text-white font-mono">{p.device}</span></div>
+                          <div className="flex justify-between mt-0.5"><span>İnternet:</span><span className="text-white font-mono">{p.connection}</span></div>
+                        </div>
+
+                        <p className="text-xs text-slate-300 leading-relaxed italic">
+                          &ldquo;{p.comment}&rdquo;
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              );
+            })()}
 
           </div>
         )}
