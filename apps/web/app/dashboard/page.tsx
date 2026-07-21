@@ -259,9 +259,10 @@ function DashboardContent() {
       
       startSimulatedAudit(targetUrl);
     } else {
-      // Load static completed mock audit on start
-      setScores(mockScores);
-      setIssues(mockIssues);
+      // Load initial dynamic audit for example.com
+      const { scores: initScores, issues: initIssues } = generateDynamicAuditData('https://example.com');
+      setScores(initScores);
+      setIssues(initIssues);
     }
 
     // Connect to WebSocket gateway
@@ -404,8 +405,10 @@ function DashboardContent() {
   };
 
   const startSimulatedAudit = (target: string) => {
-    setScores(null);
-    setIssues([]);
+    // INSTANTLY set the dynamic scores & issues for the requested domain
+    const { scores: dynScores, issues: dynIssues } = generateDynamicAuditData(target);
+    setScores(dynScores);
+    setIssues(dynIssues);
     setLogs([]);
     setRunningAudit({
       id: 'local-sim-id',
@@ -415,13 +418,13 @@ function DashboardContent() {
     });
 
     const steps: Array<{ status: AuditStatus; progress: number; message: string; delay: number }> = [
-      { status: 'CRAWLING', progress: 15, message: `${target} taranıyor, DOM ve sayfalar keşfediliyor...`, delay: 600 },
-      { status: 'SEO_ANALYSIS', progress: 30, message: `${target} için 100+ SEO parametresi denetleniyor...`, delay: 1400 },
-      { status: 'GEO_ANALYSIS', progress: 45, message: 'GEO ve AI arama motoru (LLM) uyumluluğu ölçülüyor...', delay: 2200 },
-      { status: 'PERFORMANCE_ANALYSIS', progress: 65, message: 'Core Web Vitals ve sayfa yükleme performansı hesaplanıyor...', delay: 3000 },
-      { status: 'SECURITY_ANALYSIS', progress: 80, message: 'SSL ve HTTP güvenlik başlıkları doğrulanıyor...', delay: 3800 },
-      { status: 'ACCESSIBILITY_ANALYSIS', progress: 90, message: 'WCAG 2.1 AA erişilebilirlik kontrast testleri yapılıyor...', delay: 4600 },
-      { status: 'REPORT_GENERATION', progress: 98, message: 'AI Raporu ve dinamik skor kartları derleniyor...', delay: 5200 },
+      { status: 'CRAWLING', progress: 15, message: `${target} taranıyor, DOM ve sayfalar keşfediliyor...`, delay: 400 },
+      { status: 'SEO_ANALYSIS', progress: 30, message: `${target} için 100+ SEO parametresi denetleniyor...`, delay: 900 },
+      { status: 'GEO_ANALYSIS', progress: 45, message: 'GEO ve AI arama motoru (LLM) uyumluluğu ölçülüyor...', delay: 1400 },
+      { status: 'PERFORMANCE_ANALYSIS', progress: 65, message: 'Core Web Vitals ve sayfa yükleme performansı hesaplanıyor...', delay: 2000 },
+      { status: 'SECURITY_ANALYSIS', progress: 80, message: 'SSL ve HTTP güvenlik başlıkları doğrulanıyor...', delay: 2500 },
+      { status: 'ACCESSIBILITY_ANALYSIS', progress: 90, message: 'WCAG 2.1 AA erişilebilirlik kontrast testleri yapılıyor...', delay: 3000 },
+      { status: 'REPORT_GENERATION', progress: 98, message: 'AI Raporu ve dinamik skor kartları derleniyor...', delay: 3500 },
     ];
 
     steps.forEach((step) => {
@@ -436,14 +439,10 @@ function DashboardContent() {
       }, step.delay);
     });
 
-    // Complete audit with DYNAMIC data for this exact domain
     setTimeout(() => {
-      const { scores: dynScores, issues: dynIssues } = generateDynamicAuditData(target);
-      setScores(dynScores);
-      setIssues(dynIssues);
       setRunningAudit(null);
       setLogs(prev => [...prev, `${target} analizi başarıyla tamamlandı! Tüm özel veriler hazır.`]);
-    }, 5800);
+    }, 3800);
   };
 
   const fetchIssues = async (auditId: string) => {
@@ -457,13 +456,18 @@ function DashboardContent() {
       const data = await res.json();
       if (Array.isArray(data)) setIssues(data);
     } catch {
-      setIssues(mockIssues);
+      const { issues: dynFallbackIssues } = generateDynamicAuditData(url || 'example.com');
+      setIssues(dynFallbackIssues);
     }
   };
 
   const handleManualAudit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!url) return;
+    if (typeof window !== 'undefined') {
+      const newUrl = `${window.location.pathname}?url=${encodeURIComponent(url)}`;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+    }
     startSimulatedAudit(url);
   };
 
