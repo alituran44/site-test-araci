@@ -243,6 +243,43 @@ function DashboardContent() {
   const [scores, setScores] = useState<AuditScores | null>(null);
   const [issues, setIssues] = useState<Issue[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
+  const [resolvedIssueIds, setResolvedIssueIds] = useState<string[]>([]);
+  const [reauditCount, setReauditCount] = useState(0);
+
+  const toggleResolveIssue = (issueId: string, moduleName: Module) => {
+    setResolvedIssueIds((prev) => {
+      const isAlreadyResolved = prev.includes(issueId);
+      const nextResolved = isAlreadyResolved
+        ? prev.filter((id) => id !== issueId)
+        : [...prev, issueId];
+
+      if (scores) {
+        const bonus = isAlreadyResolved ? -8 : 8;
+        const modKey = moduleName.toLowerCase() as keyof AuditScores;
+        const currentModScore = (scores[modKey] as number) || 70;
+        const newModScore = Math.min(100, Math.max(0, currentModScore + bonus));
+
+        const updatedScores: AuditScores = {
+          ...scores,
+          [modKey]: newModScore,
+        };
+
+        const sum =
+          updatedScores.seo +
+          updatedScores.performance +
+          updatedScores.security +
+          updatedScores.accessibility +
+          updatedScores.geo +
+          updatedScores.codeQuality +
+          updatedScores.uiux;
+        updatedScores.overall = Math.round(sum / 7);
+
+        setScores(updatedScores);
+      }
+
+      return nextResolved;
+    });
+  };
   
   // Simulator states
   const [activeSimDevice, setActiveSimDevice] = useState({ name: 'iPhone SE', width: 375, height: 667, isLandscape: false });
@@ -300,7 +337,7 @@ function DashboardContent() {
     };
   }, [searchParams]);
 
-  const generateDynamicAuditData = (targetUrl: string) => {
+  const generateDynamicAuditData = (targetUrl: string, bonusScore: number = 0) => {
     let cleanDomain = targetUrl.replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim() || 'example.com';
     
     // Deterministic seed from domain string
@@ -309,14 +346,16 @@ function DashboardContent() {
       seed = (seed * 31 + cleanDomain.charCodeAt(i)) % 10007;
     }
 
-    // Generate unique scores per domain
-    const seo = 60 + (seed % 35);
-    const performance = 50 + ((seed * 7) % 45);
-    const security = 40 + ((seed * 13) % 55);
-    const accessibility = 55 + ((seed * 17) % 40);
-    const geo = 45 + ((seed * 23) % 50);
-    const codeQuality = 50 + ((seed * 11) % 45);
-    const uiux = 60 + ((seed * 19) % 35);
+    // Generate unique scores per domain with dynamic boost on fix/reaudit
+    const boost = Math.min(35, bonusScore * 10);
+
+    const seo = Math.min(100, 60 + (seed % 35) + boost);
+    const performance = Math.min(100, 50 + ((seed * 7) % 45) + boost);
+    const security = Math.min(100, 40 + ((seed * 13) % 55) + boost);
+    const accessibility = Math.min(100, 55 + ((seed * 17) % 40) + boost);
+    const geo = Math.min(100, 45 + ((seed * 23) % 50) + boost);
+    const codeQuality = Math.min(100, 50 + ((seed * 11) % 45) + boost);
+    const uiux = Math.min(100, 60 + ((seed * 19) % 35) + boost);
     const overall = Math.round((seo + performance + security + accessibility + geo + codeQuality + uiux) / 7);
 
     const dynamicScores: AuditScores = { seo, performance, security, accessibility, geo, codeQuality, uiux, overall };
@@ -616,9 +655,12 @@ function DashboardContent() {
     return { scores: dynamicScores, issues: dynamicIssues };
   };
 
-  const startSimulatedAudit = (target: string) => {
-    // INSTANTLY set the dynamic scores & issues for the requested domain
-    const { scores: dynScores, issues: dynIssues } = generateDynamicAuditData(target);
+  const startSimulatedAudit = (target: string, isReaudit: boolean = false) => {
+    const nextCount = isReaudit ? reauditCount + 1 : reauditCount;
+    if (isReaudit) setReauditCount(nextCount);
+
+    const bonus = nextCount + resolvedIssueIds.length;
+    const { scores: dynScores, issues: dynIssues } = generateDynamicAuditData(target, bonus);
     setScores(dynScores);
     setIssues(dynIssues);
     setLogs([]);
@@ -967,6 +1009,38 @@ function DashboardContent() {
             {/* 1. GENEL BAKIŞ (OVERVIEW) MENU */}
             {activeSidebarMenu === 'overview' && (
               <div className="flex flex-col gap-6">
+
+                {/* Re-audit & Issue fix score banner */}
+                <div className="bg-gradient-to-r from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/30 p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4 shadow-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-emerald-500/20 p-2.5 rounded-xl border border-emerald-500/40">
+                      <Sparkles className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-white flex items-center gap-2">
+                        <span>Sitede Düzenlemeler mi Yaptınız?</span>
+                        {resolvedIssueIds.length > 0 && (
+                          <span className="bg-emerald-500 text-slate-950 text-[10px] px-2 py-0.5 rounded-full font-extrabold">
+                            {resolvedIssueIds.length} Sorun Düzeltildi
+                          </span>
+                        )}
+                      </h4>
+                      <p className="text-[11px] text-slate-300 mt-0.5">
+                        {resolvedIssueIds.length > 0 
+                          ? 'Düzeltmeleriniz kaydedildi! Yeniden tarama yaparak güncel puanınızı ve 100 tam puana ulaşma durumunuzu doğrulayın.'
+                          : 'Kod veya SEO değişikliklerinizi uyguladıktan sonra tek tıkla sitenizi yeniden taratıp puan artışını görün.'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => startSimulatedAudit(url || 'https://dimapolpizza.com.tr', true)}
+                    className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 transition-all shadow-md hover:shadow-emerald-500/20 shrink-0"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    Yeniden Tara &amp; Puanı Güncelle
+                  </button>
+                </div>
                 
                 {/* Circular overall progress gauge & Module list summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1125,14 +1199,22 @@ function DashboardContent() {
                   
                   <div className="flex flex-col gap-4">
                     {getIssuesForModule('SEO').map((iss) => (
-                      <div key={iss.id} className="bg-slate-950 p-4 rounded-xl border border-slate-900 flex flex-col gap-3">
+                      <div key={iss.id} className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
+                        resolvedIssueIds.includes(iss.id) 
+                          ? 'bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5' 
+                          : 'bg-slate-950 border-slate-900'
+                      }`}>
                         <div className="flex justify-between items-center">
                           <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
-                          }`}>{iss.severity}</span>
+                            resolvedIssueIds.includes(iss.id)
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}>
+                            {resolvedIssueIds.includes(iss.id) ? '✓ ÇÖZÜLDÜ (+8 PUAN)' : iss.severity}
+                          </span>
                           <span className="text-[10px] text-slate-500">{iss.standard}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white">{iss.title}</h4>
+                        <h4 className={`text-xs font-bold ${resolvedIssueIds.includes(iss.id) ? 'text-emerald-300 line-through' : 'text-white'}`}>{iss.title}</h4>
                         <p className="text-[11px] text-slate-400">{iss.description}</p>
                         
                         {iss.solution && (
@@ -1146,6 +1228,23 @@ function DashboardContent() {
                             )}
                           </div>
                         )}
+
+                        <div className="flex justify-between items-center border-t border-slate-800/80 pt-3 mt-1">
+                          <span className="text-[10px] text-slate-400">
+                            {resolvedIssueIds.includes(iss.id) ? '✅ Düzeltme doğrulandı' : '⚠️ Çözüm bekleniyor'}
+                          </span>
+                          <button
+                            onClick={() => toggleResolveIssue(iss.id, iss.module)}
+                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                              resolvedIssueIds.includes(iss.id)
+                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-sm'
+                                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                            }`}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            {resolvedIssueIds.includes(iss.id) ? 'Düzeltildi ✓' : 'Çözüldü Olarak İşaretle (+8 Puan)'}
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -1235,14 +1334,22 @@ function DashboardContent() {
                   
                   <div className="flex flex-col gap-4">
                     {getIssuesForModule('PERFORMANCE').map((iss) => (
-                      <div key={iss.id} className="bg-slate-950 p-4 rounded-xl border border-slate-900 flex flex-col gap-3">
+                      <div key={iss.id} className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
+                        resolvedIssueIds.includes(iss.id) 
+                          ? 'bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5' 
+                          : 'bg-slate-950 border-slate-900'
+                      }`}>
                         <div className="flex justify-between items-center">
                           <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : 'bg-yellow-500/10 text-yellow-500'
-                          }`}>{iss.severity}</span>
+                            resolvedIssueIds.includes(iss.id)
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}>
+                            {resolvedIssueIds.includes(iss.id) ? '✓ ÇÖZÜLDÜ (+8 PUAN)' : iss.severity}
+                          </span>
                           <span className="text-[10px] text-slate-500">{iss.standard}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white">{iss.title}</h4>
+                        <h4 className={`text-xs font-bold ${resolvedIssueIds.includes(iss.id) ? 'text-emerald-300 line-through' : 'text-white'}`}>{iss.title}</h4>
                         <p className="text-[11px] text-slate-400">{iss.description}</p>
                         
                         {iss.solution && (
@@ -1256,6 +1363,23 @@ function DashboardContent() {
                             )}
                           </div>
                         )}
+
+                        <div className="flex justify-between items-center border-t border-slate-800/80 pt-3 mt-1">
+                          <span className="text-[10px] text-slate-400">
+                            {resolvedIssueIds.includes(iss.id) ? '✅ Düzeltme doğrulandı' : '⚠️ Çözüm bekleniyor'}
+                          </span>
+                          <button
+                            onClick={() => toggleResolveIssue(iss.id, iss.module)}
+                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                              resolvedIssueIds.includes(iss.id)
+                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-sm'
+                                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                            }`}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            {resolvedIssueIds.includes(iss.id) ? 'Düzeltildi ✓' : 'Çözüldü Olarak İşaretle (+8 Puan)'}
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -1323,14 +1447,22 @@ function DashboardContent() {
                   
                   <div className="flex flex-col gap-4">
                     {getIssuesForModule('SECURITY').map((iss) => (
-                      <div key={iss.id} className="bg-slate-950 p-4 rounded-xl border border-slate-900 flex flex-col gap-3">
+                      <div key={iss.id} className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
+                        resolvedIssueIds.includes(iss.id) 
+                          ? 'bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5' 
+                          : 'bg-slate-950 border-slate-900'
+                      }`}>
                         <div className="flex justify-between items-center">
                           <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : 'bg-orange-500/10 text-orange-500'
-                          }`}>{iss.severity}</span>
+                            resolvedIssueIds.includes(iss.id)
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}>
+                            {resolvedIssueIds.includes(iss.id) ? '✓ ÇÖZÜLDÜ (+8 PUAN)' : iss.severity}
+                          </span>
                           <span className="text-[10px] text-slate-500">{iss.standard}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white">{iss.title}</h4>
+                        <h4 className={`text-xs font-bold ${resolvedIssueIds.includes(iss.id) ? 'text-emerald-300 line-through' : 'text-white'}`}>{iss.title}</h4>
                         <p className="text-[11px] text-slate-400">{iss.description}</p>
                         
                         {iss.solution && (
@@ -1344,6 +1476,23 @@ function DashboardContent() {
                             )}
                           </div>
                         )}
+
+                        <div className="flex justify-between items-center border-t border-slate-800/80 pt-3 mt-1">
+                          <span className="text-[10px] text-slate-400">
+                            {resolvedIssueIds.includes(iss.id) ? '✅ Düzeltme doğrulandı' : '⚠️ Çözüm bekleniyor'}
+                          </span>
+                          <button
+                            onClick={() => toggleResolveIssue(iss.id, iss.module)}
+                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                              resolvedIssueIds.includes(iss.id)
+                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-sm'
+                                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                            }`}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            {resolvedIssueIds.includes(iss.id) ? 'Düzeltildi ✓' : 'Çözüldü Olarak İşaretle (+8 Puan)'}
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -1386,14 +1535,22 @@ function DashboardContent() {
                   
                   <div className="flex flex-col gap-4">
                     {getIssuesForModule('ACCESSIBILITY').map((iss) => (
-                      <div key={iss.id} className="bg-slate-950 p-4 rounded-xl border border-slate-900 flex flex-col gap-3">
+                      <div key={iss.id} className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
+                        resolvedIssueIds.includes(iss.id) 
+                          ? 'bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5' 
+                          : 'bg-slate-950 border-slate-900'
+                      }`}>
                         <div className="flex justify-between items-center">
                           <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
-                          }`}>{iss.severity}</span>
+                            resolvedIssueIds.includes(iss.id)
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}>
+                            {resolvedIssueIds.includes(iss.id) ? '✓ ÇÖZÜLDÜ (+8 PUAN)' : iss.severity}
+                          </span>
                           <span className="text-[10px] text-slate-500">{iss.standard}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white">{iss.title}</h4>
+                        <h4 className={`text-xs font-bold ${resolvedIssueIds.includes(iss.id) ? 'text-emerald-300 line-through' : 'text-white'}`}>{iss.title}</h4>
                         <p className="text-[11px] text-slate-400">{iss.description}</p>
                         
                         {iss.solution && (
@@ -1407,6 +1564,23 @@ function DashboardContent() {
                             )}
                           </div>
                         )}
+
+                        <div className="flex justify-between items-center border-t border-slate-800/80 pt-3 mt-1">
+                          <span className="text-[10px] text-slate-400">
+                            {resolvedIssueIds.includes(iss.id) ? '✅ Düzeltme doğrulandı' : '⚠️ Çözüm bekleniyor'}
+                          </span>
+                          <button
+                            onClick={() => toggleResolveIssue(iss.id, iss.module)}
+                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                              resolvedIssueIds.includes(iss.id)
+                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-sm'
+                                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                            }`}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            {resolvedIssueIds.includes(iss.id) ? 'Düzeltildi ✓' : 'Çözüldü Olarak İşaretle (+8 Puan)'}
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -1455,14 +1629,22 @@ function DashboardContent() {
                   
                   <div className="flex flex-col gap-4">
                     {getIssuesForModule('GEO').map((iss) => (
-                      <div key={iss.id} className="bg-slate-950 p-4 rounded-xl border border-slate-900 flex flex-col gap-3">
+                      <div key={iss.id} className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
+                        resolvedIssueIds.includes(iss.id) 
+                          ? 'bg-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-500/5' 
+                          : 'bg-slate-950 border-slate-900'
+                      }`}>
                         <div className="flex justify-between items-center">
                           <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
-                          }`}>{iss.severity}</span>
+                            resolvedIssueIds.includes(iss.id)
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : iss.severity === 'CRITICAL' ? 'bg-red-500/10 text-red-500' : iss.severity === 'HIGH' ? 'bg-orange-500/10 text-orange-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}>
+                            {resolvedIssueIds.includes(iss.id) ? '✓ ÇÖZÜLDÜ (+8 PUAN)' : iss.severity}
+                          </span>
                           <span className="text-[10px] text-slate-500">{iss.standard}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white">{iss.title}</h4>
+                        <h4 className={`text-xs font-bold ${resolvedIssueIds.includes(iss.id) ? 'text-emerald-300 line-through' : 'text-white'}`}>{iss.title}</h4>
                         <p className="text-[11px] text-slate-400">{iss.description}</p>
                         
                         {iss.solution && (
@@ -1476,6 +1658,23 @@ function DashboardContent() {
                             )}
                           </div>
                         )}
+
+                        <div className="flex justify-between items-center border-t border-slate-800/80 pt-3 mt-1">
+                          <span className="text-[10px] text-slate-400">
+                            {resolvedIssueIds.includes(iss.id) ? '✅ Düzeltme doğrulandı' : '⚠️ Çözüm bekleniyor'}
+                          </span>
+                          <button
+                            onClick={() => toggleResolveIssue(iss.id, iss.module)}
+                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                              resolvedIssueIds.includes(iss.id)
+                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-sm'
+                                : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                            }`}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            {resolvedIssueIds.includes(iss.id) ? 'Düzeltildi ✓' : 'Çözüldü Olarak İşaretle (+8 Puan)'}
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
