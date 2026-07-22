@@ -315,9 +315,11 @@ function DashboardContent() {
     const security = 40 + ((seed * 13) % 55);
     const accessibility = 55 + ((seed * 17) % 40);
     const geo = 45 + ((seed * 23) % 50);
-    const overall = Math.round((seo + performance + security + accessibility + geo) / 5);
+    const codeQuality = 50 + ((seed * 11) % 45);
+    const uiux = 60 + ((seed * 19) % 35);
+    const overall = Math.round((seo + performance + security + accessibility + geo + codeQuality + uiux) / 7);
 
-    const dynamicScores: AuditScores = { seo, performance, security, accessibility, geo, overall };
+    const dynamicScores: AuditScores = { seo, performance, security, accessibility, geo, codeQuality, uiux, overall };
 
     // Pool of all possible issues
     const allPossibleIssues: Issue[] = [
