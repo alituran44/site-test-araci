@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebPulse - AI-Powered Website Performance, SEO & Usability Audit</title>
+    <title>WebPulse — SEO, Performans, Güvenlik ve 10x AI Persona Denetimi | Tek Rapor</title>
+    <meta name="description" content="WebPulse ile sitenizi SEO, Performans, Güvenlik, Erişilebilirlik ve GEO açısından tek bir PDF raporunda denetleyin. 10x AI Persona simülasyonu ve white-label raporlarla ajansınızın değerini kanıtlayın.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,47 +24,25 @@
             </div>
             
             <nav class="sidebar-nav">
-                <a href="#overview" class="nav-item active" data-tab="overview">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
-                    Genel Bakış
-                </a>
-                <a href="#seo" class="nav-item" data-tab="seo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    SEO Analizi
-                </a>
-                <a href="#performance" class="nav-item" data-tab="performance">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    Performans
-                </a>
-                <a href="#security" class="nav-item" data-tab="security">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Güvenlik
-                </a>
-                <a href="#accessibility" class="nav-item" data-tab="accessibility">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-                    Erişilebilirlik
-                </a>
-                <a href="#geo" class="nav-item" data-tab="geo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                    GEO & AI
-                </a>
-                <a href="#ai-insights" class="nav-item" data-tab="ai-insights">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                    Yapay Zeka Analizi
-                </a>
-                <a href="#responsive" class="nav-item" data-tab="responsive">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    Cihaz Simülatörü
-                </a>
-                <a href="#competitor" class="nav-item" data-tab="competitor">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Rakip Analizi
-                </a>
-                <a href="#persona" class="nav-item" data-tab="persona">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    10x AI Persona Testi
-                </a>
-            </nav>
+
+            <a href="#dashboard" class="nav-item active" data-tab="overview" data-i18n="nav_dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                Dashboard
+            </a>
+            <a href="#security" class="nav-item" data-tab="security" data-i18n="nav_security">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Security & Speed
+            </a>
+            <a href="#strix" class="nav-item" data-tab="strix" data-i18n="nav_strix">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="12" r="3"/></svg>
+                AI Pentest
+            </a>
+            <a href="admin.html" class="nav-item" id="nav-admin" style="display: none;" data-i18n="nav_admin">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Admin Panel
+            </a>
+
+</nav>
             <div class="sidebar-footer" style="padding: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
                 <a href="#settings" id="sidebar-settings-trigger" class="nav-item" style="margin: 0; width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon" style="width: 16px; height: 16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -75,8 +54,8 @@
 
         <!-- Main Workspace -->
         <main class="main-content">
-            <!-- Top Search/Input Bar -->
-                        <header class="top-header" style="display: flex; justify-content: space-between; align-items: center; padding: var(--sp-4) 0; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);">
+            <!-- Top Header Bar -->
+            <header class="top-header" style="display: flex; justify-content: space-between; align-items: center; padding: var(--sp-4) 0; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);">
                 <div class="funnel-brand" style="display: flex; align-items: center; gap: 8px;">
                     <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; color: var(--color-emerald);">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
@@ -84,152 +63,160 @@
                     <span class="brand-name" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; color: var(--text-primary); letter-spacing: -0.5px;">WebPulse</span>
                 </div>
 
-                <!-- SaaS Navigation Links (Sadece Huni Modundayken Görünür) -->
+                <!-- Türkçe Nav Linkleri -->
                 <div class="funnel-nav-links" style="display: flex; align-items: center; gap: 24px;">
-                    <a href="#features-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">Features</a>
-                    <a href="#pricing-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">Pricing</a>
-                    <a href="#faq-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a>
+                    <a href="#features-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">Özellikler</a>
+                    <a href="#pricing-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">Fiyatlandırma</a>
+                    <a href="#faq-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">SSS</a>
                 </div>
                 
                 <form id="analyze-form" class="analyze-form" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                     <div class="input-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                        <input type="url" id="target-url" placeholder="Website URL to analyze (e.g., https://example.com)" required>
+                        <input type="url" id="target-url" placeholder="Analiz edilecek URL (https://siteniz.com)" required>
                     </div>
                     <div class="input-group competitor-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        <input type="url" id="competitor-url" placeholder="Competitor URL (Optional)">
+                        <input type="url" id="competitor-url" placeholder="Rakip URL (Opsiyonel)">
                     </div>
                     <div class="input-group model-select-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         <select id="model-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
-                            <option value="gemini-flash-latest" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>Gemini 1.5 Flash (Fast)</option>
-                            <option value="gemini-1.5-pro" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 1.5 Pro (Detailed)</option>
-                            <option value="gemini-2.0-flash" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 2.0 Flash (New)</option>
-                            <option value="odysseus-local" style="background-color: var(--bg-secondary); color: var(--text-primary);">Odysseus / Ollama (Local)</option>
-                            <option value="openrouter-custom" style="background-color: var(--bg-secondary); color: var(--text-primary);">OpenRouter (Custom Model)</option>
+                            <option value="gemini-flash-latest" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>Gemini 1.5 Flash (Hızlı)</option>
+                            <option value="gemini-1.5-pro" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 1.5 Pro (Detaylı)</option>
+                            <option value="gemini-2.0-flash" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 2.0 Flash (Yeni)</option>
+                            <option value="odysseus-local" style="background-color: var(--bg-secondary); color: var(--text-primary);">Odysseus / Ollama (Yerel)</option>
+                            <option value="openrouter-custom" style="background-color: var(--bg-secondary); color: var(--text-primary);">OpenRouter (Özel Model)</option>
                         </select>
                     </div>
                     <div class="input-group tool-select-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         <select id="tool-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
-                            <option value="both" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>All Audits (PageSpeed + AI)</option>
-                            <option value="pagespeed" style="background-color: var(--bg-secondary); color: var(--text-primary);">PageSpeed Metrics Only</option>
-                            <option value="gemini" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini AI Report Only</option>
+                            <option value="both" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>Tüm Denetimler (PageSpeed + AI)</option>
+                            <option value="pagespeed" style="background-color: var(--bg-secondary); color: var(--text-primary);">Yalnızca PageSpeed</option>
+                            <option value="gemini" style="background-color: var(--bg-secondary); color: var(--text-primary);">Yalnızca Gemini AI</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary" id="submit-btn">
-                        <span>Analyze</span>
+                        <span>Analiz Et</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                     </button>
                 </form>
                 
                 <button type="button" id="btn-settings-trigger" class="btn btn-secondary" title="API Anahtarlarını Ayarla" style="display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 10px 18px; border-radius: var(--border-radius); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    <span>Settings</span>
+                    <span>Ayarlar</span>
                 </button>
             </header>
 
-            <!-- Funnel Landing Page Sections -->
+            <!-- ═══════════════════════════════════════════════
+                 FUNNEL LANDING PAGE — tamamen yeniden yazıldı
+                 ═══════════════════════════════════════════════ -->
             <div class="funnel-sections">
-                
-                <!-- Hero Section: getdale.com tarzı ortalanmış premium SaaS yerleşimi -->
-                <section class="funnel-hero-container" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 0 var(--sp-6) 0; gap: 32px; max-width: 850px; margin: 0 auto; width: 100%;">
-                    <div class="hero-center-col" style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%;">
-                        
-                        <div class="hero-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--color-emerald); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; width: fit-content;">WebPulse 2.0 Launch</div>
-                        <h1 style="font-size: 48px; font-weight: 800; color: var(--text-primary); line-height: 1.15; letter-spacing: -1.5px; max-width: 720px; margin: 0;">AI-Powered Website Performance & Audit</h1>
-                        <p style="font-size: 16px; color: var(--text-secondary); max-width: 600px; line-height: 1.6; margin: 0 0 8px 0;">Combine Google PageSpeed metrics with the Odysseus AI orchestration engine to analyze your site's speed, SEO, and code quality with premium depth.</p>
-                        
-                        <!-- Hero form: Tam ortada ve belirgin -->
-                        <form id="analyze-form-hero" class="hero-analyze-form" style="width: 100%; max-width: 680px; display: flex; flex-direction: column; gap: 16px; padding: 24px; border-radius: 16px; background: var(--bg-secondary); border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(15,23,42,0.04); margin-bottom: 24px;">
+
+                <!-- ─────────── HERO ─────────── -->
+                <section class="funnel-hero-container" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 72px 0 64px 0; gap: 32px; max-width: 860px; margin: 0 auto; width: 100%;">
+                    <div class="hero-center-col" style="display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%;">
+
+                        <!-- Hedef Kitle Badge -->
+                        <div class="hero-badge" style="background-color: rgba(16,185,129,0.1); color: var(--color-emerald); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; width: fit-content; border: 1px solid rgba(16,185,129,0.2);">
+                            SEO Ajansları &bull; Freelance Geliştiriciler &bull; Ürün Yöneticileri
+                        </div>
+
+                        <!-- H1 -->
+                        <h1 style="font-size: clamp(32px,5vw,52px); font-weight: 800; color: var(--text-primary); line-height: 1.12; letter-spacing: -1.5px; max-width: 760px; margin: 0;">
+                            5 Denetim Modülü.<br>10 Kullanıcı Gözü.<br>
+                            <span style="color: var(--color-emerald);">Tek White-Label Rapor.</span>
+                        </h1>
+
+                        <!-- Alt başlık -->
+                        <p style="font-size: 17px; color: var(--text-secondary); max-width: 620px; line-height: 1.65; margin: 0 0 8px 0;">
+                            Rakip araçların çoğu tek bir şeye bakar. WebPulse; SEO, Performans, Güvenlik, Erişilebilirlik ve GEO'yu tek analizde birleştirir — 10 farklı kullanıcı gözünden test eder, markanızla PDF'e dönüştürür.
+                        </p>
+
+                        <!-- Hero Form -->
+                        <form id="analyze-form-hero" class="hero-analyze-form" style="width: 100%; max-width: 680px; display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 16px; background: var(--bg-secondary); border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(15,23,42,0.06); margin-bottom: 16px;">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <!-- URL -->
                                 <div class="input-group" style="grid-column: span 2; position: relative;">
                                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                                    <input type="url" id="target-url-hero" placeholder="Website URL to analyze (e.g., https://example.com)" required style="width: 100%; padding: 12px 12px 12px 36px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                    <input type="url" id="target-url-hero" placeholder="Denetlenecek web sitesi URL'i (örn: https://siteniz.com)" required style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
                                 </div>
+                                <!-- Rakip URL -->
                                 <div class="input-group" style="grid-column: span 2; position: relative;">
                                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                    <input type="url" id="competitor-url-hero" placeholder="Competitor URL (Optional)" style="width: 100%; padding: 12px 12px 12px 36px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                    <input type="url" id="competitor-url-hero" placeholder="Rakip URL (Opsiyonel)" style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
                                 </div>
+                                <!-- Model Seçimi -->
                                 <div class="input-group" style="position: relative;">
                                     <select id="model-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
-                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Fast)</option>
-                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detailed)</option>
-                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (New)</option>
-                                        <option value="odysseus-local">Odysseus / Ollama (Local Model)</option>
+                                        <option value="gemini-flash-latest" selected>Gemini 1.5 Flash (Hızlı)</option>
+                                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Detaylı)</option>
+                                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Yeni)</option>
+                                        <option value="odysseus-local">Odysseus / Ollama (Yerel)</option>
                                         <option value="openrouter/deepseek/deepseek-chat">OpenRouter: DeepSeek V3</option>
-                                        <option value="openrouter/meta-llama/llama-3.1-8b-instruct:free">OpenRouter: Llama 3.1 (Free)</option>
+                                        <option value="openrouter/meta-llama/llama-3.1-8b-instruct:free">OpenRouter: Llama 3.1 (Ücretsiz)</option>
                                         <option value="openrouter/anthropic/claude-3.5-sonnet">OpenRouter: Claude 3.5 Sonnet</option>
                                         <option value="openrouter/openai/gpt-4o">OpenRouter: GPT-4o</option>
                                     </select>
                                 </div>
+                                <!-- Denetim Türü -->
                                 <div class="input-group" style="position: relative;">
                                     <select id="tool-select-hero" style="width: 100%; padding: 12px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; cursor: pointer; font-size: 13px; font-family: inherit;">
-                                        <option value="both" selected>All Audits</option>
-                                        <option value="pagespeed">PageSpeed Only</option>
-                                        <option value="gemini">Gemini AI Only</option>
+                                        <option value="both" selected>Tüm Denetimler</option>
+                                        <option value="pagespeed">Yalnızca PageSpeed</option>
+                                        <option value="gemini">Yalnızca Gemini AI</option>
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="submit-btn-hero" style="width: 100%; padding: 14px; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--border-radius); background-color: var(--color-emerald); color: white; border: none; cursor: pointer; transition: all 0.2s;">
-                                <span>Start Audit</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            <!-- CTA Butonu — belirgin, büyük, yüksek kontrast -->
+                            <button type="submit" class="btn btn-primary" id="submit-btn-hero" style="width: 100%; padding: 16px; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: var(--border-radius); background-color: var(--color-emerald); color: white; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: -0.2px; box-shadow: 0 4px 16px rgba(16,185,129,0.3);">
+                                <span>Ücretsiz Denetle</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 18px; height: 18px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                             </button>
+                            <p style="font-size: 12px; color: var(--text-muted); margin: 0; text-align: center;">Kredi kartı gerekmez &bull; Hesap açmadan deneyin &bull; Sınırsız ücretsiz temel denetim</p>
                         </form>
                     </div>
 
-                    <!-- Visual Assets Group (Yan yana iki şık mockup kartı) -->
-                <!-- Sosyal Kanıt ve Güven Bloğu -->
-                <div class="social-proof-section" style="width: 100%; max-width: 1000px; margin: 40px auto 0 auto; text-align: center; border-top: 1px solid var(--border-color); padding-top: 32px;">
-                    <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 16px;">Güvenilir Altyapı ve Kapsamlı Raporlama Deneyimi</p>
-                    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 48px; opacity: 0.6;">
-                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">⚡ CORE WEB VITALS INTEGRATION</span>
-                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">🤖 GEMINI AI COMPLIANT</span>
-                        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 18px; color: var(--text-primary);">🛡️ SSL SECURED ENVIRONMENT</span>
-                    </div>
-                </div>
-
-                    <div class="hero-visual-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 24px; width: 100%; max-width: 1000px; margin-top: 16px;">
+                    <!-- Dashboard Mockup Kartları -->
+                    <div class="hero-visual-group" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; max-width: 1000px; margin-top: 8px;">
+                        <!-- Sol: Kod Mockup -->
                         <div class="ui-mockup-card" style="flex: 1; min-width: 300px; max-width: 460px;">
                             <div class="mockup-header">
                                 <span class="dot red"></span>
                                 <span class="dot yellow"></span>
                                 <span class="dot green"></span>
-                                <span class="mockup-title">webpulse-dashboard.sh</span>
+                                <span class="mockup-title">webpulse-audit.sh</span>
                             </div>
                             <div class="mockup-body">
                                 <div class="mockup-metric-row">
-                                    <div class="mockup-metric-card">
-                                        <span class="label">SEO</span>
-                                        <span class="val emerald">98%</span>
-                                    </div>
-                                    <div class="mockup-metric-card">
-                                        <span class="label">Performans</span>
-                                        <span class="val cyan">94%</span>
-                                    </div>
+                                    <div class="mockup-metric-card"><span class="label">SEO</span><span class="val emerald">98</span></div>
+                                    <div class="mockup-metric-card"><span class="label">Performans</span><span class="val cyan">94</span></div>
+                                    <div class="mockup-metric-card"><span class="label">Güvenlik</span><span class="val emerald">97</span></div>
                                 </div>
                                 <div class="mockup-code-block">
                                     <span class="line-num">1</span> <span class="keyword">const</span> webPulse = <span class="function">require</span>('<span class="string">@webpulse/sdk</span>');<br>
-                                    <span class="line-num">2</span> <span class="keyword">await</span> webPulse.<span class="function">analyze</span>({<br>
-                                    <span class="line-num">3</span> &nbsp;&nbsp;url: <span class="string">'https://getdale.com'</span>,<br>
-                                    <span class="line-num">4</span> &nbsp;&nbsp;aiEngine: <span class="string">'odysseus-ai'</span><br>
+                                    <span class="line-num">2</span> <span class="keyword">await</span> webPulse.<span class="function">audit</span>({<br>
+                                    <span class="line-num">3</span> &nbsp;&nbsp;url: <span class="string">'https://siteniz.com'</span>,<br>
+                                    <span class="line-num">4</span> &nbsp;&nbsp;personas: <span class="string">10</span>, modules: <span class="string">'all'</span><br>
                                     <span class="line-num">5</span> });
                                 </div>
                             </div>
                         </div>
 
-                        <div class="live-status-card" style="flex: 1; min-width: 300px; max-width: 440px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03); display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+                        <!-- Sağ: Canlı Durum Kartı -->
+                        <div class="live-status-card" style="flex: 1; min-width: 300px; max-width: 440px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 10px 30px rgba(15,23,42,0.03); display: flex; flex-direction: column; justify-content: center; gap: 16px;">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-emerald); display: inline-block; animation: pulse 2s infinite;"></span>
-                                    <span style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Odysseus AI Engine Live</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: var(--text-primary);">WebPulse AI Motoru — Çalışıyor</span>
                                 </div>
                                 <span style="font-size: 11px; color: var(--text-muted); font-family: monospace;">Ping: 24ms</span>
                             </div>
+                            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.55; margin: 0;">Gemini tabanlı AI motoru, sitenizi SEO'dan GEO'ya 5 modülde tarar ve tüm bulguları tek dashboard'a aktarır.</p>
                             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; border-top: 1px solid var(--border-color); padding-top: 12px;">
                                 <div>
-                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 500; margin-bottom: 2px;">Aktif Model</div>
+                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 500; margin-bottom: 2px;">Aktif Motor</div>
                                     <div style="font-size: 12px; font-weight: 700; color: var(--color-emerald);">Gemini + Llama</div>
                                 </div>
                                 <div>
@@ -237,383 +224,872 @@
                                     <div style="font-size: 12px; font-weight: 700; color: var(--text-primary);">99.98%</div>
                                 </div>
                                 <div>
-                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 500; margin-bottom: 2px;">API İstek</div>
-                                    <div style="font-size: 12px; font-weight: 700; color: var(--text-primary);">14,204 / gün</div>
+                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 500; margin-bottom: 2px;">Günlük İstek</div>
+                                    <div style="font-size: 12px; font-weight: 700; color: var(--text-primary);">14,204</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Integration Logos Banner -->
+                <!-- ─────────── PARTNER BANNER ─────────── -->
                 <div class="integrations-banner">
-                    <div class="banner-title">Our Integrated Platform Partners</div>
+                    <div class="banner-title">Entegre Altyapı ve API Ortakları</div>
                     <div class="logos-track">
                         <div class="logo-item">Google Gemini</div>
-                        <div class="logo-item">•</div>
+                        <div class="logo-item">&bull;</div>
                         <div class="logo-item">Google PageSpeed</div>
-                        <div class="logo-item">•</div>
+                        <div class="logo-item">&bull;</div>
                         <div class="logo-item">Lighthouse</div>
-                        <div class="logo-item">•</div>
+                        <div class="logo-item">&bull;</div>
                         <div class="logo-item">Core Web Vitals</div>
-                        <div class="logo-item">•</div>
+                        <div class="logo-item">&bull;</div>
                         <div class="logo-item">Chrome UX Report</div>
+                        <div class="logo-item">&bull;</div>
+                        <div class="logo-item">OpenRouter</div>
                     </div>
                 </div>
 
-                <!-- Nasıl Çalışır Bölümü -->
-                
+                <!-- ─────────── FEATURES ─────────── -->
                 <div id="features-anchor" style="position: relative; top: -80px;"></div>
-                
-                <!-- Uspacy-inspired Features Section -->
+
                 <section class="funnel-section" style="padding: var(--sp-8) 0; border-top: 1px solid var(--border-color); width: 100%;">
                     <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">Empowering Your Web Auditing Workflows</h2>
-                        <p class="section-subtitle">A comprehensive suite engineered for modern developers, SEO agencies, and product managers.</p>
+                        <h2 class="section-title">Tek Dashboard'da Eksiksiz Web Denetimi</h2>
+                        <p class="section-subtitle">Rakip araçların çoğu tek bir şeye bakar. WebPulse 5 modülü tek raporla birleştirir.</p>
                     </div>
                     <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; width: 100%; max-width: 1100px; margin: 0 auto;">
-                        <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: var(--color-emerald); background: rgba(16, 185, 129, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+
+                        <!-- Kart 1: Hepsi Bir Arada (yeni kart — konsolidasyon mesajı) -->
+                        <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--color-emerald); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 24px rgba(16,185,129,0.06); grid-column: span 1; position: relative;">
+                            <div style="position: absolute; top: -11px; left: 20px; background: var(--color-emerald); color: white; padding: 3px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">Temel Fark</div>
+                            <div class="feature-icon" style="color: var(--color-emerald); background: rgba(16,185,129,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
                             </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">10x AI Persona Simulation</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Test user behavior by simulating 10 different target personas (different ages, devices, internet speeds, and usability expectations) Reacting live to your webpage layout.</p>
-                        </div>
-                        
-                        <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: var(--color-blue); background: rgba(2, 132, 199, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                            </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Core Web Vitals & Lighthouse</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Fetch absolute metrics (LCP, TBT, CLS, Speed Index) straight from Google PageSpeed Insights backend, backed by Puppeteer emulation fallbacks on failure.</p>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Hepsi Bir Arada — 5 Modül, 1 Rapor</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">SEO, Performans (Core Web Vitals), Güvenlik (SSL/HSTS), Erişilebilirlik ve GEO/AI denetimini tek seferde çalıştırın. Ayrı araçlara, ayrı sekmelere son.</p>
                         </div>
 
+                        <!-- Kart 2: 10x AI Persona -->
                         <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: #a855f7; background: rgba(168, 85, 247, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            <div class="feature-icon" style="color: var(--color-emerald); background: rgba(16,185,129,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">GEO & AI Crawler Optimization</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Analyze and audit key microdata integrations (JSON-LD schemas, FAQPage schemas, E-E-A-T signals) to ensure AI chatbots correctly extract and index your site.</p>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">10x AI Persona Simülasyonu</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">10 farklı kullanıcı tipini (yaş, cihaz, internet hızı, beklenti farklılıkları) simüle ederek sitenizin gerçek kullanıcı gözünden nasıl göründüğünü öğrenin. Pazarda benzeri nadir olan bir özellik.</p>
                         </div>
 
+                        <!-- Kart 3: White-Label PDF -->
                         <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: #d97706; background: rgba(217, 119, 6, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <div class="feature-icon" style="color: #64748b; background: rgba(100,116,139,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SSL & HTTP Defense Auditor</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Check HTTPS certificates, HSTS status, Content Security Policies (CSP), and X-Frame header safeguards to protect your visitor flows from vulnerabilities.</p>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">White-Label PDF Rapor</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Tüm denetim bulgularını markanızla (logo, renk, dil) hazırlanmış profesyonel PDF raporuna dönüştürün. Ajanslar ve freelancer'lar için doğrudan müşteriye sunulabilir çıktı.</p>
                         </div>
 
+                        <!-- Kart 4: GEO & AI -->
                         <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: var(--color-rose); background: rgba(225, 29, 72, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <div class="feature-icon" style="color: #a855f7; background: rgba(168,85,247,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                             </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Competitor Comparison Analytics</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Enter competitor URLs side-by-side with your client site to run concurrent Lighthouse runs and comparative LLM UX analysis dashboard outputs.</p>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">GEO &amp; AI Tarayıcı Optimizasyonu</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">JSON-LD şemaları, FAQPage ve E-E-A-T sinyallerini denetleyerek ChatGPT, Gemini ve Bing gibi AI tarayıcıların sitenizi doğru indekslemesini sağlayın.</p>
                         </div>
 
+                        <!-- Kart 5: SSL & Güvenlik -->
                         <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                            <div class="feature-icon" style="color: #64748b; background: rgba(100, 116, 139, 0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            <div class="feature-icon" style="color: #d97706; background: rgba(217,119,6,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                             </div>
-                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">White-Label PDF Reports</h3>
-                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Export fully structured PDF metrics to deliver to marketing clients, design leads, or development teams directly from the results workspace.</p>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SSL &amp; HTTP Güvenlik Denetimi</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">HTTPS sertifikaları, HSTS durumu, Content Security Policy (CSP) ve X-Frame başlıklarını kontrol ederek ziyaretçilerinizi güvenlik açıklarından koruyun.</p>
                         </div>
+
+                        <!-- Kart 6: Rakip Analizi -->
+                        <div class="feature-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: var(--transition-smooth); box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
+                            <div class="feature-icon" style="color: var(--color-rose); background: rgba(225,29,72,0.08); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Rakip Karşılaştırma Analizi</h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Rakip URL'lerini yan yana girerek eş zamanlı Lighthouse testleri ve AI destekli UX karşılaştırması yapın. Müşterinize "neden sizin siteniz daha iyi" sorusunu somut verilerle yanıtlayın.</p>
+                        </div>
+
                     </div>
                 </section>
 
+                <!-- ─────────── NASIL ÇALIŞIR ─────────── -->
                 <section id="how-it-works" class="funnel-section">
-                    <h2 class="section-title">Simple and Effective Workflow</h2>
-                    <p class="section-subtitle">Analyze your website's health in three simple steps.</p>
+                    <h2 class="section-title">3 Adımda Web Sitenizi Denetleyin</h2>
+                    <p class="section-subtitle">URL'yi girin, AI motorunu çalıştırın, markalı raporunuzu indirin.</p>
                     <div class="steps-grid">
                         <div class="step-card">
                             <div class="step-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                             </div>
-                            <h3>1. Enter URL</h3>
-                            <p>Type your target website URL. You can also add a competitor URL to compare performance side-by-side.</p>
+                            <h3>1. URL'yi Girin</h3>
+                            <p>Denetlemek istediğiniz web sitesinin URL'sini girin. Opsiyonel olarak rakip URL'si de ekleyerek yan yana karşılaştırma yapabilirsiniz.</p>
                         </div>
                         <div class="step-card">
                             <div class="step-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                             </div>
-                            <h3>2. AI & PageSpeed Audit</h3>
-                            <p>Run code structure, loading speed, and semantic scans using Gemini 2.0 and Google PageSpeed.</p>
+                            <h3>2. AI &amp; PageSpeed Denetimi</h3>
+                            <p>Gemini AI ve Google PageSpeed altyapısı sitenizi hız, SEO, güvenlik ve GEO açısından tarar. 10x AI Persona simülasyonu da bu aşamada çalışır.</p>
                         </div>
                         <div class="step-card">
                             <div class="step-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                             </div>
-                            <h3>3. Interactive Dashboard</h3>
-                            <p>View the comprehensive audit results on an interactive dashboard or download it as a PDF report.</p>
+                            <h3>3. Raporu İnceleyin ve İndirin</h3>
+                            <p>Interaktif dashboard'da tüm bulgulara göz atın veya tek tıkla white-label PDF raporunuzu müşterinize sunun.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Örnek Denetim Raporları Vitrini (Showcase Gallery) -->
+                <!-- ─────────── SHOWCASE ─────────── -->
                 <section id="showcase" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
                     <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">Explore Example Audit Reports</h2>
-                        <p class="section-subtitle">See how WebPulse audits different site setups. Review synthetic metrics and AI-driven critiques below.</p>
+                        <h2 class="section-title">Örnek Denetim Raporları</h2>
+                        <p class="section-subtitle">WebPulse'un farklı site türlerini nasıl denetlediğine bakın. Aşağıdaki kartlar gerçek bir denetim çıktısına benzer biçimde hazırlanmıştır.</p>
                     </div>
                     
                     <div class="showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; width: 100%; max-width: 1100px; margin: 0 auto 32px auto;">
-                        
-                        <!-- 1. E-commerce Platform -->
+
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #f59e0b; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">SPEED 94</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="0" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/>
-                                    <rect x="36" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/>
-                                    <rect x="72" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/>
-                                    <line x1="5" y1="30" x2="23" y2="30" stroke="#f59e0b" stroke-width="2"/>
-                                    <line x1="41" y1="30" x2="59" y2="30" stroke="#f59e0b" stroke-width="2"/>
-                                    <line x1="77" y1="30" x2="95" y2="30" stroke="#f59e0b" stroke-width="2"/>
-                                </svg>
+                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #f59e0b; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">HIZ 94</span>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(245,158,11,0.05), rgba(245,158,11,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><rect x="0" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/><rect x="36" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/><rect x="72" y="5" width="28" height="40" rx="3" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/><line x1="5" y1="30" x2="23" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="41" y1="30" x2="59" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="77" y1="30" x2="95" y2="30" stroke="#f59e0b" stroke-width="2"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">E-commerce Store</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for fast layout rendering, product schema tags, and checkout forms.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">E-ticaret Mağazası</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Hızlı layout render, ürün şema etiketleri ve ödeme formu güvenliği için denetlendi.</p></div>
                         </div>
 
-                        <!-- 2. B2B SaaS Landing Page -->
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
                             <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #10b981; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">SEO 98</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="0" y="5" width="100" height="40" rx="3" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.5"/>
-                                    <path d="M10 35 L30 20 L50 30 L70 15 L90 25" fill="none" stroke="#10b981" stroke-width="2.5"/>
-                                    <circle cx="90" cy="25" r="3" fill="#10b981"/>
-                                </svg>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(16,185,129,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><rect x="0" y="5" width="100" height="40" rx="3" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.5"/><path d="M10 35 L30 20 L50 30 L70 15 L90 25" fill="none" stroke="#10b981" stroke-width="2.5"/><circle cx="90" cy="25" r="3" fill="#10b981"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">B2B SaaS Funnel</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Focused on conversion structures, CTA placement, and performance metrics.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">B2B SaaS Landing Page</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Dönüşüm yapısı, CTA yerleşimi ve Core Web Vitals performansı için optimize analiz.</p></div>
                         </div>
 
-                        <!-- 3. Local Restaurant Site -->
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #f97316; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">LOCAL 89</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.05), rgba(249, 115, 22, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <circle cx="50" cy="25" r="18" fill="#f97316" fill-opacity="0.1" stroke="#f97316" stroke-width="1.5"/>
-                                    <path d="M50 15 L50 25 L58 29" stroke="#f97316" stroke-width="2" fill="none"/>
-                                </svg>
+                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #3b82f6; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">ERIŞIM 91</span>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(59,130,246,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><rect x="5" y="10" width="90" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/><rect x="5" y="24" width="90" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/><rect x="5" y="38" width="50" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Restaurant Portal</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for local SEO schema, maps embeds, and responsive menus.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">E-Öğrenme Portalı</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Ekran okuyucu erişilebilirliği, sayfa hızı ve görsel alt etiketleri için denetlendi.</p></div>
                         </div>
 
-                        <!-- 4. E-Learning Academy -->
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #3b82f6; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">ACCESS 91</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="5" y="10" width="90" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/>
-                                    <rect x="5" y="24" width="90" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/>
-                                    <rect x="5" y="38" width="50" height="8" rx="2" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5"/>
-                                </svg>
+                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #06b6d4; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">GÜVENLIK 95</span>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(6,182,212,0.05), rgba(6,182,212,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><rect x="35" y="15" width="30" height="26" rx="3" fill="#06b6d4" fill-opacity="0.1" stroke="#06b6d4" stroke-width="1.5"/><path d="M42 15 V10 A8 8 0 0 1 58 10 V15" fill="none" stroke="#06b6d4" stroke-width="1.5"/><circle cx="50" cy="27" r="2.5" fill="#06b6d4"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">E-Learning Portal</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for screen-reader accessibility, page speed, and image alt tags.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Sağlık Klinik Portalı</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">HTTPS güvenlik başlıkları, SSL durumu ve form güvenliği için denetlendi.</p></div>
                         </div>
 
-                        <!-- 5. Creative Agency Portfolio -->
-                        <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #8b5cf6; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">PERF 96</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <circle cx="25" cy="25" r="15" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/>
-                                    <polygon points="75,10 90,38 60,38" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/>
-                                </svg>
-                            </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Agency Portfolio</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Optimized for visual layouts, CSS animations, and image compression.</p>
-                            </div>
-                        </div>
-
-                        <!-- 6. High-Traffic News Blog -->
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
                             <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">GEO 88</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="5" y="5" width="40" height="40" rx="3" fill="#ef4444" fill-opacity="0.1" stroke="#ef4444" stroke-width="1.5"/>
-                                    <line x1="55" y1="10" x2="95" y2="10" stroke="#ef4444" stroke-width="2"/>
-                                    <line x1="55" y1="20" x2="95" y2="20" stroke="#ef4444" stroke-width="2"/>
-                                    <line x1="55" y1="30" x2="95" y2="30" stroke="#ef4444" stroke-width="2"/>
-                                    <line x1="55" y1="40" x2="80" y2="40" stroke="#ef4444" stroke-width="2"/>
-                                </svg>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(239,68,68,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><rect x="5" y="5" width="40" height="40" rx="3" fill="#ef4444" fill-opacity="0.1" stroke="#ef4444" stroke-width="1.5"/><line x1="55" y1="10" x2="95" y2="10" stroke="#ef4444" stroke-width="2"/><line x1="55" y1="20" x2="95" y2="20" stroke="#ef4444" stroke-width="2"/><line x1="55" y1="30" x2="95" y2="30" stroke="#ef4444" stroke-width="2"/><line x1="55" y1="40" x2="80" y2="40" stroke="#ef4444" stroke-width="2"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">News Blog</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for semantic HTML headings and LLM crawler GEO schemas.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Haber Blogu</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Semantik HTML başlıkları ve LLM tarayıcı GEO şemaları için denetlendi.</p></div>
                         </div>
 
-                        <!-- 7. Real Estate Marketplace -->
                         <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #10b981; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">SPEED 90</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="5" y="5" width="40" height="24" rx="2" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.5"/>
-                                    <rect x="55" y="5" width="40" height="24" rx="2" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.5"/>
-                                    <line x1="10" y1="38" x2="35" y2="38" stroke="#10b981" stroke-width="2"/>
-                                    <line x1="60" y1="38" x2="85" y2="38" stroke="#10b981" stroke-width="2"/>
-                                </svg>
+                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #8b5cf6; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">PERF 96</span>
+                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(139,92,246,0.05), rgba(139,92,246,0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
+                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;"><circle cx="25" cy="25" r="15" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/><polygon points="75,10 90,38 60,38" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/></svg>
                             </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Real Estate Directory</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for interactive filters speed and image lazy-loading setup.</p>
-                            </div>
-                        </div>
-
-                        <!-- 8. Healthcare Clinic Portal -->
-                        <div class="showcase-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; position: relative;">
-                            <span class="badge-status" style="position: absolute; top: 12px; right: 12px; background: #06b6d4; color: white; padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px;">SECURE 95</span>
-                            <div class="mock-preview" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(6, 182, 212, 0.01)); height: 140px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; padding: 16px;">
-                                <svg viewBox="0 0 100 50" style="width: 80%; height: 80%; opacity: 0.85;">
-                                    <rect x="35" y="15" width="30" height="26" rx="3" fill="#06b6d4" fill-opacity="0.1" stroke="#06b6d4" stroke-width="1.5"/>
-                                    <path d="M42 15 V10 A8 8 0 0 1 58 10 V15" fill="none" stroke="#06b6d4" stroke-width="1.5"/>
-                                    <circle cx="50" cy="27" r="2.5" fill="#06b6d4"/>
-                                </svg>
-                            </div>
-                            <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Healthcare Clinic</h3>
-                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Audited for HTTPS security headers, SSL status, and forms security.</p>
-                            </div>
+                            <div style="padding: 16px;"><h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px 0;">Ajans Portfolyosu</h3><p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Görsel layout, CSS animasyonlar ve görsel sıkıştırma için optimize analiz.</p></div>
                         </div>
 
                     </div>
 
-                    <!-- Showcase Bottom CTA -->
                     <div style="text-align: center; margin-top: 16px;">
                         <a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();" style="color: var(--color-emerald); font-weight: 700; text-decoration: none; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; transition: var(--transition-smooth);" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
-                            <span>Analyze your own website for free</span>
+                            <span>Kendi sitenizi ücretsiz denetleyin</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </a>
                     </div>
                 </section>
 
-                <!-- Fiyatlandırma Bölümü (B2B Monthly Subscriptions) -->
+                <!-- ─────────── FİYATLANDIRMA ─────────── -->
+                <div id="pricing-anchor" style="position: relative; top: -80px;"></div>
                 <section id="pricing" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
                     <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">Flexible Pricing Plans</h2>
-                        <p class="section-subtitle">Choose the perfect plan for your business. Cancel or change plans anytime.</p>
-                        
+                        <h2 class="section-title">Ajansınız ve Projeleriniz İçin Esnek Planlar</h2>
+                        <p class="section-subtitle">İhtiyacınıza uygun planı seçin. İstediğiniz zaman iptal edebilir veya plan değiştirebilirsiniz.</p>
                         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px;">
-                            <span style="font-size: 13px; font-weight: 700; color: var(--text-primary);">🛡️ 14-Day Free Trial — No Credit Card Required</span>
+                            <svg style="color:var(--color-emerald);width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-primary);">14 Günlük Ücretsiz Deneme — Kredi Kartı Gerekmez</span>
                         </div>
                     </div>
-                    
+
                     <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; width: 100%; max-width: 1050px; margin: 0 auto;">
-                        <!-- Starter Code -->
+
+                        <!-- Başlangıç Planı -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 4px 30px rgba(0,0,0,0.01);">
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Starter Plan</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$19<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/month</span></div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Başlangıç Planı</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$19<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/ay</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1 Active Website Monitor</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1,000 scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Flash AI Engine</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; text-decoration: line-through;"><svg style="color: var(--text-muted); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>10x AI Persona testing</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>1 Aktif Site İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Aylık 1.000 denetim</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Flash AI Motoru</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF raporlar</li>
+                                <li style="font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; text-decoration: line-through;"><svg style="color:var(--text-muted);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>10x AI Persona Testi</li>
                             </ul>
-                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Start 14-Day Free Trial</button>
+                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">14 Günlük Denemeyi Başlat</button>
                         </div>
-                        
-                        <!-- Professional Plan -->
+
+                        <!-- Profesyonel Plan (önerilen) -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 2px solid var(--color-emerald); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 10px 40px rgba(5,150,105,0.05); position: relative;">
-                            <div style="position: absolute; top: -12px; right: 24px; background: var(--color-emerald); color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Most Popular</div>
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--color-emerald); margin-bottom: 8px; letter-spacing: 0.5px;">Professional Plan</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$49<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/month</span></div>
+                            <div style="position: absolute; top: -12px; right: 24px; background: var(--color-emerald); color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">En Popüler</div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--color-emerald); margin-bottom: 8px; letter-spacing: 0.5px;">Profesyonel Plan</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$49<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/ay</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5 Active Website Monitors</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5,000 scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Pro & 2.0 Flash AI</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona testing suite</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>5 Aktif Site İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Aylık 5.000 denetim</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Gemini 1.5 Pro &amp; 2.0 Flash AI</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF raporlar</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona Testi paketi</li>
                             </ul>
-                            <button class="btn btn-primary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); border: none; cursor: pointer; background: var(--color-emerald); color: white;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Start 14-Day Free Trial</button>
+                            <button class="btn btn-primary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); border: none; cursor: pointer; background: var(--color-emerald); color: white;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">14 Günlük Denemeyi Başlat</button>
                         </div>
-                        
-                        <!-- Enterprise Plan -->
+
+                        <!-- Kurumsal Plan -->
                         <div class="pricing-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth); box-shadow: 0 4px 30px rgba(0,0,0,0.01);">
-                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Enterprise Plan</div>
-                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$99<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/month</span></div>
+                            <div class="plan-name" style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Kurumsal Plan</div>
+                            <div class="plan-price" style="font-family: var(--font-heading); font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 24px;">$99<span style="font-size: 16px; font-weight: 500; color: var(--text-muted);">/ay</span></div>
                             <ul class="plan-features" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; padding: 0;">
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Unlimited Website Monitors</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Unlimited scans per month</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Custom API Key integration</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF reports</li>
-                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color: var(--color-emerald); width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona testing suite</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Sınırsız Site İzleme</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Sınırsız aylık denetim</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Özel API Key entegrasyonu</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>White-label PDF raporlar</li>
+                                <li style="font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;"><svg style="color:var(--color-emerald);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>10x AI Persona Testi paketi</li>
                             </ul>
-                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">Start 14-Day Free Trial</button>
+                            <button class="btn btn-secondary pricing-btn" style="margin-top: auto; padding: 14px; font-weight: 700; border-radius: var(--border-radius); cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-hero').focus();">14 Günlük Denemeyi Başlat</button>
                         </div>
+
                     </div>
 
-                    <!-- Guarantee -->
+                    <!-- Güvence -->
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 48px; text-align: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; color: var(--color-emerald);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">100% Risk-Free Guarantee</h3>
-                        <p style="font-size: 13px; color: var(--text-secondary); max-width: 550px; margin: 0;">Try WebPulse Starter or Professional tier risk-free. If it doesn't fit your optimization workflows, cancel your plan anytime from your dashboard with one simple click.</p>
-                    </div>
-                </section><!-- SSS Bölümü (Akordeon Tarzı) -->
-                <section id="faq" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
-                    <div style="text-align: center; margin-bottom: 48px;">
-                        <h2 class="section-title">Frequently Asked Questions</h2>
-                        <p class="section-subtitle">Everything you need to know about WebPulse limits and licenses.</p>
-                    </div>
-                    <div class="faq-accordion" style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
-                        <div class="accordion-item">
-                            <button class="accordion-trigger">
-                                <span>Is this tool suitable for client presentations?</span>
-                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p>Yes. You can export complete diagnostics reports as White-label PDFs, add your agency branding, and present them directly to clients.</p>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <button class="accordion-trigger">
-                                <span>Can I use my own API keys?</span>
-                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p>Yes. Simply paste your Gemini, Google PageSpeed, or OpenRouter credentials inside the Settings panel to bypass standard limits.</p>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <button class="accordion-trigger">
-                                <span>Is there a free trial option before purchase?</span>
-                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p>Yes, you can initiate a standard audit test completely free without entering any credentials or billing details.</p>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <button class="accordion-trigger">
-                                <span>Are my API keys and data secure?</span>
-                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p>Your API keys are never stored on our servers. They reside strictly inside your local device storage (localStorage) and travel over encrypted headers.</p>
-                            </div>
-                        </div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; color: var(--color-emerald);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">%100 Risk-Free Güvence</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); max-width: 550px; margin: 0;">WebPulse'u risk-free deneyin. İş akışlarınıza uymuyorsa dashboard'dan tek tıkla iptal edin.</p>
                     </div>
                 </section>
+
+                <!-- ─────────── SSS ─────────── -->
+                <div id="faq-anchor" style="position: relative; top: -80px;"></div>
+                <section id="faq" class="funnel-section" style="padding: 80px 0; border-top: 1px solid var(--border-color); width: 100%;">
+                    <div style="text-align: center; margin-bottom: 48px;">
+                        <h2 class="section-title">Sık Sorulan Sorular</h2>
+                        <p class="section-subtitle">Satın almadan önce merak ettikleriniz.</p>
+                    </div>
+                    <div class="faq-accordion" style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Bu araç ajansımın müşterilerine sunacağı raporlar için uygun mu?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Evet. White-label PDF özelliği sayesinde tüm denetim bulgularını kendi ajans logonuz ve renk şemanızla hazırlanmış profesyonel bir rapor olarak dışa aktarabilirsiniz. Müşteriye doğrudan teslim edilebilir çıktı üretmek için tasarlandı.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Aylık kaç site / kaç denetim yapabilirim?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Başlangıç Planı ile 1 site ve aylık 1.000 denetim; Profesyonel Plan ile 5 site ve 5.000 denetim; Kurumsal Plan ile sınırsız site ve denetim yapabilirsiniz. Kendi API anahtarlarınızı (Gemini, PageSpeed) ekleyerek standart limitleri de aşabilirsiniz.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Ücretsiz deneme var mı?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Evet. Herhangi bir ödeme bilgisi veya hesap açmadan temel denetimi ücretsiz başlatabilirsiniz. Tüm planlar ayrıca 14 günlük risk-free deneme süresi içerir.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Kendi API anahtarlarımı kullanabilir miyim?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Evet. Ayarlar panelinden Gemini, Google PageSpeed veya OpenRouter API anahtarlarınızı tanımlayarak standart analiz limitlerini kaldırabilirsiniz.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>API anahtarlarım ve verilerim güvende mi?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>API anahtarlarınız asla sunucularımızda saklanmaz. Yalnızca tarayıcınızın yerel depolamasında (localStorage) tutulur ve şifreli başlıklar üzerinden iletilir.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-trigger">
+                                <span>Rakip analizi verileri ne kadar doğru?</span>
+                                <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Rakip karşılaştırma, doğrudan Google PageSpeed Insights altyapısından alınan Lighthouse verileri ve AI destekli UX değerlendirmesiyle çalışır. Veriler, analiz anındaki gerçek sayfa performansını yansıtır; tarihsel trend değil anlık ölçümdür.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+
             </div>
-        </main></main>
+
+            <!-- ─────────── INTERACTIVE DASHBOARD CONTAINER ─────────── -->
+            <div id="dashboard" style="display: flex; flex-direction: column; gap: var(--sp-3); width: 100%;">
+                
+                <!-- PDF Export Banner -->
+                <div id="pdf-export-container" class="hidden" style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                    <button type="button" id="btn-export-pdf" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; font-weight: 700; background-color: var(--color-emerald); color: white; border: none; padding: 12px 24px; border-radius: var(--border-radius); cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.2);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>PDF Raporunu Dışa Aktar</span>
+                    </button>
+                </div>
+
+                <!-- ── 1. GENEL BAKIŞ (OVERVIEW) PANEL ── -->
+                <div id="tab-overview" class="tab-panel active" style="display: flex; flex-direction: column; gap: var(--sp-3);">
+                    
+                    <!-- Fallback Mock warning banner -->
+                    <div id="fallback-warning-banner" class="hidden" style="background-color: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.2); padding: 16px; border-radius: var(--border-radius); display: flex; align-items: center; gap: 12px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; color: var(--color-amber); flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <span style="font-size: 13px; color: var(--text-secondary);"><strong>Heuristic Modu Aktif:</strong> Gemini API bağlantısı kurulamadığından teknik kurallar ile simüle edilen analiz skorları gösterilmektedir.</span>
+                    </div>
+
+                    <div class="scores-container hidden" style="display: grid; grid-template-columns: 1.2fr 2fr; gap: 24px;">
+                        
+                        <!-- Overall Circular Gauge Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-secondary); margin: 0;">Genel Sağlık Skoru</h3>
+                            
+                            <div style="position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center;">
+                                <svg width="140" height="140" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
+                                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--bg-tertiary)" stroke-width="2.5"></circle>
+                                    <circle id="overall-gauge-fill" cx="18" cy="18" r="15.915" fill="none" stroke="var(--color-emerald)" stroke-width="2.5" stroke-dasharray="0, 100" stroke-linecap="round" style="transition: stroke-dasharray 1s ease-in-out;"></circle>
+                                </svg>
+                                <div id="overall-score-val" style="position: absolute; font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-primary);">0</div>
+                            </div>
+                            
+                            <p style="font-size: 12px; color: var(--text-muted); margin: 0; max-width: 200px;">5 denetim modülünün ağırlıklı ortalaması.</p>
+                        </div>
+
+                        <!-- Mini score categories lists -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+                            <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0;">Modüler Analiz Dağılımı</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <!-- SEO -->
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                                        <span style="color: var(--text-primary);">SEO Analizi</span>
+                                        <span id="val-seo" style="color: var(--text-secondary);">0/100</span>
+                                    </div>
+                                    <div style="width: 100%; height: 6px; background-color: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+                                        <div id="bar-seo" style="width: 0%; height: 100%; background-color: var(--color-emerald); transition: width 0.8s ease-in-out;"></div>
+                                    </div>
+                                </div>
+                                <!-- Performans -->
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                                        <span style="color: var(--text-primary);">Performans & Hız</span>
+                                        <span id="val-performance" style="color: var(--text-secondary);">0/100</span>
+                                    </div>
+                                    <div style="width: 100%; height: 6px; background-color: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+                                        <div id="bar-performance" style="width: 0%; height: 100%; background-color: var(--color-emerald); transition: width 0.8s ease-in-out;"></div>
+                                    </div>
+                                </div>
+                                <!-- Güvenlik -->
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                                        <span style="color: var(--text-primary);">Siber Güvenlik</span>
+                                        <span id="val-security" style="color: var(--text-secondary);">0/100</span>
+                                    </div>
+                                    <div style="width: 100%; height: 6px; background-color: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+                                        <div id="bar-security" style="width: 0%; height: 100%; background-color: var(--color-emerald); transition: width 0.8s ease-in-out;"></div>
+                                    </div>
+                                </div>
+                                <!-- Erişilebilirlik -->
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                                        <span style="color: var(--text-primary);">Erişilebilirlik (WCAG)</span>
+                                        <span id="val-accessibility" style="color: var(--text-secondary);">0/100</span>
+                                    </div>
+                                    <div style="width: 100%; height: 6px; background-color: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+                                        <div id="bar-accessibility" style="width: 0%; height: 100%; background-color: var(--color-emerald); transition: width 0.8s ease-in-out;"></div>
+                                    </div>
+                                </div>
+                                <!-- GEO -->
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                                        <span style="color: var(--text-primary);">GEO & AI Arama Motoru</span>
+                                        <span id="val-geo" style="color: var(--text-secondary);">0/100</span>
+                                    </div>
+                                    <div style="width: 100%; height: 6px; background-color: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+                                        <div id="bar-geo" style="width: 0%; height: 100%; background-color: var(--color-emerald); transition: width 0.8s ease-in-out;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Critical warnings card -->
+                    <div id="critical-warnings-card" class="report-card hidden" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--color-rose); margin: 0; display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 18px; height: 18px;"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            <span>Düzeltilmesi Önerilen Kritik Bulgu ve Eksikler</span>
+                        </h3>
+                        <ul id="critical-warnings-list" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                            <!-- populated by script -->
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- ── 2. SEO ANALİZİ PANEL ── -->
+                <div id="tab-seo" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        
+                        <!-- Snippet Preview Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 4px;">
+                                <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0;">Google Arama Sonucu Önizleme</h3>
+                                <span id="badge-seo" style="border: 1px solid var(--color-emerald); color: var(--color-emerald); padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700;">-</span>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <span id="preview-url" style="font-size: 12px; color: #1a0dab;">-</span>
+                                <h4 id="preview-title" style="font-size: 16px; font-weight: 600; color: #1a0dab; margin: 0; line-height: 1.3;">-</h4>
+                                <p id="preview-desc" style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">-</p>
+                            </div>
+                        </div>
+
+                        <!-- Core SEO Indicators Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Teknik Parametre Özeti</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div>
+                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 2px;">Canonical Adresi</div>
+                                    <div id="seo-canonical" style="font-size: 12px; font-weight: 700; color: var(--text-primary); word-break: break-all;">-</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 2px;">Metin Kelime Sayısı</div>
+                                    <div id="seo-wordcount" style="font-size: 14px; font-weight: 700; color: var(--text-primary);">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Headings Hierarchy Card -->
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Sayfa Başlık Hiyerarşisi (H1 - H6)</h3>
+                        <div id="seo-headings-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto; padding-right: 8px;">
+                            <!-- populated by script -->
+                        </div>
+                    </div>
+
+                    <!-- Keywords Densities Card -->
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Anahtar Kelime Yoğunluğu (Density)</h3>
+                        <div style="overflow-x: auto; width: 100%;">
+                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid var(--border-color);">
+                                        <th style="padding: 8px 12px; font-weight: 700; color: var(--text-primary);">Kelime</th>
+                                        <th style="padding: 8px 12px; font-weight: 700; color: var(--text-primary);">Adet</th>
+                                        <th style="padding: 8px 12px; font-weight: 700; color: var(--text-primary);">Yoğunluk (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="seo-keywords-table">
+                                    <!-- populated by script -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- SEO Detailed Checklist -->
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">SEO Kontrol Maddeleri Raporu</h3>
+                        <ul id="seo-checklist" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                            <!-- populated by script -->
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- ── 3. PERFORMANCE PANEL ── -->
+                <div id="tab-performance" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <!-- Core Web Vitals Row -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                        <!-- LCP -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Largest Contentful Paint</span>
+                            <span id="vitals-lcp" style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--text-primary);">-</span>
+                            <span style="font-size: 10px; color: var(--text-muted);">LCP hedefi: &lt;2.5s</span>
+                        </div>
+                        <!-- CLS -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Cumulative Layout Shift</span>
+                            <span id="vitals-cls" style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--text-primary);">-</span>
+                            <span style="font-size: 10px; color: var(--text-muted);">CLS hedefi: &lt;0.1</span>
+                        </div>
+                        <!-- TBT -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Total Blocking Time</span>
+                            <span id="vitals-tbt" style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--text-primary);">-</span>
+                            <span style="font-size: 10px; color: var(--text-muted);">TBT hedefi: &lt;150ms</span>
+                        </div>
+                        <!-- Speed Index -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Speed Index</span>
+                            <span id="vitals-speedindex" style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--text-primary);">-</span>
+                            <span style="font-size: 10px; color: var(--text-muted);">Index hedefi: &lt;3.4s</span>
+                        </div>
+                    </div>
+
+                    <div class="scores-container hidden" style="display: grid; grid-template-columns: 1.2fr 2fr; gap: 24px;">
+                        
+                        <!-- Performance Technical Parameters Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Teknik Hız Metrikleri</h3>
+                            
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0; font-size: 13px;">
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">Sunucu Yanıt Süresi (Load Time)</span><strong id="perf-loadtime" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">CDN Dağıtım Durumu</span><strong id="perf-cdn" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">Sunucu Sıkıştırma (Brotli/Gzip)</span><strong id="perf-compression" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">CSS Kaynak Sayısı</span><strong id="perf-css-count" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">JS Kaynak Sayısı</span><strong id="perf-js-count" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 6px;"><span style="color: var(--text-secondary);">Render Engelleyici Dosyalar</span><strong id="perf-blocking-count" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; padding-bottom: 6px;"><span style="color: var(--text-secondary);">Lazy Loading Görseller</span><strong id="perf-lazy-images" style="color: var(--text-primary);">-</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Performance Checklist -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Hız İyileştirme Önerileri</h3>
+                            <ul id="performance-checklist" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                                <!-- populated by script -->
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ── 4. SECURITY PANEL ── -->
+                <div id="tab-security" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <!-- SSL Status Alert Card -->
+                    <div id="sec-ssl-status" class="alert-box success">
+                        <!-- populated dynamically -->
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        
+                        <!-- Security Headers Badges Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Kritik Güvenlik Yanıt Başlıkları</h3>
+                            
+                            <div id="sec-headers-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                                <!-- badges rendered by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Cookie/CORS Parameters Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Gelişmiş Güvenlik Parametreleri</h3>
+                            
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; font-size: 13px;">
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">CORS Politikası</span><strong id="sec-cors" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; padding-bottom: 8px;"><span style="color: var(--text-secondary);">Güvenlikli Çerez (Cookie) Sayısı</span><strong id="sec-cookies" style="color: var(--text-primary);">-</strong></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Security Checklist -->
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Siber Güvenlik Kontrol Listesi</h3>
+                        <ul id="security-checklist" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                            <!-- populated by script -->
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- ── 5. ACCESSIBILITY PANEL ── -->
+                <div id="tab-accessibility" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px;">
+                        
+                        <!-- Accessibility Metrics Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Erişilebilirlik Göstergeleri</h3>
+                            
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; font-size: 13px;">
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Beyan Edilen Dil (lang)</span><strong id="acc-lang" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Form Girdi Alanı Sayısı</span><strong id="acc-inputs" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Açıklamasız (Unetiketli) Form Elemanları</span><strong id="acc-undoc-inputs" style="color: var(--color-rose);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; padding-bottom: 8px;"><span style="color: var(--text-secondary);">ARIA Element/Attribute Sayısı</span><strong id="acc-aria" style="color: var(--text-primary);">-</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Accessibility Checklist -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Erişilebilirlik (WCAG 2.1) Raporu</h3>
+                            <ul id="accessibility-checklist" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                                <!-- populated by script -->
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ── 6. GEO & AI PANEL ── -->
+                <div id="tab-geo" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        
+                        <!-- AI Semantics / E-E-A-T Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">AI Okuma ve EEAT Metrikleri</h3>
+                            
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; font-size: 13px;">
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Semantik HTML Etiketleri</span><strong id="geo-semantics" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Bulunan E-E-A-T Sinyalleri</span><strong id="geo-eeat" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg-tertiary); padding-bottom: 8px;"><span style="color: var(--text-secondary);">Toplam Paragraf Sayısı</span><strong id="geo-paragraphs" style="color: var(--text-primary);">-</strong></li>
+                                <li style="display: flex; justify-content: space-between; padding-bottom: 8px;"><span style="color: var(--text-secondary);">Çok Uzun (AI Bölünmeyen) Paragraf</span><strong id="geo-long-paragraphs" style="color: var(--color-rose);">-</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Schemas Badges Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Knowledge Graph &amp; Schema Yapıları</h3>
+                            <div id="geo-schemas-list" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <!-- populated by JS -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- GEO Checklist -->
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">GEO (AI Arama Motoru Optimizasyonu) Kontrolleri</h3>
+                        <ul id="geo-checklist" class="audit-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0;">
+                            <!-- populated by script -->
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- ── 7. AI INSIGHTS PANEL ── -->
+                <div id="tab-ai-insights" class="tab-panel" style="display: none; flex-direction: column; gap: 24px;">
+                    
+                    <div id="ai-status-box" class="alert-box warning">
+                        <!-- API Key warning or status -->
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <!-- Code Quality AI Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0;">Yapay Zeka Kod Kalitesi Raporu</h3>
+                                <span id="ai-code-score" style="background: rgba(16,185,129,0.1); color: var(--color-emerald); padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 700;">-</span>
+                            </div>
+                            <p id="ai-code-review" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;">-</p>
+                            <h4 style="font-size: 12px; font-weight: 700; color: var(--text-primary); margin-top: 8px;">Kod İyileştirme Tavsiyeleri:</h4>
+                            <ul id="ai-code-suggestions" style="list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; margin: 0; font-size: 12px; color: var(--text-secondary);">
+                                <!-- populated dynamically -->
+                            </ul>
+                        </div>
+
+                        <!-- UX Evaluation AI Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0;">Yapay Zeka Kullanıcı Deneyimi (UX)</h3>
+                                <span id="ai-ux-score" style="background: rgba(16,185,129,0.1); color: var(--color-emerald); padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 700;">-</span>
+                            </div>
+                            <p id="ai-ux-review" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;">-</p>
+                            <h4 style="font-size: 12px; font-weight: 700; color: var(--text-primary); margin-top: 8px;">UX &amp; Dönüşüm Önerileri:</h4>
+                            <ul id="ai-ux-suggestions" style="list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; margin: 0; font-size: 12px; color: var(--text-secondary);">
+                                <!-- populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <!-- Critical Missing elements AI Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-rose); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Kritik Seviyede Eksik Kod/Elementler</h3>
+                            <ul id="ai-critical-missing" style="list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; margin: 0; font-size: 12px; color: var(--text-secondary);">
+                                <!-- populated dynamically -->
+                            </ul>
+                        </div>
+
+                        <!-- GEO AI improvements Card -->
+                        <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-amber); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">GEO (AI Arama Motoru) İyileştirmeleri</h3>
+                            <ul id="ai-geo-missing" style="list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; margin: 0; font-size: 12px; color: var(--text-secondary);">
+                                <!-- populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── 8. DEVICE SIMULATOR PANEL ── -->
+                <div id="tab-responsive" class="tab-panel" style="display: none; flex-direction: column; gap: 20px;">
+                    
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+                        
+                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 14px;">
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button type="button" class="btn sim-btn active" data-width="375" data-height="667" data-name="iPhone SE (Mobil)" style="padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer;">iPhone SE</button>
+                                <button type="button" class="btn sim-btn" data-width="412" data-height="915" data-name="Samsung Galaxy S20 (Mobil)" style="padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer;">Galaxy S20</button>
+                                <button type="button" class="btn sim-btn" data-width="768" data-height="1024" data-name="iPad (Tablet)" style="padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer;">iPad Mini</button>
+                                <button type="button" class="btn sim-btn" data-width="1280" data-height="800" data-name="Laptop (Desktop)" style="padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer;">MacBook 13</button>
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);" id="sim-active-name">iPhone SE (Mobil)</span>
+                                <span style="font-size: 11px; color: var(--text-muted); opacity: 0.6;">|</span>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);" id="sim-active-orientation">Dikey (Portrait)</span>
+                                <button type="button" id="sim-rotate-btn" class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                                    Döndür
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Simulator Viewport Iframe Container -->
+                        <div style="display: flex; justify-content: center; background-color: var(--bg-primary); padding: 32px; border-radius: 12px; border: 1px dashed var(--border-color); overflow: auto;">
+                            <div id="viewport-container" style="width: 375px; height: 667px; background-color: white; border: 12px solid #0f172a; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; transition: width 0.3s ease, height 0.3s ease;">
+                                <iframe id="simulator-iframe" src="about:blank" style="width: 100%; height: 100%; border: none;"></iframe>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ── 9. COMPETITOR COMPARISON PANEL ── -->
+                <div id="tab-competitor" class="tab-panel" style="display: none; flex-direction: column; gap: 20px;">
+                    
+                    <!-- Empty State -->
+                    <div id="competitor-empty-state" class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; color: var(--text-muted); opacity: 0.5;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">Rakip Karşılaştırma Seçilmedi</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); max-width: 450px; margin: 0;">Analiz formundaki 'Rakip URL' alanına rakip sitenin adresini girerek yan yana detaylı bir analiz başlatabilirsiniz.</p>
+                    </div>
+
+                    <!-- Comparison Grid -->
+                    <div id="competitor-comparison-card" class="report-card hidden" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Yan Yana Rakip Karşılaştırma Raporu</h3>
+                        
+                        <div style="overflow-x: auto; width: 100%;">
+                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid var(--border-color); background-color: var(--bg-tertiary);">
+                                        <th style="padding: 10px 14px; font-weight: 700; color: var(--text-primary);">Karşılaştırma Kriteri</th>
+                                        <th id="comp-label-main" style="padding: 10px 14px; font-weight: 700; color: var(--text-primary);">Siteniz</th>
+                                        <th id="comp-label-competitor" style="padding: 10px 14px; font-weight: 700; color: var(--text-primary);">Rakip Site</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="competitor-table-body">
+                                    <!-- populated by script -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── 10. 10x AI PERSONA PANEL ── -->
+                <div id="tab-persona" class="tab-panel" style="display: none; flex-direction: column; gap: 20px;">
+                    
+                    <div class="report-card" style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px;">
+                        <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0;">10x AI Persona Kullanıcı Memnuniyeti</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Yapay zeka motorumuz sitenizi farklı yaş, bağlantı hızı, donanım seviyesi ve kişisel motivasyonlara sahip 10 sanal kullanıcı (persona) gözünden tarar. Kişilerin site hakkındaki doğrudan yorumları aşağıda listelenmiştir.</p>
+                    </div>
+
+                    <!-- Persona Cards Grid -->
+                    <div id="persona-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        <!-- rendered by JS -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        
+            <!-- ================= STRIX SECTION ================= -->
+            <section id="strix" class="dashboard-section" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <div class="title-with-badge">
+                            <h2 class="section-title" data-i18n="strix_title">AI Destekli Sızma Testi (Pentest)</h2>
+                            <span class="pro-badge" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">STRIX MOTORU</span>
+                        </div>
+                        <p class="section-subtitle">Strix otonom yapay zeka ajanları ile sitenizin derinliklerine inerek kritik zafiyetleri (SQLi, XSS, SSRF) tespit eder ve çalışan bir saldırı kanıtı (PoC) üretir.</p>
+                    </div>
+                </div>
+
+                <!-- Pentest Başlatma Kartı -->
+                <div class="card" style="margin-bottom: 24px; border: 1px solid var(--color-rose); background: linear-gradient(to right, var(--bg-secondary), rgba(225, 29, 72, 0.03));">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); margin-bottom: 20px;">
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0;">Derin Güvenlik Taraması</h3>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Bu işlem 5-10 dakika sürebilir. Tarama arka planda yapılacak ve sonuçlar buraya yansıyacaktır.</p>
+                        </div>
+                        <button id="btn-start-strix" class="btn btn-primary" style="background-color: var(--color-rose); border-color: var(--color-rose);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            Sızma Testini Başlat
+                        </button>
+                    </div>
+                    
+                    <!-- Terminal Görünümlü Log Ekranı -->
+                    <div id="strix-terminal" style="display: none; background-color: #0f172a; border-radius: 8px; border: 1px solid #1e293b; font-family: monospace; padding: 16px; font-size: 13px; color: #10b981; height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                        <div style="color: #64748b;">$ strix_agent --target init...</div>
+                        <div id="strix-logs" style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px;"></div>
+                        <div class="terminal-cursor" style="display: inline-block; width: 8px; height: 14px; background-color: #10b981; animation: blink 1s step-end infinite; margin-top: 4px;"></div>
+                    </div>
+                </div>
+
+                <!-- Sonuçlar Ekranı -->
+                <div id="strix-results" style="display: none;">
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">Bulunan Zafiyetler</h3>
+                    <div id="strix-findings-container" style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
     
     <!-- Ayarlar Modalı (Custom API Keys Settings) -->
@@ -656,7 +1132,7 @@
                 <!-- Sağ Sütun: API Alım Kılavuzu -->
                 <div class="modal-guide-column" style="background-color: var(--bg-primary); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
                     <h3 style="font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; display: flex; align-items: center; gap: 6px;">
-                        <span>📚 API Kurulum Kılavuzu</span>
+                        <span>API Kurulum Kılavuzu</span>
                     </h3>
                     
                     <div style="font-size: 12px; line-height: 1.5; color: var(--text-secondary); display: flex; flex-direction: column; gap: 12px;">
@@ -689,5 +1165,52 @@
     </div>
     <!-- Script -->
     <script src="app.js"></script>
+
+    <!-- ─────────── PREMIUM LOADING OVERLAY ─────────── -->
+    <div id="loader" class="modal-backdrop hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s; flex-direction: column; gap: 20px;">
+        <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 400px; width: 90%; gap: 16px;">
+            <div style="position: relative; width: 64px; height: 64px;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid var(--border-color); border-radius: 50%;"></div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid transparent; border-top-color: var(--color-emerald); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            </div>
+            <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 0;">Analiz Başlatıldı</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin: 0;">Lighthouse performans metrikleri taranıyor ve yapay zeka denetim modelleri çalıştırılıyor. Bu işlem yaklaşık 30-45 saniye sürebilir, lütfen sayfayı kapatmayın.</p>
+        </div>
+    </div>
+
+
+    <!-- Auth Modals -->
+    <div id="auth-modal" class="modal-backdrop hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;">
+        <div class="modal-card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; width: 90%; max-width: 400px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; flex-direction: column; gap: 20px; position: relative;">
+            <button id="close-auth" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--text-muted); cursor: pointer;">&times;</button>
+            <h2 id="auth-title" style="font-family: var(--font-heading); font-size: 20px; color: var(--text-primary); text-align: center; margin: 0;" data-i18n="modal_login_title">Hesabınıza Giriş Yapın</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 8px;">
+                <button id="btn-google-login" style="width: 100%; padding: 12px; background-color: white; color: #333; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px;">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 18px; height: 18px;">
+                    <span data-i18n="modal_btn_google">Google ile Giriş Yap</span>
+                </button>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 12px; text-transform: uppercase;">
+                    <hr style="flex: 1; border-color: var(--border-color);"><span style="opacity: 0.6;">Veya</span><hr style="flex: 1; border-color: var(--border-color);">
+                </div>
+                
+                <input type="email" id="auth-email" placeholder="E-posta" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); outline: none;">
+                <input type="password" id="auth-password" placeholder="Şifre" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); outline: none;">
+                <button id="btn-submit-auth" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: 700; background-color: var(--color-emerald); color: white; border: none; border-radius: 8px; cursor: pointer;" data-i18n="modal_btn_login">Giriş Yap</button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 8px;">
+                <a href="#" id="toggle-auth-mode" style="color: var(--color-emerald); font-size: 13px; text-decoration: none; font-weight: 600;" data-i18n="modal_no_account">Hesabınız yok mu? Kayıt Olun</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="i18n.js"></script>
 </body>
 </html>

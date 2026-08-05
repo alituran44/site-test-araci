@@ -21,7 +21,69 @@ if (!process.env.VERCEL) {
   }
 }
 
+
+const { spawn } = require('child_process');
+const crypto = require('crypto');
+
+// Strix Pentest Jobs
+const strixJobs = new Map();
+
+const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const { OAuth2Client } = require('google-auth-library');
+
 const app = express();
+app.use(cookieParser());
+
+// ---------------- AUTH & DB SETUP ----------------
+
+const JWT_SECRET = process.env.JWT_SECRET || 'webpulse-super-secret-key';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
+const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+// Initialize SQLite DB
+const db = new sqlite3.Database('./webpulse.db', (err) => {
+  if (err) console.error('DB connection error:', err.message);
+  else console.log('Connected to the SQLite database.');
+});
+
+// Create tables
+db.serialize(() => {
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE,
+      password TEXT,
+      googleId TEXT,
+      role TEXT DEFAULT 'user',
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+});
+
+// Auth Middleware
+const authenticateToken = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ error: 'Erişim reddedildi. Lütfen giriş yapın.' });
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ error: 'Geçersiz token.' });
+    req.user = user;
+    next();
+  });
+};
+
+const requireAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ error: 'Bu işlem için yetkiniz yok.' });
+  }
+};
+// -------------------------------------------------
+
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
@@ -251,7 +313,7 @@ async function getGeminiAiAnalysis(metrics, url, htmlBody, requestedModel = 'gem
   }
 }
 // Detaylı analiz fonksiyonu
-async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userOpenRouterKey = null, userOpenRouterModel = null) {
+async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', selectedTools = 'both', userGeminiKey = null, userPageSpeedKey = null, userOpenRouterKey = null, userOpenRouterModel = null, userLocalApiUrl = null) {
   const result = {
     url: targetUrl,
     success: false,
@@ -954,7 +1016,7 @@ async function runAnalysis(targetUrl, requestedModel = 'gemini-flash-latest', se
 
     // --- AI DESTEKLİ ANALİZ TETİKLENSİN ---
     if (selectedTools === 'both' || selectedTools === 'gemini') {
-      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userOpenRouterKey, userOpenRouterModel, req.headers['x-local-api-url']);
+      result.aiAnalysis = await getGeminiAiAnalysis(result.metrics, targetUrl, html, requestedModel, userGeminiKey, userOpenRouterKey, userOpenRouterModel, userLocalApiUrl);
     } else {
       result.aiAnalysis = null;
     }

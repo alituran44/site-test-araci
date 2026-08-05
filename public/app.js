@@ -807,3 +807,293 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+// ==========================================
+// STRIX PENTEST INTEGRATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const strixBtn = document.getElementById('btn-start-strix');
+    if (!strixBtn) return;
+    
+    let strixPollInterval = null;
+    let currentJobId = null;
+
+    strixBtn.addEventListener('click', async () => {
+        const urlInput = document.getElementById('target-url-hero');
+        const url = urlInput ? urlInput.value.trim() : '';
+        
+        if (!url) {
+            alert('Lütfen önce bir hedef URL girin.');
+            // Switch back to Overview if needed
+            return;
+        }
+        
+        strixBtn.disabled = true;
+        strixBtn.innerHTML = '<svg class="spinner" viewBox="0 0 50 50" style="width: 16px; height: 16px; margin-right: 8px; animation: spin 1s linear infinite;"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" style="stroke-linecap: round;"></circle></svg> Başlatılıyor...';
+        
+        const terminal = document.getElementById('strix-terminal');
+        const logsContainer = document.getElementById('strix-logs');
+        const resultsContainer = document.getElementById('strix-results');
+        const findingsContainer = document.getElementById('strix-findings-container');
+        
+        terminal.style.display = 'block';
+        resultsContainer.style.display = 'none';
+        logsContainer.innerHTML = '';
+        
+        try {
+            const res = await fetch('/api/strix-scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ targetUrl: url })
+            });
+            
+            const data = await res.json();
+            
+            if (!data.success) {
+                alert('Strix başlatılamadı: ' + data.error);
+                strixBtn.disabled = false;
+                strixBtn.innerHTML = 'Sızma Testini Başlat';
+                return;
+            }
+            
+            currentJobId = data.jobId;
+            strixBtn.innerHTML = '<svg class="spinner" viewBox="0 0 50 50" style="width: 16px; height: 16px; margin-right: 8px; animation: spin 1s linear infinite;"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" style="stroke-linecap: round;"></circle></svg> Tarama Devam Ediyor...';
+            
+            // Start polling
+            if (strixPollInterval) clearInterval(strixPollInterval);
+            strixPollInterval = setInterval(pollStrixStatus, 2000);
+            
+        } catch (err) {
+            console.error('Strix start error:', err);
+            alert('Sunucuya bağlanılamadı.');
+            strixBtn.disabled = false;
+            strixBtn.innerHTML = 'Sızma Testini Başlat';
+        }
+    });
+
+    async function pollStrixStatus() {
+        if (!currentJobId) return;
+        
+        try {
+            const res = await fetch(`/api/strix-status/${currentJobId}`);
+            const data = await res.json();
+            
+            if (!data.success) return;
+            
+            // Update logs
+            const logsContainer = document.getElementById('strix-logs');
+            if (data.logs && data.logs.length > 0) {
+                logsContainer.innerHTML = data.logs.map(log => `<div>${escapeHtml(log)}</div>`).join('');
+                const terminal = document.getElementById('strix-terminal');
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+            
+            // Check if finished
+            if (data.status === 'completed' || data.status === 'failed') {
+                clearInterval(strixPollInterval);
+                const strixBtn = document.getElementById('btn-start-strix');
+                strixBtn.disabled = false;
+                strixBtn.innerHTML = 'Yeniden Başlat';
+                
+                if (data.status === 'completed' && data.result && data.result.findings) {
+                    renderStrixFindings(data.result.findings);
+                } else if (data.status === 'failed') {
+                    const findingsContainer = document.getElementById('strix-findings-container');
+                    findingsContainer.innerHTML = `<div style="color: #ef4444; padding: 16px; border: 1px solid #ef4444; border-radius: 8px;">Tarama başarısız oldu. Hata detayı terminal loglarında olabilir.</div>`;
+                    document.getElementById('strix-results').style.display = 'block';
+                }
+            }
+        } catch (err) {
+            console.error('Strix poll error:', err);
+        }
+    }
+    
+    function renderStrixFindings(findings) {
+        const resultsContainer = document.getElementById('strix-results');
+        const container = document.getElementById('strix-findings-container');
+        
+        resultsContainer.style.display = 'block';
+        container.innerHTML = '';
+        
+        if (findings.length === 0) {
+            container.innerHTML = `<div style="color: #10b981; padding: 16px; border: 1px solid #10b981; border-radius: 8px;">Harika! Herhangi bir kritik zafiyet tespit edilmedi.</div>`;
+            return;
+        }
+        
+        findings.forEach(finding => {
+            const color = finding.severity === 'critical' ? '#ef4444' : 
+                          finding.severity === 'high' ? '#f97316' : 
+                          finding.severity === 'medium' ? '#eab308' : '#3b82f6';
+                          
+            const card = document.createElement('div');
+            card.style.cssText = `background: var(--bg-secondary); border: 1px solid ${color}; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;`;
+            card.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h4 style="margin: 0; font-size: 15px; font-weight: 700; color: var(--text-primary);">${escapeHtml(finding.title)}</h4>
+                    <span style="background-color: ${color}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase;">${finding.severity}</span>
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">Modül: ${escapeHtml(finding.module)}</div>
+                <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5;">${escapeHtml(finding.description)}</p>
+                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+                    <strong style="font-size: 12px; color: var(--text-primary);">Çözüm Önerisi:</strong>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin: 4px 0 0 0;">${escapeHtml(finding.remediation)}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function escapeHtml(unsafe) {
+        if (!unsafe) return '';
+        return unsafe
+             .toString()
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+    }
+});
+
+
+// ==========================================
+// AUTHENTICATION LOGIC
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const btnShowLogin = document.getElementById('btn-show-login');
+    const btnShowRegister = document.getElementById('btn-show-register');
+    const btnLogout = document.getElementById('btn-logout');
+    const authModal = document.getElementById('auth-modal');
+    const closeAuth = document.getElementById('close-auth');
+    const toggleAuthMode = document.getElementById('toggle-auth-mode');
+    const authTitle = document.getElementById('auth-title');
+    const btnSubmitAuth = document.getElementById('btn-submit-auth');
+    
+    let isLoginMode = true;
+    
+    // Check session on load
+    checkSession();
+    
+    function showModal(mode) {
+        isLoginMode = mode === 'login';
+        
+        if (isLoginMode) {
+            authTitle.setAttribute('data-i18n', 'modal_login_title');
+            btnSubmitAuth.setAttribute('data-i18n', 'modal_btn_login');
+            toggleAuthMode.setAttribute('data-i18n', 'modal_no_account');
+        } else {
+            authTitle.setAttribute('data-i18n', 'modal_reg_title');
+            btnSubmitAuth.setAttribute('data-i18n', 'modal_btn_reg');
+            toggleAuthMode.setAttribute('data-i18n', 'modal_has_account');
+        }
+        
+        if (typeof applyTranslations === 'function') applyTranslations();
+        
+        authModal.classList.remove('hidden');
+        setTimeout(() => {
+            authModal.style.opacity = '1';
+            authModal.style.pointerEvents = 'auto';
+        }, 10);
+    }
+    
+    function hideModal() {
+        authModal.style.opacity = '0';
+        authModal.style.pointerEvents = 'none';
+        setTimeout(() => authModal.classList.add('hidden'), 300);
+    }
+    
+    if (btnShowLogin) btnShowLogin.addEventListener('click', () => showModal('login'));
+    if (btnShowRegister) btnShowRegister.addEventListener('click', () => showModal('register'));
+    if (closeAuth) closeAuth.addEventListener('click', hideModal);
+    
+    if (toggleAuthMode) {
+        toggleAuthMode.addEventListener('click', (e) => {
+            e.preventDefault();
+            showModal(isLoginMode ? 'register' : 'login');
+        });
+    }
+    
+    // Form Submission
+    if (btnSubmitAuth) {
+        btnSubmitAuth.addEventListener('click', async () => {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            
+            if (!email || !password) {
+                alert('Lütfen email ve şifre girin.');
+                return;
+            }
+            
+            const endpoint = isLoginMode ? '/api/auth/login' : '/api/auth/register';
+            
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    hideModal();
+                    updateUIForUser(data.user);
+                } else {
+                    alert('Hata: ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Bağlantı hatası.');
+            }
+        });
+    }
+    
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            updateUIForUser(null);
+        });
+    }
+    
+    // Google Login Simulator (Needs Google Identity JS script in head in real usage)
+    const btnGoogleLogin = document.getElementById('btn-google-login');
+    if (btnGoogleLogin) {
+        btnGoogleLogin.addEventListener('click', () => {
+            alert('Google OAuth entegrasyonu için Google Cloud Client ID yapılandırılması gerekmektedir (Bkz: Implementation Plan).');
+        });
+    }
+    
+    async function checkSession() {
+        try {
+            const res = await fetch('/api/auth/me');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.user) updateUIForUser(data.user);
+            }
+        } catch (err) {
+            console.log('Not logged in');
+        }
+    }
+    
+    function updateUIForUser(user) {
+        const btnLogin = document.getElementById('btn-show-login');
+        const btnReg = document.getElementById('btn-show-register');
+        const userMenu = document.getElementById('user-profile-menu');
+        const emailDisplay = document.getElementById('user-email-display');
+        const navAdmin = document.getElementById('nav-admin');
+        
+        if (user) {
+            if (btnLogin) btnLogin.style.display = 'none';
+            if (btnReg) btnReg.style.display = 'none';
+            if (userMenu) userMenu.style.display = 'flex';
+            if (emailDisplay) emailDisplay.innerText = user.email;
+            if (navAdmin) navAdmin.style.display = user.role === 'admin' ? 'flex' : 'none';
+        } else {
+            if (btnLogin) btnLogin.style.display = 'inline-block';
+            if (btnReg) btnReg.style.display = 'inline-block';
+            if (userMenu) userMenu.style.display = 'none';
+            if (navAdmin) navAdmin.style.display = 'none';
+        }
+    }
+});
