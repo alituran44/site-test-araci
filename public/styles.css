@@ -1911,3 +1911,37 @@ body.funnel-mode .top-header {
     border-color: var(--color-emerald) !important;
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.05) !important;
 }
+
+
+/* ==========================================
+   Accessibility (a11y) & UX Enhancements
+   ========================================== */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus Ring for Keyboard Users */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+select:focus-visible {
+    outline: 2px solid var(--color-emerald) !important;
+    outline-offset: 2px !important;
+}
+
+/* Touch Targets (WCAG 44x44px minimum) */
+.btn, 
+button, 
+.nav-item, 
+.input-group input, 
+.input-group select {
+    min-height: 44px;
+}

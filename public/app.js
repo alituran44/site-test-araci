@@ -43,7 +43,54 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {
                 console.log('Unable to auto-fetch local model tags:', err);
             }
+        
+    // Accessibility: Close Settings Modal with ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('settings-modal');
+            if (modal && !modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+            }
+        }
+    });
+
+    // Close Modal on Backdrop Click
+    const modalBackdrop = document.getElementById('settings-modal');
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) {
+                modalBackdrop.classList.add('hidden');
+                modalBackdrop.style.opacity = '0';
+                modalBackdrop.style.pointerEvents = 'none';
+            }
         });
+    }
+
+    // Attach submit listener to analyze-form-top as well
+    const formTop = document.getElementById('analyze-form-top');
+    if (formTop) {
+        formTop.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const heroForm = document.getElementById('analyze-form-hero');
+            if (heroForm) {
+                const targetUrlTop = document.getElementById('target-url');
+                const targetUrlHero = document.getElementById('target-url-hero');
+                if (targetUrlTop && targetUrlHero) {
+                    targetUrlHero.value = targetUrlTop.value;
+                }
+            }
+            const heroSubmit = document.getElementById('submit-btn-hero') || document.querySelector('#analyze-form-hero button[type="submit"]');
+            if (heroSubmit) {
+                heroSubmit.click();
+            } else {
+                handleAnalysisSubmit(e);
+            }
+        });
+    }
+
+});
     }
     if (btnCloseSettings && settingsModal) {
         btnCloseSettings.addEventListener('click', () => {

@@ -17,7 +17,7 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
-                <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="brand-logo" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                 </svg>
                 <span class="brand-name">WebPulse</span>
@@ -44,7 +44,7 @@
 
 </nav>
             <div class="sidebar-footer" style="padding: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
-                <a href="#settings" id="sidebar-settings-trigger" class="nav-item" style="margin: 0; width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;">
+                <a href="#settings" id="sidebar-settings-trigger" aria-label="Yan Menü Ayarlar" class="nav-item" style="margin: 0; width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon" style="width: 16px; height: 16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     Ayarlar
                 </a>
@@ -57,7 +57,7 @@
             <!-- Top Header Bar -->
             <header class="top-header" style="display: flex; justify-content: space-between; align-items: center; padding: var(--sp-4) 0; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);">
                 <div class="funnel-brand" style="display: flex; align-items: center; gap: 8px;">
-                    <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; color: var(--color-emerald);">
+                    <svg class="brand-logo" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; color: var(--color-emerald);">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                     </svg>
                     <span class="brand-name" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; color: var(--text-primary); letter-spacing: -0.5px;">WebPulse</span>
@@ -70,18 +70,18 @@
                     <a href="#faq-anchor" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--color-emerald)'" onmouseout="this.style.color='var(--text-secondary)'">SSS</a>
                 </div>
                 
-                <form id="analyze-form" class="analyze-form" style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                <form id="analyze-form-top" class="analyze-form" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                     <div class="input-group">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                        <input type="url" id="target-url" placeholder="Analiz edilecek URL (https://siteniz.com)" required>
+                        <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                        <label for="target-url" class="sr-only">Analiz edilecek URL</label><input type="url" id="target-url" placeholder="Analiz edilecek URL (https://siteniz.com)" required>
                     </div>
                     <div class="input-group competitor-group">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        <input type="url" id="competitor-url" placeholder="Rakip URL (Opsiyonel)">
+                        <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <label for="competitor-url" class="sr-only">Rakip URL</label><input type="url" id="competitor-url" placeholder="Rakip URL (Opsiyonel)">
                     </div>
                     <div class="input-group model-select-group">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                        <select id="model-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
+                        <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <label for="model-select" class="sr-only">Yapay Zeka Modeli</label><select id="model-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
                             <option value="gemini-flash-latest" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>Gemini 1.5 Flash (Hızlı)</option>
                             <option value="gemini-1.5-pro" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 1.5 Pro (Detaylı)</option>
                             <option value="gemini-2.0-flash" style="background-color: var(--bg-secondary); color: var(--text-primary);">Gemini 2.0 Flash (Yeni)</option>
@@ -90,8 +90,8 @@
                         </select>
                     </div>
                     <div class="input-group tool-select-group">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <select id="tool-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
+                        <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <label for="tool-select" class="sr-only">Denetim Tipi</label><select id="tool-select" style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none; width: 100%; cursor: pointer; padding-right: 20px; appearance: none;-webkit-appearance: none;">
                             <option value="both" style="background-color: var(--bg-secondary); color: var(--text-primary);" selected>Tüm Denetimler (PageSpeed + AI)</option>
                             <option value="pagespeed" style="background-color: var(--bg-secondary); color: var(--text-primary);">Yalnızca PageSpeed</option>
                             <option value="gemini" style="background-color: var(--bg-secondary); color: var(--text-primary);">Yalnızca Gemini AI</option>
@@ -103,7 +103,7 @@
                     </button>
                 </form>
                 
-                <button type="button" id="btn-settings-trigger" class="btn btn-secondary" title="API Anahtarlarını Ayarla" style="display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 10px 18px; border-radius: var(--border-radius); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
+                <button type="button" id="btn-settings-trigger" aria-label="Ayarlar Modalini Aç" class="btn btn-secondary" title="API Anahtarlarını Ayarla" style="display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 10px 18px; border-radius: var(--border-radius); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     <span>Ayarlar</span>
                 </button>
@@ -139,13 +139,13 @@
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                                 <!-- URL -->
                                 <div class="input-group" style="grid-column: span 2; position: relative;">
-                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
-                                    <input type="url" id="target-url-hero" placeholder="Denetlenecek web sitesi URL'i (örn: https://siteniz.com)" required style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                    <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                                    <label for="target-url-hero" class="sr-only">Hero Analiz URL</label><input type="url" id="target-url-hero" placeholder="Denetlenecek web sitesi URL'i (örn: https://siteniz.com)" required style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
                                 </div>
                                 <!-- Rakip URL -->
                                 <div class="input-group" style="grid-column: span 2; position: relative;">
-                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                    <input type="url" id="competitor-url-hero" placeholder="Rakip URL (Opsiyonel)" style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
+                                    <svg class="input-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                    <label for="competitor-url-hero" class="sr-only">Hero Rakip URL</label><input type="url" id="competitor-url-hero" placeholder="Rakip URL (Opsiyonel)" style="width: 100%; padding: 13px 13px 13px 38px; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--border-radius); color: var(--text-primary); outline: none; font-size: 14px; font-family: inherit;">
                                 </div>
                                 <!-- Model Seçimi -->
                                 <div class="input-group" style="position: relative;">
@@ -1097,7 +1097,7 @@
         <div class="modal-card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); width: 90%; max-width: 800px; padding: var(--sp-4); box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: var(--sp-3);">
             <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 style="font-family: var(--font-heading); font-size: 20px; color: var(--text-primary); margin: 0;">WebPulse API ve Model Ayarları</h2>
-                <button id="close-settings" class="btn-close" style="background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
+                <button id="close-settings" aria-label="Ayarları Kapat" class="btn-close" style="background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
             </div>
             
             <!-- İki Sütunlu Düzen -->
